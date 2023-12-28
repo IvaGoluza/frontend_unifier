@@ -1,0 +1,9 @@
+.usermenu-container {
+    height: auto;
+    width: auto;
+    position: absolute;
+    right: -10px;
+    top: 40px;
+    border-radius: 5px;
+    z-index: 25;
+}

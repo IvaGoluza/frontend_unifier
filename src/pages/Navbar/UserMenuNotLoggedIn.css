@@ -1,0 +1,36 @@
+.not-logged-in-container {
+    position: relative;
+    color: darkorange;
+    width: 150px;
+    padding-bottom: 8px;
+    text-align: center;
+    background-color: #fafafa;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+
+}
+
+.not-logged-in-container:hover {
+    background-color: rgb(232, 171, 90);
+    opacity: 1;
+    color: white;
+}
+
+.not-logged-in-container > p {
+    cursor: pointer;
+}
+
+.not-logged-in-container::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-width: 0.4em;
+    border-style: solid;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: #feeeff;
+    top: -18px;
+    right: 10px;
+}

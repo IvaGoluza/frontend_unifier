@@ -1,0 +1,14 @@
+.footer-icons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    cursor: pointer;
+}
+
+
+.footer-icon {
+    color: white;
+    font-size: 25px;
+}

@@ -1,0 +1,11 @@
+.footer-copyright-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+    color: white;
+    padding: 15px 0;
+    font-size: 0.8em;
+}
+
+
