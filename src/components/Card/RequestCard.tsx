@@ -1,6 +1,6 @@
 import React from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "react-query";
 
@@ -16,7 +16,7 @@ interface data {
 export default function RequestCard({ id, request, advertTitle }: data) {
   const queryClient = useQueryClient();
   const updateData = async () => {
-    const response = await axios.put("http://localhost:8080/api/deals/" + id);
+    const response = await api.put("/deals/" + id);
     return response.data;
   };
 
@@ -37,7 +37,7 @@ export default function RequestCard({ id, request, advertTitle }: data) {
   };
 
   const deleteData = async () => {
-    const response = await axios.delete("http://localhost:8080/api/deals/" + id);
+    const response = await api.delete("/deals/" + id);
     return response.data;
   };
 

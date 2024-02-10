@@ -2,7 +2,7 @@ import React, { ChangeEvent, useContext, useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import "./editProfile.css";
 import { useMutation } from "react-query";
 
@@ -30,7 +30,7 @@ const EditProfile = () => {
   };
 
   const updateData = async (data: profileDataType) => {
-    const response = await axios.put("http://localhost:8080/api/my-profile", data);
+    const response = await api.put("/my-profile", data);
     return response.data;
   };
 

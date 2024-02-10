@@ -14,6 +14,8 @@ export type loggedInUserType = {
   userType: string | undefined;
   password: string;
   blocked: boolean;
+  authToken: string;
+  refreshToken: string;
 };
 
 export interface IAuth {

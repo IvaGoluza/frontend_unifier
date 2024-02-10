@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 
@@ -29,12 +29,12 @@ const NoteModal = ({ noteType, dealId }: NoteModalProps) => {
   };
 
   const updateNote = async (data: noteDataType) => {
-    const response = await axios.put("http://localhost:8080/api/deals/note", data);
+    const response = await api.put("/deals/note", data);
     return response.data;
   };
 
   const updateRecension = async (data: recensionDataType) => {
-    const response = await axios.put("http://localhost:8080/api/deals/recension", data);
+    const response = await api.put("/deals/recension", data);
     return response.data;
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery, useQueryClient } from "react-query";
 
 import { AdvertType } from "../../api/auth/IForm";
@@ -9,7 +9,7 @@ import BasicCard from "../../components/Card/BasicCard";
 export default function AdminAdverts() {
   const queryClient = useQueryClient();
   const fetchRequests = async () => {
-    const response = await axios.get("http://localhost:8080/api/volunteer-adverts");
+    const response = await api.get("/volunteer-adverts");
     return response.data;
   };
 
@@ -21,8 +21,8 @@ export default function AdminAdverts() {
   const myError = error as Error;
 
   function deleteHandler(id: number) {
-    axios
-      .delete("http://localhost:8080/api/my-adverts/" + id)
+    api
+      .delete("/my-adverts/" + id)
       .then(() => {
         queryClient.refetchQueries(["allAdverts"]);
         console.log("deleted" + id);

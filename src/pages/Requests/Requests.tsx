@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
+
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
@@ -13,7 +14,7 @@ export default function Requests() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchRequests = async () => {
-    const response = await axios.get("http://localhost:8080/api/help-requests/" + currentUser?.id);
+    const response = await api.get("/help-requests/" + currentUser?.id);
     return response.data;
   };
 

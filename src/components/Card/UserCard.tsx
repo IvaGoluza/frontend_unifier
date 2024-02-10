@@ -2,7 +2,7 @@ import React from "react";
 
 import { faLock, faLockOpen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "react-query";
 
@@ -18,7 +18,7 @@ export default function UserCard({ user }: UserCardProps) {
   const queryClient = useQueryClient();
 
   const changeBlockStatus = async () => {
-    const response = await axios.put("http://localhost:8080/api/user/" + user.id);
+    const response = await api.put("/api/user/" + user.id);
     return response.data;
   };
 

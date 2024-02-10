@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
@@ -18,7 +18,7 @@ export default function Recensions() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchData = async () => {
-    const response = await axios.get("http://localhost:8080/api/profile/recension/" + currentUser?.id);
+    const response = await api.get("/profile/recension/" + currentUser?.id);
     return response.data;
   };
 
