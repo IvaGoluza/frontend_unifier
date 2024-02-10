@@ -1,15 +1,14 @@
 import React from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
 import UserCard from "../../components/Card/UserCard";
-import EditProfile from "../../components/EditProfile/EditProfile";
 
 export default function AdminUsers() {
   const fetchUsers = async () => {
-    const response = await axios.get("http://localhost:8080/api/users");
+    const response = await api.get("/api/users");
     return response.data;
   };
 

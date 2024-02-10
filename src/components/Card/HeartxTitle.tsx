@@ -2,7 +2,7 @@ import React from "react";
 
 import { faCircleXmark, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "react-query";
 
@@ -18,7 +18,7 @@ export default function HeartxTitle({ id, deal }: HeartxTitleProps) {
   const queryClient = useQueryClient();
 
   const updateData = async () => {
-    const response = await axios.put("http://localhost:8080/api/deals/" + deal.id);
+    const response = await api.put("/deals/" + deal.id);
     return response.data;
   };
 
@@ -40,7 +40,7 @@ export default function HeartxTitle({ id, deal }: HeartxTitleProps) {
   };
 
   const deleteData = async () => {
-    const response = await axios.delete("http://localhost:8080/api/deals/" + deal.id);
+    const response = await api.delete("/deals/" + deal.id);
     return response.data;
   };
 

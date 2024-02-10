@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { nanoid } from "nanoid";
 import { useQuery } from "react-query";
 
@@ -17,9 +17,9 @@ export default function Deals() {
   const fetchDealsRequests = async () => {
     let response;
     if (currentUser?.userType === "VOLUNTEER")
-      response = await axios.get("http://localhost:8080/api/my-deals-requests/" + currentUser?.id);
+      response = await api.get("/my-deals-requests/" + currentUser?.id);
     else if (currentUser?.userType !== "VOLUNTEER")
-      response = await axios.get("http://localhost:8080/api/my-deals-adverts/" + currentUser?.id);
+      response = await api.get("/my-deals-adverts/" + currentUser?.id);
     return response?.data;
   };
 

@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import "./volunteerModal.css";
-import axios from "axios";
+import api from "../../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../../api/auth/IAuth";
@@ -22,7 +22,7 @@ interface profileDataType {
 
 const UserProfile = ({ user, children }: profileDataType) => {
   const fetchNotes = async () => {
-    const response = await axios.get("http://localhost:8080/api/profile/note/" + user.id);
+    const response = await api.get("/profile/note/" + user.id);
     return response.data;
   };
 

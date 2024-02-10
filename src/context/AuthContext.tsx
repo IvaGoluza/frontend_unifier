@@ -1,10 +1,9 @@
 import React, { createContext, useEffect, useState } from "react";
 
-import axios from "axios";
-
 import { loggedInUserType, IAuth } from "../api/auth/IAuth";
 import { LoginCommand, RegisterUser } from "../api/auth/types";
-import { backend_paths } from "../api/backend_paths";
+
+import api from "../api/createAxiosClient";
 
 export const AuthContext = createContext<IAuth | null>(null);
 
@@ -24,26 +23,29 @@ export default function AuthProvider({ children }: AuthProp) {
     }
 
     const regUser: loggedInUserType = JSON.parse(user);
+    setCurrentUser(regUser);
 
-    axios
-      .post("http://localhost:8080/api/login", {
-        email: regUser.email,
-        password: regUser.password,
-      })
-      .then((res) => res.data)
-      .then((data: loggedInUserType) => {
-        if (data.blocked) setCurrentUser(null);
-        else setCurrentUser(data);
-      })
-      .catch((err) => {
-        setCurrentUser(null);
-        localStorage.removeItem("user");
-      });
+    //TODO:Ti si ovdje slala password ali on je u hash obliku
+
+    // api
+    //   .post("/auth/login", {
+    //     email: regUser.email,
+    //     password: regUser.password,
+    //   })
+    //   .then((res) => res.data)
+    //   .then((data: loggedInUserType) => {
+    //     if (data.blocked) setCurrentUser(null);
+    //     else setCurrentUser(data);
+    //   })
+    //   .catch((err) => {
+    //     setCurrentUser(null);
+    //     localStorage.removeItem("user");
+    //   });
   }, []);
 
   const signup = async (user: RegisterUser) => {
     try {
-      const userResponse = await axios.post("http://localhost:8080/api/registration", user, {
+      const userResponse = await api.post("/auth/registration", user, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -58,7 +60,7 @@ export default function AuthProvider({ children }: AuthProp) {
 
   const login = async (user: LoginCommand) => {
     try {
-      const userResponse = await axios.post("http://localhost:8080/api/login", user, {
+      const userResponse = await api.post("/auth/login", user, {
         headers: {
           "Content-Type": "application/json",
         },

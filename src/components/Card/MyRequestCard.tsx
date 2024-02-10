@@ -2,7 +2,7 @@ import React from "react";
 
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { nanoid } from "nanoid";
 import { useQueryClient, useQuery, useMutation } from "react-query";
 
@@ -37,8 +37,8 @@ export default function MyRequestCard({
   const queryClient = useQueryClient();
 
   function deleteFunction() {
-    axios
-      .put("http://localhost:8080/api/my-requests/" + id)
+    api
+      .put("/my-requests/" + id)
       .then(() => {
         queryClient.refetchQueries(["myRequests"]);
         console.log("deleted" + id);
@@ -47,7 +47,7 @@ export default function MyRequestCard({
   }
 
   const fetchDealsForRequest = async () => {
-    const response = await axios.get("http://localhost:8080/api/deals/" + id);
+    const response = await api.get("/deals/" + id);
     return response.data;
   };
 

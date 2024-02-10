@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useQueryClient } from "react-query";
 import * as Yup from "yup";
@@ -52,9 +52,9 @@ export default function CreateNewForm({ request }: CreateNewFormProps) {
         description: values.description,
         userId: currentUser?.id,
       };
-      axios({
+      api({
         method: "post",
-        url: "http://localhost:8080/api/my-adverts",
+        url: "/my-adverts",
         data: data,
       })
         .then((res) => {
@@ -75,9 +75,9 @@ export default function CreateNewForm({ request }: CreateNewFormProps) {
         volunteerNum: values.volunteerNum,
         userId: currentUser?.id,
       };
-      axios({
+      api({
         method: "post",
-        url: "http://localhost:8080/api/my-requests",
+        url: "/my-requests",
         data: data,
       })
         .then((res) => {

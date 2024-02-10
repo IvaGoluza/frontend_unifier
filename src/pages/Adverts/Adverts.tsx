@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
+
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
@@ -13,7 +14,7 @@ export default function Adverts() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchAdverts = async () => {
-    const response = await axios.get("http://localhost:8080/api/my-requests/" + currentUser?.id);
+    const response = await api.get("/my-requests/" + currentUser?.id);
     return response.data;
   };
 
@@ -31,7 +32,7 @@ export default function Adverts() {
   const myErrorA = errorA as Error;
 
   const fetchRequests = async () => {
-    const response = await axios.get("http://localhost:8080/api/volunteer-adverts");
+    const response = await api.get("/volunteer-adverts");
     return response.data;
   };
 

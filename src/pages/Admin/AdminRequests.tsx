@@ -1,6 +1,6 @@
 import React from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery, useQueryClient } from "react-query";
 
 import { RequestTypeDeals } from "../../api/auth/IForm";
@@ -9,7 +9,7 @@ import BasicCard from "../../components/Card/BasicCard";
 export default function AdminRequests() {
   const queryClient = useQueryClient();
   const fetchRequests = async () => {
-    const response = await axios.get("http://localhost:8080/api/opportunities");
+    const response = await api.get("/opportunities");
     return response.data;
   };
 
@@ -21,8 +21,8 @@ export default function AdminRequests() {
   const myError = error as Error;
 
   function deleteHandler(id: number) {
-    axios
-      .delete("http://localhost:8080/api/my-requests/" + id)
+    api
+      .delete("/my-requests/" + id)
       .then(() => {
         queryClient.refetchQueries(["allRequests"]);
         console.log("deleted" + id);

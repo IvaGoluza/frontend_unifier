@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
@@ -11,6 +10,7 @@ import MyRequestCard from "../../components/Card/MyRequestCard";
 import CreateNewForm from "../../components/CreateNewForm/CreateNewForm";
 import { AuthContext } from "../../context/AuthContext";
 import "./myRequests.css";
+import api from "../../api/createAxiosClient";
 
 export default function MyRequests() {
   const TEXT_STYLE = "font-bold text-emerald-900";
@@ -18,7 +18,7 @@ export default function MyRequests() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchData = async () => {
-    const response = await axios.get("http://localhost:8080/api/my-requests/" + currentUser?.id);
+    const response = await api.get("/my-requests/" + currentUser?.id);
     return response.data;
   };
 

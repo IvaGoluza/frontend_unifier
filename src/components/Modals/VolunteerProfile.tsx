@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import "./userProfile.css";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
@@ -27,7 +27,7 @@ interface profileDataType {
 
 const VolunteerProfile = ({ user, advert, children }: profileDataType) => {
   const fetchRecension = async () => {
-    const response = await axios.get("http://localhost:8080/api/profile/recension/" + user.id);
+    const response = await api.get("/profile/recension/" + user.id);
     return response.data;
   };
 

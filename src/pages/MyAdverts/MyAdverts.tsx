@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import { useQuery, useQueryClient } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
@@ -19,7 +19,7 @@ export default function MyAdverts() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchData = async () => {
-    const response = await axios.get("http://localhost:8080/api/my-adverts/" + currentUser?.id);
+    const response = await api.get("/my-adverts/" + currentUser?.id);
     return response.data;
   };
 
@@ -31,8 +31,8 @@ export default function MyAdverts() {
   const myError = error as Error;
 
   function deleteHandler(id: number) {
-    axios
-      .put("http://localhost:8080/api/my-adverts/" + id)
+    api
+      .put("/my-adverts/" + id)
       .then(() => {
         queryClient.refetchQueries(["myAdverts"]);
         console.log("deleted" + id);

@@ -4,12 +4,14 @@ import { faUser, faEnvelope, faPhone, faFeatherPointed } from "@fortawesome/free
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
+
 import "./userProfile.css";
-import axios from "axios";
+
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
 import { AdvertType } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import NoteModalCard from "../Notes/NoteModalCard";
 
 interface NoteType {
@@ -25,7 +27,7 @@ interface profileDataType {
 
 const UserProfile = ({ user, children }: profileDataType) => {
   const fetchNotes = async () => {
-    const response = await axios.get("http://localhost:8080/api/profile/note/" + user.id);
+    const response = await api.get("/profile/note/" + user.id);
     return response.data;
   };
 

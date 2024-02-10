@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import axios from "axios";
+import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 
@@ -44,7 +44,7 @@ export default function OpportunityCard({
   const [selectedAdvert, setSelectedAdvert] = useState("");
 
   const createInstance = async (data: DealType) => {
-    const response = await axios.post("http://localhost:8080/api/deals", data);
+    const response = await api.post("/deals", data);
     return response.data;
   };
 
