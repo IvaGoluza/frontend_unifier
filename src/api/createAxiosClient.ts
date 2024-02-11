@@ -1,5 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 
+import { loggedInUserType } from "./auth/IAuth";
 import { BASE_URL } from "./backend_paths";
 
 const api = axios.create({
@@ -11,8 +12,8 @@ api.interceptors.request.use(
     if (config.url && !config.url.endsWith("/login") && !config.url.endsWith("/registration")) {
       const currentUser = localStorage.getItem("user");
       if (currentUser) {
-        const user = JSON.parse(currentUser);
-        config.headers.Authorization = `Bearer ${user.authToken}`;
+        const user: loggedInUserType = JSON.parse(currentUser);
+        config.headers.Authorization = `Bearer ${user.auth.accessToken}`;
       }
     }
 
@@ -31,13 +32,13 @@ api.interceptors.response.use(
       try {
         const currentUser = localStorage.getItem("user");
         if (currentUser) {
-          const user = JSON.parse(currentUser);
-          const response = await axios.post(`${BASE_URL}/refresh-token`, { refreshToken: user.refreshToken });
-          const { accessToken: authToken } = response.data;
-          user.authToken = authToken;
+          const user: loggedInUserType = JSON.parse(currentUser);
+          const response = await axios.post(`${BASE_URL}/auth/refresh-token`, { refreshToken: user.auth.refreshToken });
+          const { accessToken } = response.data;
+          user.auth.accessToken = accessToken;
           localStorage.setItem("user", JSON.stringify(user));
 
-          originalRequest.headers.Authorization = `Bearer ${authToken}`;
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
           return axios(originalRequest);
         }
       } catch (error) {

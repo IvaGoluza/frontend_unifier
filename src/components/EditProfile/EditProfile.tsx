@@ -19,7 +19,7 @@ const EditProfile = () => {
   const { currentUser, setCurrentUser, login } = useContext(AuthContext) as IAuth;
 
   const [mobile, setMobile] = useState(currentUser?.mobilePhone);
-  const [description, setDescription] = useState(currentUser?.profileDescription);
+  const [description, setDescription] = useState('Treba dohvatit profil');
 
   const handleMobile = (event: ChangeEvent<HTMLInputElement>) => {
     setMobile(event.target.value);
@@ -30,7 +30,7 @@ const EditProfile = () => {
   };
 
   const updateData = async (data: profileDataType) => {
-    const response = await api.put("/my-profile", data);
+    const response = await api.put("/profile", data);
     return response.data;
   };
 
@@ -47,12 +47,14 @@ const EditProfile = () => {
       await updateMutation.mutateAsync(data);
       console.log(currentUser);
       if (currentUser) {
-        const result: loggedInUserType | null = await login({
-          email: currentUser.email,
-          password: currentUser.password,
-        });
-        setCurrentUser(result);
-        localStorage.setItem("user", JSON.stringify(result));
+        //TODO Da li se ovo može dogodit?
+
+        // const result: loggedInUserType | null = await login({
+        //   email: currentUser.email,
+        //   password: currentUser.password,
+        // });
+        // setCurrentUser(result);
+        // localStorage.setItem("user", JSON.stringify(result));
       }
       console.log(currentUser);
     } catch (error) {
@@ -81,7 +83,7 @@ const EditProfile = () => {
               Opis profila
             </label>
             <textarea
-              defaultValue={currentUser?.profileDescription}
+              defaultValue={'Treba dodati poziv'}
               className="Input"
               id="profileDescription"
               onChange={handleDescription}

@@ -16,7 +16,7 @@ interface data {
 export default function RequestCard({ id, request, advertTitle }: data) {
   const queryClient = useQueryClient();
   const updateData = async () => {
-    const response = await api.put("/deals/" + id);
+    const response = await api.put("/deal/accepted/" + id);
     return response.data;
   };
 
@@ -37,7 +37,7 @@ export default function RequestCard({ id, request, advertTitle }: data) {
   };
 
   const deleteData = async () => {
-    const response = await api.delete("/deals/" + id);
+    const response = await api.delete("/deal/" + id);
     return response.data;
   };
 

@@ -54,7 +54,7 @@ export default function CreateNewForm({ request }: CreateNewFormProps) {
       };
       api({
         method: "post",
-        url: "/my-adverts",
+        url: "/advert",
         data: data,
       })
         .then((res) => {
@@ -77,7 +77,7 @@ export default function CreateNewForm({ request }: CreateNewFormProps) {
       };
       api({
         method: "post",
-        url: "/my-requests",
+        url: "/request",
         data: data,
       })
         .then((res) => {

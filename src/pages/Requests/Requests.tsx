@@ -14,7 +14,7 @@ export default function Requests() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchRequests = async () => {
-    const response = await api.get("/help-requests/" + currentUser?.id);
+    const response = await api.get("/deal/help-requests/" + currentUser?.id);
     return response.data;
   };
 

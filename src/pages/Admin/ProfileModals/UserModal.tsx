@@ -22,7 +22,7 @@ interface profileDataType {
 
 const UserProfile = ({ user, children }: profileDataType) => {
   const fetchNotes = async () => {
-    const response = await api.get("/profile/note/" + user.id);
+    const response = await api.get("/profile/notes/" + user.id);
     return response.data;
   };
 
@@ -43,13 +43,13 @@ const UserProfile = ({ user, children }: profileDataType) => {
           <div className={" max-w-prose px-10 text-xl font-semibold text-slate-700"}>
             <p className={"my-4"}>
               {/* eslint-disable-next-line sonarjs/no-duplicate-string */}
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>IME:</span> {user.firstName}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>IME:</span> {'Dodati poziv'}
             </p>
             <p className={"my-4"}>
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>PREZIME:</span> {user.lastName}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>PREZIME:</span> {''}
             </p>
             <p className={"my-4"}>
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>OIB:</span> {user.oib}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>OIB:</span> {''}
             </p>
             <p className={"my-4"}>
               <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>EMAIL ADRESA:</span>{" "}
@@ -61,7 +61,7 @@ const UserProfile = ({ user, children }: profileDataType) => {
             </p>
             <p className={"my-4"}>
               <p className={"text-xl font-bold tracking-wide text-emerald-900"}>OPIS PROFILA:</p>
-              <p>{user.profileDescription}</p>
+              <p>{''}</p>
             </p>
           </div>
           <p className={"my-4 px-10 text-2xl font-bold tracking-wide text-emerald-900"}>NAPOMENE:</p>

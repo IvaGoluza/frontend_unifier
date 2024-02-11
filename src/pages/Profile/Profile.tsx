@@ -21,11 +21,11 @@ export default function Profile() {
           <p className={"my-4"}>
             {/* eslint-disable-next-line sonarjs/no-duplicate-string */}
             <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>IME:</span>{" "}
-            {currentUser?.firstName}
+            {'Dodati poziv'}
           </p>
           <p className={"my-4"}>
             <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>PREZIME:</span>{" "}
-            {currentUser?.lastName}
+            {''}
           </p>
           <p className={"my-4"}>
             <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>EMAIL ADRESA:</span>{" "}
@@ -37,7 +37,7 @@ export default function Profile() {
           </p>
           <p className={"my-4"}>
             <p className={"text-2xl font-bold tracking-wide text-emerald-900"}>OPIS PROFILA:</p>
-            <p>{currentUser?.profileDescription}</p>
+            <p>{''}</p>
           </p>
         </div>
       </div>

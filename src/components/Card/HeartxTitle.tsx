@@ -18,7 +18,7 @@ export default function HeartxTitle({ id, deal }: HeartxTitleProps) {
   const queryClient = useQueryClient();
 
   const updateData = async () => {
-    const response = await api.put("/deals/" + deal.id);
+    const response = await api.put("/deal/accepted/" + deal.id);
     return response.data;
   };
 
@@ -40,7 +40,7 @@ export default function HeartxTitle({ id, deal }: HeartxTitleProps) {
   };
 
   const deleteData = async () => {
-    const response = await api.delete("/deals/" + deal.id);
+    const response = await api.delete("/deal/" + deal.id);
     return response.data;
   };
 

@@ -18,7 +18,7 @@ export default function Notes() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchData = async () => {
-    const response = await api.get("/profile/note/" + currentUser?.id);
+    const response = await api.get("/profile/notes/" + currentUser?.id);
     return response.data;
   };
 

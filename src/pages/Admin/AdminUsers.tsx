@@ -8,7 +8,7 @@ import UserCard from "../../components/Card/UserCard";
 
 export default function AdminUsers() {
   const fetchUsers = async () => {
-    const response = await api.get("/api/users");
+    const response = await api.get("/user/all-users");
     return response.data;
   };
 

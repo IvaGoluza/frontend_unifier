@@ -27,7 +27,7 @@ interface profileDataType {
 
 const UserProfile = ({ user, children }: profileDataType) => {
   const fetchNotes = async () => {
-    const response = await api.get("/profile/note/" + user.id);
+    const response = await api.get("/profile/notes/" + user.id);
     return response.data;
   };
 
@@ -49,7 +49,7 @@ const UserProfile = ({ user, children }: profileDataType) => {
             <div className="my-5 flex w-2/5 flex-col rounded-sm">
               <div>
                 <FontAwesomeIcon icon={faUser} className="mx-2 text-emerald-900" />
-                {user.firstName} {user.lastName}
+                Treba napraviti poziv za dohvat podataka
               </div>
               <div>
                 <FontAwesomeIcon icon={faEnvelope} className="mx-2 text-emerald-900" />
@@ -60,7 +60,7 @@ const UserProfile = ({ user, children }: profileDataType) => {
                 {user.mobilePhone}
               </div>
             </div>
-            <div className="w-1/2 text-center italic text-gray-700">{user.profileDescription}</div>
+            <div className="w-1/2 text-center italic text-gray-700">{''}</div>
           </div>
           <div className="mt-10">
             <hr className="border-t-2" />
