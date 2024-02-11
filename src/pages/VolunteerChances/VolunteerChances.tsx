@@ -13,7 +13,7 @@ export default function HelpRequests() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchAdverts = async () => {
-    const response = await api.get("/my-adverts/" + currentUser?.id);
+    const response = await api.get("/advert/my-adverts/" + currentUser?.id);
     return response.data;
   };
 
@@ -31,7 +31,7 @@ export default function HelpRequests() {
   const myErrorA = errorA as Error;
 
   const fetchRequests = async () => {
-    const response = await api.get("/opportunities");
+    const response = await api.get("/request/all-requests");
     return response.data;
   };
 

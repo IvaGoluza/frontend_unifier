@@ -38,7 +38,7 @@ export default function MyRequestCard({
 
   function deleteFunction() {
     api
-      .put("/my-requests/" + id)
+      .put("/request/my-requests/" + id)
       .then(() => {
         queryClient.refetchQueries(["myRequests"]);
         console.log("deleted" + id);
@@ -47,7 +47,7 @@ export default function MyRequestCard({
   }
 
   const fetchDealsForRequest = async () => {
-    const response = await api.get("/deals/" + id);
+    const response = await api.get("/deal/all-deals/" + id);
     return response.data;
   };
 

@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import { IAuth } from "../../api/auth/IAuth";
 import "./registration.css";
-import { RegistrationCommand, RegisterUser } from "../../api/auth/types";
+import { RegistrationCommand } from "../../api/auth/types";
 import { routes } from "../../api/paths";
 import TextInput from "../../components/TextInput/TextInput";
 import { AuthContext } from "../../context/AuthContext";
@@ -19,12 +19,12 @@ const ValidationSchema = Yup.object().shape({
   lastName: Yup.string().required("Prezime je obavezno"),
   email: Yup.string().required("Email je obavezan").email("Email adresa nije valjana"),
   mobilePhone: Yup.string().required("Broj mobitela je obavezan"),
-  oib: Yup.string().required("OIB je obavezan."),
+  //oib: Yup.string().required("OIB je obavezan."),
   password: Yup.string().required("Lozinka je obavezna"),
   controlPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Lozinke moraju biti iste")
     .required("Ponovljena lozinka je obavezna"),
-  profileDescription: Yup.string().required("Opis profila je obavezan."),
+  //profileDescription: Yup.string().required("Opis profila je obavezan."),
 });
 
 const initialValues: RegistrationCommand = {
@@ -116,15 +116,6 @@ const Registration = () => {
               touched={touched}
             />
             <TextInput
-              name="oib"
-              className="regInput"
-              label="OIB"
-              type="text"
-              errors={errors}
-              placeholder="Unesite OIB"
-              touched={touched}
-            />
-            <TextInput
               name="password"
               className="regInput"
               label="Lozinka"
@@ -142,20 +133,20 @@ const Registration = () => {
               placeholder="Ponovite lozinku"
               touched={touched}
             />
-            <div className="max-w-80 w-2/4">
-              <label htmlFor="userType" className="inputLabel">
-                Opis profila
-              </label>
-              <Field
-                name="profileDescription"
-                as="textarea"
-                className={touched.profileDescription && errors.profileDescription ? "input-error" : "regInput"}
-                placeholder="Dodajte opis svom profilu"
-              ></Field>
-              {touched.profileDescription && errors.profileDescription && (
-                <p className="error">{errors.profileDescription}</p>
-              )}
-            </div>
+            {/*<div className="max-w-80 w-2/4">*/}
+            {/*  <label htmlFor="userType" className="inputLabel">*/}
+            {/*    Opis profila*/}
+            {/*  </label>*/}
+            {/*  <Field*/}
+            {/*    name="profileDescription"*/}
+            {/*    as="textarea"*/}
+            {/*    className={touched.profileDescription && errors.profileDescription ? "input-error" : "regInput"}*/}
+            {/*    placeholder="Dodajte opis svom profilu"*/}
+            {/*  ></Field>*/}
+            {/*  {touched.profileDescription && errors.profileDescription && (*/}
+            {/*    <p className="error">{errors.profileDescription}</p>*/}
+            {/*  )}*/}
+            {/*</div>*/}
             {serverError && <p className="error">{"Email adresa ili broj mobitela je zauzet"}</p>}
             <button type="submit" className="registerButton">
               Registracija

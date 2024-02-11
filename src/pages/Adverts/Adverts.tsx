@@ -14,7 +14,7 @@ export default function Adverts() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchAdverts = async () => {
-    const response = await api.get("/my-requests/" + currentUser?.id);
+    const response = await api.get("/request/my-requests/" + currentUser?.id);
     return response.data;
   };
 
@@ -32,7 +32,7 @@ export default function Adverts() {
   const myErrorA = errorA as Error;
 
   const fetchRequests = async () => {
-    const response = await api.get("/volunteer-adverts");
+    const response = await api.get("advert/all-adverts");
     return response.data;
   };
 

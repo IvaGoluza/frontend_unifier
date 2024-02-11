@@ -29,12 +29,12 @@ const NoteModal = ({ noteType, dealId }: NoteModalProps) => {
   };
 
   const updateNote = async (data: noteDataType) => {
-    const response = await api.put("/deals/note", data);
+    const response = await api.put("/deal/note", data);
     return response.data;
   };
 
   const updateRecension = async (data: recensionDataType) => {
-    const response = await api.put("/deals/recension", data);
+    const response = await api.put("/deal/recension", data);
     return response.data;
   };
 

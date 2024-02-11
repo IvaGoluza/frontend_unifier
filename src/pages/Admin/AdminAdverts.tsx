@@ -9,7 +9,7 @@ import BasicCard from "../../components/Card/BasicCard";
 export default function AdminAdverts() {
   const queryClient = useQueryClient();
   const fetchRequests = async () => {
-    const response = await api.get("/volunteer-adverts");
+    const response = await api.get("/advert/all-adverts");
     return response.data;
   };
 
@@ -22,7 +22,7 @@ export default function AdminAdverts() {
 
   function deleteHandler(id: number) {
     api
-      .delete("/my-adverts/" + id)
+      .put("/advert/change-delete-status/" + id)
       .then(() => {
         queryClient.refetchQueries(["allAdverts"]);
         console.log("deleted" + id);

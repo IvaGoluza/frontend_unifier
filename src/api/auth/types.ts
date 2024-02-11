@@ -10,16 +10,26 @@ export type RegistrationCommand = {
   profileDescription: string;
 };
 
-export type RegisterUser = {
+export type UserRegisterForm = {
   firstName: string;
   lastName: string;
   email: string;
   mobilePhone: string;
-  profileDescription: string;
-  oib: string;
   password: string;
   controlPassword: string;
   userType: string;
+};
+
+export type RegisterUser = {
+  firstName: string;
+  lastName: string;
+  baseUserDetails: {
+    email: string;
+    mobilePhone: string;
+    password: string;
+    controlPassword: string;
+    userType: string;
+  }
 };
 
 export type LoginCommand = {

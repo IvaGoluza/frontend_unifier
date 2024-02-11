@@ -17,9 +17,9 @@ export default function Deals() {
   const fetchDealsRequests = async () => {
     let response;
     if (currentUser?.userType === "VOLUNTEER")
-      response = await api.get("/my-deals-requests/" + currentUser?.id);
+      response = await api.get("/deal/my-deals-requests/" + currentUser?.id);
     else if (currentUser?.userType !== "VOLUNTEER")
-      response = await api.get("/my-deals-adverts/" + currentUser?.id);
+      response = await api.get("/deal/my-deals-adverts/" + currentUser?.id);
     return response?.data;
   };
 

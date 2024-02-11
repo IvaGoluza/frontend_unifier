@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { loggedInUserType, IAuth } from "../api/auth/IAuth";
-import { LoginCommand, RegisterUser } from "../api/auth/types";
+import { LoginCommand, RegisterUser, UserRegisterForm } from "../api/auth/types";
 
 import api from "../api/createAxiosClient";
 
@@ -43,9 +43,20 @@ export default function AuthProvider({ children }: AuthProp) {
     //   });
   }, []);
 
-  const signup = async (user: RegisterUser) => {
+  const signup = async (user: UserRegisterForm) => {
+    const personRequest: RegisterUser = {
+      baseUserDetails: {
+        email: user.email,
+        userType: user.userType,
+        password: user.password,
+        controlPassword: user.controlPassword,
+        mobilePhone: user.mobilePhone
+      },
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
     try {
-      const userResponse = await api.post("/auth/registration", user, {
+      const userResponse = await api.post("/auth/person-registration", personRequest, {
         headers: {
           "Content-Type": "application/json",
         },

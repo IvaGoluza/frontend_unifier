@@ -19,7 +19,7 @@ export default function MyAdverts() {
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const fetchData = async () => {
-    const response = await api.get("/my-adverts/" + currentUser?.id);
+    const response = await api.get("/advert/my-adverts/" + currentUser?.id);
     return response.data;
   };
 
@@ -32,7 +32,7 @@ export default function MyAdverts() {
 
   function deleteHandler(id: number) {
     api
-      .put("/my-adverts/" + id)
+      .put("/advert/change-delete-status/" + id)
       .then(() => {
         queryClient.refetchQueries(["myAdverts"]);
         console.log("deleted" + id);

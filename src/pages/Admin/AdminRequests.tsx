@@ -9,7 +9,7 @@ import BasicCard from "../../components/Card/BasicCard";
 export default function AdminRequests() {
   const queryClient = useQueryClient();
   const fetchRequests = async () => {
-    const response = await api.get("/opportunities");
+    const response = await api.get("/request/all-requests");
     return response.data;
   };
 
@@ -22,7 +22,7 @@ export default function AdminRequests() {
 
   function deleteHandler(id: number) {
     api
-      .delete("/my-requests/" + id)
+      .put("/request/change-delete-status/" + id)
       .then(() => {
         queryClient.refetchQueries(["allRequests"]);
         console.log("deleted" + id);
