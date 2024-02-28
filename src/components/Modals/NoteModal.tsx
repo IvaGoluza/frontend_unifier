@@ -2,9 +2,10 @@ import React, { ChangeEvent, useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
+
+import api from "../../api/createAxiosClient";
 
 interface noteDataType {
   id: number;

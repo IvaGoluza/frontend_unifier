@@ -1,8 +1,8 @@
 import React from "react";
 
+import CardInfo from "./CardInfo";
 import InfoWithModal from "./InfoWithModal";
 import { loggedInUserType } from "../../api/auth/IAuth";
-import CardInfo from "./CardInfo";
 
 interface data {
   title: string;

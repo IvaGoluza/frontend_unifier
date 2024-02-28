@@ -13,7 +13,7 @@ export default function LogOut() {
     navigate("/");
   };
   return (
-    <span className="py-3 logged-in-option-container" onClick={handleLogOut}>
+    <span className="logged-in-option-container py-3" onClick={handleLogOut}>
       <p>Odjava</p>
     </span>
   );

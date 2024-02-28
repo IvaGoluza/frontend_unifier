@@ -1,11 +1,11 @@
 import React from "react";
 
-import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "react-query";
 
 import InfoWithModal from "./InfoWithModal";
 import { RequestType } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 
 interface data {
   id: number;

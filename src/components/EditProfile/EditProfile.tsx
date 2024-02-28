@@ -2,7 +2,9 @@ import React, { ChangeEvent, useContext, useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
+
 import api from "../../api/createAxiosClient";
+
 import "./editProfile.css";
 import { useMutation } from "react-query";
 
@@ -19,7 +21,7 @@ const EditProfile = () => {
   const { currentUser, setCurrentUser, login } = useContext(AuthContext) as IAuth;
 
   const [mobile, setMobile] = useState(currentUser?.mobilePhone);
-  const [description, setDescription] = useState('Treba dohvatit profil');
+  const [description, setDescription] = useState("Treba dohvatit profil");
 
   const handleMobile = (event: ChangeEvent<HTMLInputElement>) => {
     setMobile(event.target.value);
@@ -48,7 +50,6 @@ const EditProfile = () => {
       console.log(currentUser);
       if (currentUser) {
         //TODO Da li se ovo može dogodit?
-
         // const result: loggedInUserType | null = await login({
         //   email: currentUser.email,
         //   password: currentUser.password,
@@ -83,7 +84,7 @@ const EditProfile = () => {
               Opis profila
             </label>
             <textarea
-              defaultValue={'Treba dodati poziv'}
+              defaultValue={"Treba dodati poziv"}
               className="Input"
               id="profileDescription"
               onChange={handleDescription}

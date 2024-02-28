@@ -8,6 +8,7 @@ export type RegistrationCommand = {
   password: string;
   controlPassword: string;
   profileDescription: string;
+  volunteerCenter: string;
 };
 
 export type UserRegisterForm = {
@@ -18,6 +19,7 @@ export type UserRegisterForm = {
   password: string;
   controlPassword: string;
   userType: string;
+  volunteerCenter: string;
 };
 
 export type RegisterUser = {
@@ -29,10 +31,31 @@ export type RegisterUser = {
     password: string;
     controlPassword: string;
     userType: string;
-  }
+  };
 };
 
 export type LoginCommand = {
   email: string;
   password: string;
+};
+
+export type OrganizationRegistrationForm = {
+  name: string;
+  oib: string;
+  type: string;
+  email: string;
+  mobilePhone: string;
+  volunteerCenter: string;
+  password: string;
+  controlPassword: string;
+  address: {
+    townName: string;
+    postcode: string;
+    streetName: string;
+  };
+  userType: {
+    volunteer: boolean;
+    helpRecipient: boolean;
+  };
+  url: string;
 };

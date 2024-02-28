@@ -4,12 +4,13 @@ import { faUser, faEnvelope, faPhone, faPaperPlane, faFeatherPointed } from "@fo
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
+
 import "./userProfile.css";
-import api from "../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
 import { AdvertType, RequestType } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import BasicCard from "../Card/BasicCard";
 import NoteModalCard from "../Notes/NoteModalCard";
 
@@ -60,7 +61,7 @@ const VolunteerProfile = ({ user, advert, children }: profileDataType) => {
                 {user.mobilePhone}
               </div>
             </div>
-            <div className="w-1/2 text-center italic text-gray-700">{''}</div>
+            <div className="w-1/2 text-center italic text-gray-700">{""}</div>
           </div>
           <div className="mt-10">
             <hr className="border-t-2" />

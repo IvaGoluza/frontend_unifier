@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 
-import { AdvertType ,towns, helpType, categories } from "../../api/auth/IForm";
+import { AdvertType, towns, helpType, categories } from "../../api/auth/IForm";
 
 interface AdvertsFilterProps {
   data: AdvertType[];

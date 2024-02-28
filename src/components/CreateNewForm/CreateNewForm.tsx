@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 
-import api from "../../api/createAxiosClient";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useQueryClient } from "react-query";
 import * as Yup from "yup";
 
 import { IAuth } from "../../api/auth/IAuth";
 import { FormTypes } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import RadioImages from "../../components/RadioImages/RadioImages";
 import { AuthContext } from "../../context/AuthContext";
 

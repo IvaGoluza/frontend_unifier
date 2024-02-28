@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
 
-import api from "../../api/createAxiosClient";
-
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
 import { AdvertType } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import OpportunityCard from "../../components/Card/OpportunityCard";
 import AdvertsFilter from "../../components/Filters/AdvertsFilter";
 import { AuthContext } from "../../context/AuthContext";

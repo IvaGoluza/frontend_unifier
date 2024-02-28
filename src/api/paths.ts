@@ -1,6 +1,8 @@
 export const routes = {
   HOMEPAGE_URL: "/",
-  USER_REGISTRATION_URL: "/registration",
+  USER_REGISTRATION_URL: "/indRegistration",
+  ORGANIZATION_REGISTRATION_URL: "/orgRegistration",
+  REGISTRATION_TYPES_URL: "/registration",
   USER_LOGIN_URL: "/login",
   USER_LOGOUT_URL: "/logout",
   HELP_REQUESTS_URL: "/help-requests",

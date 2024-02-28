@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 
-import api from "../../api/createAxiosClient";
 import { nanoid } from "nanoid";
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
 import { DealAdvertType, DealRequestType } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import DealAdvertCard from "../../components/Card/DealAdvertCard";
 import DealRequestCard from "../../components/Card/DealRequestCard";
 import DealsText from "../../components/Card/DealsText";
@@ -16,8 +16,7 @@ export default function Deals() {
 
   const fetchDealsRequests = async () => {
     let response;
-    if (currentUser?.userType === "VOLUNTEER")
-      response = await api.get("/deal/my-deals-requests/" + currentUser?.id);
+    if (currentUser?.userType === "VOLUNTEER") response = await api.get("/deal/my-deals-requests/" + currentUser?.id);
     else if (currentUser?.userType !== "VOLUNTEER")
       response = await api.get("/deal/my-deals-adverts/" + currentUser?.id);
     return response?.data;

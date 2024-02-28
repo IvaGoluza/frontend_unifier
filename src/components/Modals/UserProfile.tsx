@@ -60,7 +60,7 @@ const UserProfile = ({ user, children }: profileDataType) => {
                 {user.mobilePhone}
               </div>
             </div>
-            <div className="w-1/2 text-center italic text-gray-700">{''}</div>
+            <div className="w-1/2 text-center italic text-gray-700">{""}</div>
           </div>
           <div className="mt-10">
             <hr className="border-t-2" />

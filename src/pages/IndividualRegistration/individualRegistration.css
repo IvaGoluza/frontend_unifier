@@ -1,0 +1,266 @@
+.register {
+  display: flex;
+  flex-direction: row;
+}
+
+.regForm {
+  width: 50%;
+  padding-block: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../../assets/images/logoBackg.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+.content {
+  transform: scale(0.8);
+  transform-origin: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.buttons {
+  width: 50%;
+  padding-block: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.regInput {
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  font-size: 1rem;
+  color: gray;
+  border: 1.3px solid lightgray;
+  border-radius: 10px;
+  outline: none;
+}
+
+.error {
+  color: #fc8181;
+  font-size: 0.75rem;
+  text-align: left;
+  margin-top: 0.25rem;
+}
+
+.inputLabel {
+  color: darkblue;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  text-align: left;
+  margin: 0.8rem 0.1rem 0.3rem;
+
+}
+
+.input-error {
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  font-size: 1rem;
+  color: gray;
+  border: 1px solid red;
+  background-color: white;
+  border-radius: 10px;
+  outline: none;
+}
+
+.imageWithTextWrapper {
+  position: relative;
+  width: 50%;
+}
+
+.regImage {
+  width: 100%;
+  display: block; 
+  height:100vh; 
+}
+
+.customText {
+  position: absolute;
+  right: 3rem;
+  bottom: 1.5rem;
+  color: #fff;
+  font-size: 5rem;
+  font-family: 'Krub', sans-serif;
+  font-weight: bold;
+  text-shadow: -0.05rem -0.05rem 0 #000, 0.05rem -0.05rem 0 #000, -0.05rem 0.05rem 0 #000, 0.05rem 0.05rem 0 #000;
+}
+
+.regForm button,
+.registerButton {
+  background-color: #010159;
+  width: fit-content;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4em;
+  margin-bottom: 1em;
+  margin-inline: 0.7em;
+}
+
+.regForm button.registerButton svg {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+.stepIndicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin-bottom: 1em;
+}
+
+.separator {
+  flex-grow: 0;
+  width: 5rem;
+  height: 0.25rem;
+  background-color: #ccc;
+  margin: 0 1.5rem;
+}
+
+.stepIndicator {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: rgba(204, 204, 204, 0.5);
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 0 0 4px #ccc;
+}
+
+.stepIndicator.current {
+  background-color: #01015963;
+  color: #010159;
+  box-shadow: 0 0 0 4px #010159;
+}
+
+
+@media screen and (max-width: 768px) {
+    .register {
+      flex-direction: column;
+    }
+  
+    .imageWithTextWrapper {
+      width: 100%; 
+      display: none; 
+    }
+  
+    .regImage {
+      max-width: 100%; 
+      height: auto; 
+      display: none; 
+    }
+  
+    .content {
+      transform: scale(1); 
+      transform-origin: top; 
+    }
+
+  .regForm {
+    width: 100%;
+    background-image: url("../../../assets/images/logoMulBack.png");
+    justify-content: flex-start;
+  }
+
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.checkboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 1rem;
+  width: 1rem;
+  left: 0;
+  margin-top: -0.5rem;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 0;
+  border: 1px solid #ddd;
+}
+
+.checkboxContainer:hover input~.checkmark {
+  background-color: #ccc;
+}
+
+.checkboxContainer input:checked~.checkmark {
+  background-color: #010159;
+}
+
+.checkmark:after {
+  content: "";
+  display: none;
+  position: absolute;
+}
+
+.checkboxContainer input:checked~.checkmark:after {
+  display: block;
+  left: 6px;
+  top: 2px;
+  width: 8px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxContainer label {
+  margin-left: 5px;
+}
+
+
+.uploadButton {
+  background-color: #010159;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.fileInputContainer {
+  position: relative;
+}
+
+.fileInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}

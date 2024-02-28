@@ -3,24 +3,26 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { routes } from "./api/paths";
+import AdminAdverts from "./pages/Admin/AdminAdverts";
 import AdminRequests from "./pages/Admin/AdminRequests";
+import AdminUsers from "./pages/Admin/AdminUsers";
 import Adverts from "./pages/Adverts/Adverts";
 import ApplicationFrame from "./pages/ApplicationFrame";
 import Deals from "./pages/Deals/Deals";
 import HelpRequests from "./pages/HelpRequests/HelpRequests";
 import Home from "./pages/Home/Home";
+import IndividualRegistration from "./pages/IndividualRegistration/IndividualRegistration";
 import Login from "./pages/Login/Login";
 import MyAdverts from "./pages/MyAdverts/MyAdverts";
 import MyRequests from "./pages/MyRequests/MyRequests";
 import Notes from "./pages/Notes/Notes";
+import OrganizationRegistration from "./pages/OrganizationRegistration/OrganizationRegistration";
 import Profile from "./pages/Profile/Profile";
 import Recensions from "./pages/Recensions/Recensions";
-import Registration from "./pages/Registration/Registration";
+import RegistrationTypes from "./pages/RegistrationTypes/RegistrationTypes";
 import Requests from "./pages/Requests/Requests";
 import VolunteerChances from "./pages/VolunteerChances/VolunteerChances";
 import AuthProvider from "../src/context/AuthContext";
-import AdminAdverts from "./pages/Admin/AdminAdverts";
-import AdminUsers from "./pages/Admin/AdminUsers";
 
 export default function Router() {
   return (
@@ -42,7 +44,9 @@ export default function Router() {
           <Route path={routes.ADMIN_ADVERTS} element={<AdminAdverts />} />
           <Route path={routes.ADMIN_USERS} element={<AdminUsers />} />
         </Route>
-        <Route path={routes.USER_REGISTRATION_URL} element={<Registration />} />
+        <Route path={routes.USER_REGISTRATION_URL} element={<IndividualRegistration />} />
+        <Route path={routes.ORGANIZATION_REGISTRATION_URL} element={<OrganizationRegistration />} />
+        <Route path={routes.REGISTRATION_TYPES_URL} element={<RegistrationTypes />} />
         <Route path={routes.USER_LOGIN_URL} element={<Login />} />
         <Route path="*" element={<div className="h1">Page not found</div>} />
       </Routes>

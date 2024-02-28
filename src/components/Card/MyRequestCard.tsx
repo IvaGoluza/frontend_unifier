@@ -2,7 +2,6 @@ import React from "react";
 
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import api from "../../api/createAxiosClient";
 import { nanoid } from "nanoid";
 import { useQueryClient, useQuery, useMutation } from "react-query";
 
@@ -10,6 +9,7 @@ import HeartxTitle from "./HeartxTitle";
 import RequestInfo from "./RequestInfo";
 import { loggedInUserType } from "../../api/auth/IAuth";
 import { Deal } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 
 interface dataType {
   id: number;

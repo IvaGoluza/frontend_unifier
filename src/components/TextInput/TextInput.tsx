@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 import { Field, FormikErrors, FormikTouched } from "formik";
 import _ from "lodash";
@@ -13,6 +13,7 @@ interface TextInputProps<T> {
   label?: string;
   placeholder?: string;
   touched?: FormikTouched<T>;
+  style?: CSSProperties;
 }
 
 export default function TextInput<T>({
@@ -23,11 +24,12 @@ export default function TextInput<T>({
   label,
   placeholder,
   touched,
+  style,
 }: TextInputProps<T>) {
   const hasErrors = errors && _.get(errors, name) && touched && _.get(touched, name);
 
   return (
-    <div className="max-w-80 w-2/4">
+    <div className="max-w-80 w-2/4" style={style}>
       {label && (
         <label htmlFor={name as string} className="inputLabel">
           {label}

@@ -1,9 +1,9 @@
 import React from "react";
 
-import api from "../../api/createAxiosClient";
 import { useQuery, useQueryClient } from "react-query";
 
 import { RequestTypeDeals } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import BasicCard from "../../components/Card/BasicCard";
 
 export default function AdminRequests() {

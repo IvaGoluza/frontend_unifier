@@ -6,11 +6,11 @@ import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
 import { RequestTypeDeals } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import MyRequestCard from "../../components/Card/MyRequestCard";
 import CreateNewForm from "../../components/CreateNewForm/CreateNewForm";
 import { AuthContext } from "../../context/AuthContext";
 import "./myRequests.css";
-import api from "../../api/createAxiosClient";
 
 export default function MyRequests() {
   const TEXT_STYLE = "font-bold text-emerald-900";

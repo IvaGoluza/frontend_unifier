@@ -1,9 +1,9 @@
 import React from "react";
 
-import api from "../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
+import api from "../../api/createAxiosClient";
 import UserCard from "../../components/Card/UserCard";
 
 export default function AdminUsers() {

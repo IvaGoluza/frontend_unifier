@@ -2,11 +2,11 @@ import React from "react";
 
 import { faLock, faLockOpen, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import api from "../../api/createAxiosClient";
 import toast from "react-hot-toast";
 import { useQueryClient, useMutation } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";
+import api from "../../api/createAxiosClient";
 import UserModal from "../../pages/Admin/ProfileModals/UserModal";
 import VolunteerModal from "../../pages/Admin/ProfileModals/VolunteerModal";
 
@@ -27,14 +27,11 @@ export default function UserCard({ user }: UserCardProps) {
   const blockStatusHandler = async () => {
     try {
       await updateMutation.mutateAsync();
-      toast.success(
-        "Korisnik je" + (user.blocked ? "odblokiran" : "blokiran"),
-        {
-          position: "bottom-center",
-          duration: 3000,
-          className: "scale-125",
-        }
-      );
+      toast.success("Korisnik je" + (user.blocked ? "odblokiran" : "blokiran"), {
+        position: "bottom-center",
+        duration: 3000,
+        className: "scale-125",
+      });
       await queryClient.refetchQueries(["allUsers"]);
     } catch (error) {
       console.error("Error updating data:", error);
@@ -51,9 +48,7 @@ export default function UserCard({ user }: UserCardProps) {
 
   return (
     <div className="mx-5 my-2 ml-16 grid w-4/5 grid-cols-3 rounded-lg bg-gray-100 px-6 hover:bg-indigo-100">
-      <p className={color}>
-        {user.email}
-      </p>
+      <p className={color}>{user.email}</p>
       <p className="justify-self-center pt-1 font-semibold text-blue-700">{user_type}</p>
       <div className="flex justify-self-end">
         {user.userType === "VOLUNTEER" && (

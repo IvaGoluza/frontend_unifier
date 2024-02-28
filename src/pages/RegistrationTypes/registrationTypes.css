@@ -1,0 +1,88 @@
+.register0 {
+  display: flex;
+  flex-direction: row;
+}
+
+.regForm0 {
+  width: 50%;
+  padding-block: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-image: url("../../../assets/images/logoBackg.png");
+  background-size: cover;
+}
+
+.welcomeTitle {
+  position: absolute;
+  margin-top: 7rem;
+  margin-left: 4rem;
+  font-family: 'Krub', sans-serif;
+  font-style: italic;
+  font-size: 45px;
+  font-weight: lighter;
+  color: #807d78;
+}
+.welcomeSubTitle {
+  margin-top: 12rem;
+  margin-left: 4rem;
+  font-family: 'Krub', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #807d78;
+}
+
+.buttons2 {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    margin-left: 4rem; 
+    margin-top: 2rem; 
+    gap: 1rem;
+  }
+  
+  .orgBtn,
+  .indBtn {
+    background: #09115B;
+    border-radius: 16px; 
+    border: none;
+    padding: 5px 0px; 
+    color: white;
+    font-family: 'Krub', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap; 
+  }
+  
+  .orgBtn, .indBtn {
+    min-width: 80%; 
+  }
+
+
+.loginPrompt2 {
+  margin-left: 4rem;
+  font-family: 'Kulim Park', sans-serif;
+  font-size: 16px;
+  color: #09115B;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.loginPrompt2 span {
+  text-decoration: underline; 
+}
+
+
+@media screen and (max-width: 768px) {
+  .regImage0 {
+    width: 0;
+  }
+
+  .regForm0 {
+    width: 100%;
+    background-image: url("../../../assets/images/logoMulBack.png");
+    justify-content: flex-start;
+  }
+}

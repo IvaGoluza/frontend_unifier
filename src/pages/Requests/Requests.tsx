@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 
-import api from "../../api/createAxiosClient";
-
 import { useQuery } from "react-query";
 
 import { IAuth } from "../../api/auth/IAuth";
 import { Deal } from "../../api/auth/IForm";
+import api from "../../api/createAxiosClient";
 import RequestCard from "../../components/Card/RequestCard";
 import { AuthContext } from "../../context/AuthContext";
 import "./requests.css";

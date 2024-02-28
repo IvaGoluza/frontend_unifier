@@ -1,12 +1,13 @@
 import React, { ReactNode } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
+
 import "./volunteerModal.css";
-import api from "../../../api/createAxiosClient";
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../../api/auth/IAuth";
 import { AdvertType } from "../../../api/auth/IForm";
+import api from "../../../api/createAxiosClient";
 import NoteModalCard from "../../../components/Notes/NoteModalCard";
 
 interface NoteType {
@@ -43,13 +44,13 @@ const UserProfile = ({ user, children }: profileDataType) => {
           <div className={" max-w-prose px-10 text-xl font-semibold text-slate-700"}>
             <p className={"my-4"}>
               {/* eslint-disable-next-line sonarjs/no-duplicate-string */}
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>IME:</span> {'Dodati poziv'}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>IME:</span> {"Dodati poziv"}
             </p>
             <p className={"my-4"}>
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>PREZIME:</span> {''}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>PREZIME:</span> {""}
             </p>
             <p className={"my-4"}>
-              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>OIB:</span> {''}
+              <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>OIB:</span> {""}
             </p>
             <p className={"my-4"}>
               <span className={"mr-3 text-2xl font-bold tracking-wide text-emerald-900"}>EMAIL ADRESA:</span>{" "}
@@ -61,7 +62,7 @@ const UserProfile = ({ user, children }: profileDataType) => {
             </p>
             <p className={"my-4"}>
               <p className={"text-xl font-bold tracking-wide text-emerald-900"}>OPIS PROFILA:</p>
-              <p>{''}</p>
+              <p>{""}</p>
             </p>
           </div>
           <p className={"my-4 px-10 text-2xl font-bold tracking-wide text-emerald-900"}>NAPOMENE:</p>

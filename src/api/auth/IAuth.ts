@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { LoginCommand, RegisterUser, UserRegisterForm } from "./types";
+import { LoginCommand, OrganizationRegistrationForm, RegisterUser, UserRegisterForm } from "./types";
 
 export type loggedInUserType = {
   id: number;
@@ -12,12 +12,13 @@ export type loggedInUserType = {
   auth: {
     accessToken: string;
     refreshToken: string;
-  }
+  };
 };
 
 export interface IAuth {
   currentUser: loggedInUserType | null;
-  signup: (user: UserRegisterForm) => Promise<boolean>;
+  signup: (formData: FormData) => Promise<boolean>;
+  signupOrganization: (data: OrganizationRegistrationForm) => Promise<boolean>;
   login: (user: LoginCommand) => Promise<loggedInUserType | null>;
   logout: () => void;
   setCurrentUser: Dispatch<SetStateAction<loggedInUserType | null>>;
