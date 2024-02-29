@@ -48,7 +48,7 @@ const Login = () => {
     <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
       {({ errors, touched, isSubmitting }) => (
         <Form className="register min-h-screen">
-          <img src="../../../assets/images/login.png" alt="register" className="regImage opacity-70" />
+          <img src="../../../assets/images/login.png" alt="register" className="logImage opacity-70" />
           <div className="loginForm">
             <div className="container">
               <img src="../../../assets/images/stickmanFar.png" alt="Stickman" className="stickman" />
