@@ -1,0 +1,57 @@
+.formTitle {
+  font-family: 'Krub';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1vw;
+  line-height: 124%;
+  letter-spacing: 0.06em;
+  color: #07169B;
+}
+
+.title-input-container {
+   display: flex;
+   flex-direction: column;
+   align-items: start;
+}
+
+.input-form {
+   padding: 2px;
+}
+
+.input-error {
+   width: 25vw;
+   padding: 0.2rem 0.2rem;
+   font-size: 0.8vw;
+}
+
+.input-error-form {
+   padding: 0.2rem 0.2rem;
+   width: 25vw;
+   font-size: 1rem;
+   color: gray;
+   border: 1px solid red;
+   background-color: white;
+   border-radius: 10px;
+   outline: none;
+ }
+
+.regInputCreateForm {
+   width: 25vw;
+   padding: 0.2rem 0.2rem;
+   font-size: 0.8vw;
+   color: gray;
+   border: 1.3px solid lightgray;
+   border-radius: 10px;
+   outline: none;
+}
+
+.title-input-desc {
+   font-family: 'Krub';
+   font-style: italic;
+   font-weight: 400;
+   font-size: 10px;
+   line-height: 124%;
+   letter-spacing: 0.06em;
+   color: #07169B;
+}
+

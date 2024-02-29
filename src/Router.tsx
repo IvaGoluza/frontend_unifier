@@ -15,6 +15,7 @@ import IndividualRegistration from "./pages/IndividualRegistration/IndividualReg
 import Login from "./pages/Login/Login";
 import MyAdverts from "./pages/MyAdverts/MyAdverts";
 import MyRequests from "./pages/MyRequests/MyRequests";
+import MyRequests2 from "./pages/MyRequests2/MyRequests2";
 import Notes from "./pages/Notes/Notes";
 import OrganizationRegistration from "./pages/OrganizationRegistration/OrganizationRegistration";
 import Profile from "./pages/Profile/Profile";
@@ -34,6 +35,7 @@ export default function Router() {
           <Route path={routes.HELP_REQUESTS_URL} element={<HelpRequests />} />
           <Route path={routes.MY_ADVERTS_URL} element={<MyAdverts />} />
           <Route path={routes.MY_REQUESTS_URL} element={<MyRequests />} />
+          <Route path={routes.MY_REQUESTS_URL_2} element={<MyRequests2 />} />
           <Route path={routes.VOLUNTEER_CHANCES_URL} element={<VolunteerChances />} />
           <Route path={routes.VOLUNTEER_ADVERTS_URL} element={<Adverts />} />
           <Route path={routes.REQUESTS_URL} element={<Requests />} />
