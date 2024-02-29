@@ -9,7 +9,6 @@ export default function Footer() {
   return (
     <div className="footer-container">
       <FooterIcons />
-      <hr />
       <FooterCopyright />
     </div>
   );

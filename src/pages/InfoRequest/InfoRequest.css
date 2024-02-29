@@ -1,0 +1,233 @@
+.title {
+   font-family: 'Lalezar';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 3vw;
+   line-height: 124%;
+   letter-spacing: 0.06em;
+   color: #B0A9F9;
+}
+
+.butterfly {
+   position: absolute;
+   top: -2vw; 
+   left: -3vw; 
+   width: 4vw;
+   height: 4vw; 
+}
+
+.butterfly img {
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover; /* Ensure the image fills the container */
+}
+
+.custom-shape-divider-bottom-1709115725 {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+   transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1709115725 svg {
+   position: relative;
+   display: block;
+   width: calc(113% + 1.3px);
+   height: 146px;
+}
+
+.custom-shape-divider-bottom-1709115725 .shape-fill {
+   fill:white;
+}
+
+.purple-background {
+   width: 100%; 
+   height: 91vh; 
+   background-color: #1F2340; 
+}
+
+.white-background {
+   background-color: white;
+}
+
+.accordions {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+}
+
+.volunteer{
+   top:65vh;
+   left: -1vw;
+   position: relative;
+   width: 40vw;
+   height: 40vw;
+}
+.request-info {
+   justify-content: start;
+}
+
+.request-info-item {
+   border: 2px solid #D9D9D9;
+   background-color: #D9D9D9;
+   border-radius: 12px;
+   font-family: 'Krub';
+   font-style: normal;
+   font-weight: 600;
+   font-size: 0.8vw;
+   line-height: 124%;
+   text-align: center;
+   letter-spacing: 0.06em;
+   color: #000000;
+   padding: 3px;
+   margin: 6px; 
+}
+
+.request-state {
+   font-family: 'Krub';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 15px;
+   line-height: 157%;
+   text-align: center;
+   letter-spacing: 0.08em;
+   color: #B0A9F9;
+   font-size: 1vw;
+   border: 2px solid #B0A9F9;
+   border-radius: 12px;
+}
+
+.title-bar {
+   align-items: center; 
+}
+
+.request-info-item:hover {
+   transform: scale(1.1);
+}
+
+.circleXmark:hover {
+   transform: scale(1.1);
+}
+
+.circleXmark {
+   right: 4.5rem;
+   top: 6rem;
+}
+
+.request-info-data {
+   font-family: 'Krub';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 1vw;
+   line-height: 124%;
+   letter-spacing: 0.06em;
+   color: #FFFFFF;
+}
+
+.request-info-data {
+   position: absolute;
+   top: 20vh;
+   left: 0vw;
+}
+
+.description-requirements {
+   position: absolute;
+   top: 40vh;
+   left: 40vw;
+   display: flex;
+   justify-content: space-between;
+   width: 45vw;
+}
+
+.description-requirements-desc {
+  font-family: 'Krub';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.9vw;
+  line-height: 124%;
+  letter-spacing: 0.06em;
+  color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.description-requirements-title {
+  font-family: 'Krub';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1vw;
+  line-height: 124%;
+  letter-spacing: 0.06em;
+  color: #B0A9F9;
+}
+
+@media (max-width: 1200px) {
+   .description-requirements {
+      display: flex;
+      flex-direction: column;
+      margin: 5px;
+   }
+   .description-requirements-title {
+      margin-bottom: 3px;
+   }
+   .description-requirements-desc {
+      margin-bottom: 5px;
+   }
+ }
+
+ @media (max-width: 480px) {
+   .purple-background {
+      height: 97vh; 
+   }   
+ }
+
+ @media (max-width: 580px) {
+   .purple-background {
+      height: 90vh; 
+   }   
+   .request-info {
+      display: none;
+   }
+   .title {
+      font-size: 20px;
+   }
+   .request-info-data {
+      top:25px;
+      font-size: 11px;
+      margin-top: 45px;
+   }
+   .description-requirements {
+      top: 400px;
+      left: 65px;
+   }
+   .description-requirements-title {
+      font-size: 15px;
+   }
+   .description-requirements-desc {
+      font-size: 12px;
+   }
+   .volunteer {
+      display: none;
+   }
+   .title-bar {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+   }
+   .request-state {
+      font-size: 11px;
+      margin-left: 0px;
+   }
+ }
+
+ @media (max-width: 480px) {
+   .purple-background {
+      height: 85vh; 
+   }  
+}

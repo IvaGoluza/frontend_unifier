@@ -76,7 +76,7 @@ const Login = () => {
             <button disabled={isSubmitting} type="submit" className="registerButton">
               Prijava
             </button>
-            <Link to={routes.USER_REGISTRATION_URL} className="text-blue-700">
+            <Link to={routes.REGISTRATION_TYPES_URL} className="text-blue-700">
               Nemate korisnički račun? Registrirajte se.
             </Link>
           </div>

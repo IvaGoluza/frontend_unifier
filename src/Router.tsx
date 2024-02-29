@@ -23,6 +23,7 @@ import RegistrationTypes from "./pages/RegistrationTypes/RegistrationTypes";
 import Requests from "./pages/Requests/Requests";
 import VolunteerChances from "./pages/VolunteerChances/VolunteerChances";
 import AuthProvider from "../src/context/AuthContext";
+import InfoRequest from "./pages/InfoRequest/InfoRequest";
 
 export default function Router() {
   return (
@@ -43,6 +44,7 @@ export default function Router() {
           <Route path={routes.ADMIN_REQUESTS} element={<AdminRequests />} />
           <Route path={routes.ADMIN_ADVERTS} element={<AdminAdverts />} />
           <Route path={routes.ADMIN_USERS} element={<AdminUsers />} />
+          <Route path={routes.INFO_REQUEST_URL} element={<InfoRequest />} />
         </Route>
         <Route path={routes.USER_REGISTRATION_URL} element={<IndividualRegistration />} />
         <Route path={routes.ORGANIZATION_REGISTRATION_URL} element={<OrganizationRegistration />} />

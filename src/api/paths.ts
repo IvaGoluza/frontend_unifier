@@ -8,6 +8,7 @@ export const routes = {
   HELP_REQUESTS_URL: "/help-requests",
   MY_ADVERTS_URL: "/my-adverts",
   MY_REQUESTS_URL: "/my-requests",
+  INFO_REQUEST_URL: "/info-request",
   VOLUNTEER_CHANCES_URL: "/opportunities",
   VOLUNTEER_ADVERTS_URL: "/volunteer-adverts",
   REQUESTS_URL: "/requests",

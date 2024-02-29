@@ -128,7 +128,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar-container">
+    <nav className="navbar-container border-b-2">
       <div className="page-link-container">
         <MenuItems setMenuActive={setMenuActive} menuItemList={filterList()} linkListClassName={linkListClassName} />
         <div className="menu-container">

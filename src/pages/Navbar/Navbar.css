@@ -5,10 +5,16 @@
     width: 100%;
     padding: 20px 40px 20px 65px;
     font-size: 1.1em;
-    background-image: url("../../../assets/images/headerBackg.png");
     background-size: cover;
     color: white;
     position: relative;
+    background-color: #1F2340; 
+    font-family: 'Krub';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 157%;
+    letter-spacing: 0.09em;
 }
 
 .page-link-container {
