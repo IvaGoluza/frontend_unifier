@@ -1,0 +1,38 @@
+
+.option {
+   display: flex;
+   align-items: start;
+   font-family: 'Krub';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 0.7vw;
+   line-height: 124%;
+   letter-spacing: 0.06em;
+   color: #07169B;
+   margin: 5px;
+
+}
+
+.option input[type="radio"] {
+   display: none;
+}
+
+.option label {
+   width: 16px;
+   height: 16px;
+   border: 1px solid #000;
+   border-radius: 50%;
+   cursor: pointer;
+}
+
+.option input[type="radio"]:checked + label {
+   background-color: #07169B;
+}
+
+.option span {
+   cursor: pointer;
+}
+
+
+
+
