@@ -2,13 +2,11 @@ import React, { ChangeEvent, useContext, useState } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-
-import api from "../../api/createAxiosClient";
-
 import "./editProfile.css";
 import { useMutation } from "react-query";
 
-import { IAuth, loggedInUserType } from "../../api/auth/IAuth";
+import { IAuth } from "../../api/auth/IAuth";
+import api from "../../api/createAxiosClient";
 import { AuthContext } from "../../context/AuthContext";
 
 interface profileDataType {
@@ -18,7 +16,7 @@ interface profileDataType {
 }
 
 const EditProfile = () => {
-  const { currentUser, setCurrentUser, login } = useContext(AuthContext) as IAuth;
+  const { currentUser } = useContext(AuthContext) as IAuth;
 
   const [mobile, setMobile] = useState(currentUser?.mobilePhone);
   const [description, setDescription] = useState("Treba dohvatit profil");

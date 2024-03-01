@@ -3,7 +3,7 @@ import React from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { nanoid } from "nanoid";
-import { useQueryClient, useQuery, useMutation } from "react-query";
+import { useQueryClient, useQuery } from "react-query";
 
 import HeartxTitle from "./HeartxTitle";
 import RequestInfo from "./RequestInfo";

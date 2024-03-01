@@ -4,9 +4,7 @@ import { faUser, faEnvelope, faPhone, faFeatherPointed } from "@fortawesome/free
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-
 import "./userProfile.css";
-
 import { useQuery } from "react-query";
 
 import { loggedInUserType } from "../../api/auth/IAuth";

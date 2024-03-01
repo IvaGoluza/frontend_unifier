@@ -12,6 +12,7 @@ import Deals from "./pages/Deals/Deals";
 import HelpRequests from "./pages/HelpRequests/HelpRequests";
 import Home from "./pages/Home/Home";
 import IndividualRegistration from "./pages/IndividualRegistration/IndividualRegistration";
+import InfoRequest from "./pages/InfoRequest/InfoRequest";
 import Login from "./pages/Login/Login";
 import MyAdverts from "./pages/MyAdverts/MyAdverts";
 import MyRequests from "./pages/MyRequests/MyRequests";
@@ -23,7 +24,6 @@ import RegistrationTypes from "./pages/RegistrationTypes/RegistrationTypes";
 import Requests from "./pages/Requests/Requests";
 import VolunteerChances from "./pages/VolunteerChances/VolunteerChances";
 import AuthProvider from "../src/context/AuthContext";
-import InfoRequest from "./pages/InfoRequest/InfoRequest";
 
 export default function Router() {
   return (

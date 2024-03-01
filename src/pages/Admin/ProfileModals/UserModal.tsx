@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 
 import * as Dialog from "@radix-ui/react-dialog";
-
 import "./volunteerModal.css";
 import { useQuery } from "react-query";
 

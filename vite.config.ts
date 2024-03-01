@@ -5,6 +5,7 @@ import eslint from "vite-plugin-eslint";
 export default defineConfig({
   plugins: [react(), { ...eslint({ include: "src/**/*.+(js|jsx|ts|tsx)" }), enforce: "pre" }],
   server: {
+    port: 3001,
     proxy: {
       "api/": "http://localhost:8080",
     },
