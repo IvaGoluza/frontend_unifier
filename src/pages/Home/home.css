@@ -1,1 +1,23 @@
+@media (prefers-reduced-motion: no-preference) {
+    .animateTxt {
+        scale: 0.95;
+        animation: fade-in linear forwards;
+    }
 
+    @keyframes fade-in {
+        to {
+            scale: 1;
+            opacity: 1;
+        }
+    }
+
+    .aside3animate {
+        animation: translateX 1.5s ease-out forwards;
+    }
+
+    @keyframes translateX {
+        to {
+            transform: translateX(0);
+        }
+    }
+}
