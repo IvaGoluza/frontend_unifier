@@ -38,11 +38,11 @@ const ValidationSchema = (step: number) => {
               "SPLIT",
               "ZADAR",
               "ZAGREB",
-              "BELŠĆE",
+              "BELISCE",
               "DUBROVNIK",
-              "SLAVONSKI BROD",
+              "SLAVONSKI_BROD",
               "SISAK",
-              "MEĐIMURJE",
+              "MEDJIMURJE",
             ],
             "Odabir volonterskog centra je obavezan"
           )
@@ -115,7 +115,7 @@ const OrganizationRegistration = () => {
     console.log("aaa" + organizationData);
     const result = await signupOrganization(organizationData);
     if (result.valueOf()) {
-      navigate("/");
+      navigate("/login");
       actions.resetForm();
     } else {
       setServerError(true);
@@ -236,11 +236,11 @@ const OrganizationRegistration = () => {
                 <option value="SPLIT">Split</option>
                 <option value="ZADAR">Zadar</option>
                 <option value="ZAGREB">Zagreb</option>
-                <option value="BELŠĆE">Belišće</option>
+                <option value="BELISCE">Belišće</option>
                 <option value="DUBROVNIK">Dubrovnik</option>
-                <option value="SLAVONSKI BROD">Slavonski Brod</option>
+                <option value="SLAVONSKI_BROD">Slavonski Brod</option>
                 <option value="SISAK">Sisak</option>
-                <option value="MEĐIMURJE">Međimurje</option>
+                <option value="MEDJIMURJE">Međimurje</option>
               </Field>
             </div>
             {touched.volunteerCenter && errors.volunteerCenter && <p className="error">{errors.volunteerCenter}</p>}
