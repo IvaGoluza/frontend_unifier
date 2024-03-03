@@ -38,10 +38,10 @@ const Login = () => {
       setCurrentUser(result);
       localStorage.setItem("user", JSON.stringify(result));
       navigate("/");
+      actions.resetForm();
     } else setServerError("Email adresa ili lozinka je netočna.");
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
   };
 
   return (

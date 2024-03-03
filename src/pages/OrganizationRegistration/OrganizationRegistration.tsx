@@ -30,7 +30,23 @@ const ValidationSchema = (step: number) => {
         townName: Yup.string().required("Ime mjesta je obavezno"),
         postcode: Yup.string().required("Poštanski broj je obavezan"),
         streetName: Yup.string().required("Ime ulice je obavezno"),
-        volunteerCenter: Yup.string().required("Odabir volonterskog centra je obavezan"),
+        volunteerCenter: Yup.string()
+          .oneOf(
+            [
+              "OSIJEK",
+              "RIJEKA",
+              "SPLIT",
+              "ZADAR",
+              "ZAGREB",
+              "BELŠĆE",
+              "DUBROVNIK",
+              "SLAVONSKI BROD",
+              "SISAK",
+              "MEĐIMURJE",
+            ],
+            "Odabir volonterskog centra je obavezan"
+          )
+          .required("Odabir volonterskog centra je obavezan"),
       });
     case 3:
       return Yup.object().shape({
@@ -98,10 +114,13 @@ const OrganizationRegistration = () => {
 
     console.log("aaa" + organizationData);
     const result = await signupOrganization(organizationData);
-    if (result.valueOf()) navigate("/");
-    else setServerError(true);
+    if (result.valueOf()) {
+      navigate("/");
+      actions.resetForm();
+    } else {
+      setServerError(true);
+    }
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
   };
 
   function renderStepOne(
@@ -217,6 +236,11 @@ const OrganizationRegistration = () => {
                 <option value="SPLIT">Split</option>
                 <option value="ZADAR">Zadar</option>
                 <option value="ZAGREB">Zagreb</option>
+                <option value="BELŠĆE">Belišće</option>
+                <option value="DUBROVNIK">Dubrovnik</option>
+                <option value="SLAVONSKI BROD">Slavonski Brod</option>
+                <option value="SISAK">Sisak</option>
+                <option value="MEĐIMURJE">Međimurje</option>
               </Field>
             </div>
             {touched.volunteerCenter && errors.volunteerCenter && <p className="error">{errors.volunteerCenter}</p>}
