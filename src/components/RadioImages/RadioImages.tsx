@@ -14,7 +14,7 @@ export default function RadioImages({ images, name, categories_images, eng_names
   const { setFieldValue } = useFormikContext();
 
   return (
-    <div className={"image-container-form image-container-form-" + name}>
+    <div className={"image-container-form flex justify-center items-center w-3/5 md:w-4/5 image-container-form-" + name}>
       <Field name={name} validateOnChange={false} validateOnBlur={true}>
         {({ field, form }: { field: any; form: any }) => (
           <div className="image-container flex">

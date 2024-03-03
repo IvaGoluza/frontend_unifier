@@ -77,11 +77,6 @@
    height: 5vh;
 }
 
-.button-create-request {
-   margin-top: 80px;
-   width: 72%;
-}
-
 .button-create-request button:hover {
    transform: scale(1.1);
    background: #060d46;

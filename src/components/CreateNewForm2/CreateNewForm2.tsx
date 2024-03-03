@@ -1,19 +1,20 @@
 import React, { useContext } from "react";
+
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useQueryClient } from "react-query";
-import * as Yup from "yup";
 
+import FormFieldSection from "./RightForm";
 import { IAuth } from "../../api/auth/IAuth";
 import { FormTypes } from "../../api/auth/IForm";
 import api from "../../api/createAxiosClient";
-import { AuthContext } from "../../context/AuthContext";
-
-import Options from "../CheckBox/CheckBox";
 import RadioImages from "../../components/RadioImages/RadioImages";
-import { CreateNewFormValidationSchema } from "../Validation/Validation";
+import { AuthContext } from "../../context/AuthContext";
+import Options from "../CheckBox/CheckBox";
+import { CreateNewFormValidationSchemaForCreatingRequest } from "../Validation/Validation";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./CreateNewForm2.css";
-import FormFieldSection from "./RightForm";
 
 interface CreateNewFormProps {
   request?: boolean;
@@ -27,7 +28,7 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
     requestTitle: "",
     category: "",
     helpType: "",
-    numOfVolunteers: "0",
+    numOfVolunteers: "",
     description: "",
     location: "",
     time: "",
@@ -93,7 +94,7 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
   ];
   const helpTypes_eng = [
     "EDUCATION",
-    "SUPPORT",
+    "DONNATION",
     "REPAIRS",
     "WORKSHOPS",
     "HEALTH",
@@ -103,7 +104,7 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
   ];
   const ERROR = "input-error-form mt-3";
 
-  const ValidationSchema = CreateNewFormValidationSchema;
+  const ValidationSchema = CreateNewFormValidationSchemaForCreatingRequest;
 
   const onSubmit = async (values: FormTypes, formikHelpers: FormikHelpers<FormTypes>) => {
     const data = {
@@ -126,25 +127,46 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
         },
       })
       .then((res) => {
-        //queryClient.refetchQueries(["myRequests"]);
+        queryClient.refetchQueries(["myRequests"]);
         console.log(res);
+        toast.success('Uspješno kreiran zahtjev!', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         formikHelpers.resetForm();
         formikHelpers.setErrors({});
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error('Ponovo pokušajte stvoriti zahtjev', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      }
+      );
   };
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        //validationSchema={ValidationSchema}
-        onSubmit={onSubmit}
-      >
+      <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="flex-col justify-center text-sm lg:grid lg:grid-cols-2 lg:text-xl">
-            <div className="mr-5">
-              <div className="title-input-container my-2 flex w-full max-w-sm items-start justify-end">
+          <Form className="flex flex-col items-center justify-center text-base lg:grid lg:grid-cols-2 lg:text-xl">
+            <div className="mr-5 flex h-full w-1/2 flex-col items-start lg:w-full">
+              <div className="title-input-container flex w-full max-w-sm items-start justify-end">
                 <label htmlFor="title" className="formTitle ml-1 mt-1">
                   Naziv zahtjeva za pomoć
                 </label>
@@ -208,35 +230,33 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
               </div>
-              {request && (
-                <div className="title-input-container my-2 mt-5 flex w-full max-w-sm items-start justify-end">
-                  <label htmlFor="volunteerNum" className="formTitle">
-                    Broj potrebnih volontera
-                  </label>
-                  <div className="title-input-container">
-                    <div className="relative w-1/3 rounded-md">
-                      <Field
-                        type="text"
-                        name="numOfVolunteers"
-                        placeholder="Upišite broj"
-                        className={
-                          touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
-                            ? ERROR
-                            : "regInputCreateForm inputNumOfVol"
-                        }
-                      />
-                      {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
-                        <p className="error">{errors.numOfVolunteers}</p>
-                      )}
-                    </div>
+              <div className="title-input-container my-2 mt-5 flex w-full max-w-sm items-start justify-end">
+                <label htmlFor="numOfVolunteers" className="formTitle mb-2">
+                  Broj potrebnih volontera
+                </label>
+                <div className="title-input-container">
+                  <div className="relative w-1/3 rounded-md">
+                    <Field
+                      type="text"
+                      name="numOfVolunteers"
+                      placeholder="0"
+                      className={
+                        touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
+                          ? ERROR
+                          : "regInputCreateForm inputNumOfVol"
+                      }
+                    />
+                    {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
+                      <p className="error">{errors.numOfVolunteers}</p>
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
               <div className="my-2 mb-10 mt-10 flex w-full max-w-sm justify-start">
-                <Options />
+                <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
               </div>
             </div>
-            <div className="">
+            <div className="mr-5 h-full w-1/2">
               <FormFieldSection
                 touched={touched}
                 errors={errors}
@@ -248,19 +268,11 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
                 request={request}
                 helpTypes_eng={helpTypes_eng}
               />
-              <div className="button-create-request flex justify-end">
-                <button
-                  type={"submit"}
-                  disabled={isSubmitting}
-                  className="font-krub letter-spacing-0-06 mb-5 flex items-center justify-center p-2 font-bold text-white lg:p-4"
-                >
-                  KREIRAJ ZAHTJEV
-                </button>
-              </div>
             </div>
           </Form>
         )}
       </Formik>
+      <ToastContainer />
     </>
   );
 }
