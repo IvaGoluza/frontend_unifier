@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+import { nanoid } from "nanoid";
 import { useInView } from "react-intersection-observer";
 import { Link } from "react-router-dom";
 
 import "./home.css";
+
 import { routes } from "../../api/paths";
 
 export default function Home() {
   const user = localStorage.getItem("user");
+
+  const imgs = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const par: string[] = [
     "Budi promjena koju želiš vidjeti u svijetu.",
@@ -59,6 +63,18 @@ export default function Home() {
     };
   }, []);
 
+  const [isClassAdded, setClassAdded] = useState(false);
+  const [isGoLeft, setGoLeft] = useState(false);
+
+  const handleButtonClick = () => {
+    setClassAdded(!isClassAdded);
+  };
+
+  const handleLeftButtonClick = () => {
+    setGoLeft(!isGoLeft);
+    setClassAdded(false);
+  };
+
   return (
     <div className="flex flex-col items-stretch bg-white">
       <section className="relative flex h-[34rem] w-full items-center justify-center overflow-hidden bg-white sm:h-screen">
@@ -80,7 +96,7 @@ export default function Home() {
         <div className="col-span-1 flex h-96 flex-col items-center justify-center p-4 md:col-span-2 lg:mx-auto lg:my-20 lg:items-start">
           <div
             ref={txtSection2}
-            className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-700" : "scale-95"}`}
+            className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-700" : "scale-90"}`}
           >
             <h2 className="mb-1 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">{"ŽELIŠ POMOĆI?"}</h2>
             {par.map((text: string, index: React.Key) => (
@@ -89,7 +105,7 @@ export default function Home() {
               </p>
             ))}
           </div>
-          <div className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-1000" : "scale-95"}`}>
+          <div className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-1000" : "scale-90"}`}>
             <h2 className="mb-1 mt-10 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">{"TRAŽIŠ POMOĆ?"}</h2>
             {par2.map((text: string, index: React.Key) => (
               <p key={index} className="text-nowrap text-center text-xs sm:text-sm md:text-lg lg:text-left xl:text-xl">
@@ -134,8 +150,8 @@ export default function Home() {
           <p className="px-5 text-right text-2xl font-bold tracking-wide text-[#9C9606]">VOLONTIRANJE</p>
         </article>
         <aside
-          className={`my-1 mr-1 -translate-x-[50px] transform rounded-[30px] bg-[#0F182C] px-10 pb-5 pt-10 shadow-md md:col-span-5 md:row-span-3 ${
-            txtSection3IsVisible ? "aside3animate" : ""
+          className={`my-1 mr-1 rounded-[30px] bg-[#0F182C] px-10 pb-5 pt-10 shadow-md md:col-span-5 md:row-span-3 ${
+            txtSection3IsVisible ? "aside3animate -translate-x-[50px] transform" : ""
           }`}
         >
           <p className="px-5 pb-5 text-center text-2xl font-bold tracking-wide text-white">TKO MOŽE BITI VOLONTER?</p>
@@ -153,8 +169,8 @@ export default function Home() {
           </p>
         </aside>
         <aside
-          className={`relative my-1 ml-1 translate-x-[50px] transform overflow-hidden rounded-[30px] bg-[#F9F9F8] shadow-md md:col-span-4 md:row-span-3 ${
-            txtSection3IsVisible ? "aside3animate" : ""
+          className={`relative my-1 ml-1 overflow-hidden rounded-[30px] bg-[#F9F9F8] shadow-md md:col-span-4 md:row-span-3 ${
+            txtSection3IsVisible ? "aside3animate translate-x-[50px] transform" : ""
           }`}
         >
           <img className="absolute left-32 top-0 z-0 object-cover" src="../../../assets/svgs/logo.svg" alt="logo" />
@@ -176,6 +192,46 @@ export default function Home() {
           </p>
         </aside>
       </section>
+      <img className="w-full" src="../../../assets/svgs/purpleWave.svg" alt="wave" />
+      <section className="relative flex h-[70vh] w-full translate-y-[-1px] transform items-center overflow-hidden bg-[#B0A9F9] px-16 py-10">
+        <div
+          id="image-scroll"
+          className={`scrollImg flex w-fit translate-x-0 transform gap-3 transition-transform duration-[2.5s] ease-in-out md:hover:translate-x-[-150%] lg:hover:translate-x-[-80%] ${
+            isClassAdded ? "mobileScrollImg translate-x-[-150%]" : ""
+          } ${isGoLeft ? "translate-x-0" : ""}`}
+        >
+          {imgs.map((number) => (
+            <img
+              key={nanoid()}
+              className="imgScroll object-right-center h-96 w-2/3 object-cover py-2 sm:w-1/2 md:w-1/3 lg:w-1/5"
+              src={`../../assets/images/homepageImgScroll/img${number}.png`}
+              draggable="false"
+              alt="gallery"
+            />
+          ))}
+        </div>
+        <button
+          className={`top-2/5 absolute left-3 ${
+            isClassAdded ? "hidden" : "block"
+          } text-5xl font-bold text-[#0F182C] md:hidden`}
+          onClick={handleButtonClick}
+        >
+          &gt;
+        </button>
+        <button
+          className={`top-2/5 absolute left-3 ${
+            isClassAdded ? "block" : "hidden"
+          } text-5xl font-bold text-[#0F182C] md:hidden`}
+          onClick={handleLeftButtonClick}
+        >
+          &lt;
+        </button>
+      </section>
+      <img
+        className="w-full translate-y-[-2px] rotate-180 transform"
+        src="../../../assets/svgs/purpleWave.svg"
+        alt="wave"
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 @media (prefers-reduced-motion: no-preference) {
     .animateTxt {
-        scale: 0.95;
-        animation: fade-in linear forwards;
+        scale: 0.90;
+        animation: fade-in 2s linear forwards;
     }
 
     @keyframes fade-in {
@@ -12,12 +12,33 @@
     }
 
     .aside3animate {
-        animation: translateX 1.5s ease-out forwards;
+        animation: translateX 2s ease-out forwards;
     }
 
     @keyframes translateX {
         to {
             transform: translateX(0);
+        }
+    }
+
+    .scrollImg:hover > img, .mobileScrollImg > img {
+        animation: moveToLeftCenter 3s 2 alternate;
+        transition-timing-function: ease-in;
+    }
+
+    @keyframes moveToLeftCenter {
+        to {
+            object-position: left center;
+        }
+    }
+
+    .animate-slide-left {
+        animation: slideLeft 2.5s ease-in-out 1 forwards;
+    }
+
+    @keyframes slideLeft {
+        to {
+            transform: translateX(-200%);
         }
     }
 }
