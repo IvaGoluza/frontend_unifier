@@ -1,13 +1,16 @@
 import { loggedInUserType } from "./IAuth";
 
 export type FormTypes = {
-  association?: boolean;
-  title: string;
-  town: string;
+  //association?: boolean;
+  requestTitle: string;
+  location: string;
+  time: string;
   category: string;
   helpType: string;
-  volunteerNum?: number;
+  numOfVolunteers: string;
   description: string;
+  typeOfAction: string;
+  skillSet: string;
 };
 
 export type AdvertType = {

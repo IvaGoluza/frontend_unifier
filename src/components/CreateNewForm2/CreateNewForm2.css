@@ -2,7 +2,6 @@
   font-family: 'Krub';
   font-style: normal;
   font-weight: 700;
-  font-size: 1vw;
   line-height: 124%;
   letter-spacing: 0.06em;
   color: #07169B;
@@ -11,7 +10,6 @@
 .title-input-container {
    display: flex;
    flex-direction: column;
-   align-items: start;
 }
 
 .input-form {
@@ -67,7 +65,7 @@
 }
 
 .input-form-description {
-   height: 8vh;
+   height: 12vh;
 }
 
 .button-create-request button{
@@ -77,15 +75,9 @@
    font-size: 1vw;
    width: 10vw;
    height: 5vh;
-   padding: 10px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
 }
 
 .button-create-request {
-   display: flex;
-   justify-content: end;
    margin-top: 80px;
    width: 72%;
 }
@@ -95,10 +87,3 @@
    background: #060d46;
 }
 
-@media (max-width: 1200px) {
-   .new-form-container {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-   }
- }
