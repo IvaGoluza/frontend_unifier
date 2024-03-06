@@ -37,6 +37,9 @@ const Login = () => {
       }
       setCurrentUser(result);
       localStorage.setItem("user", JSON.stringify(result));
+      if ("organization" in result) {
+        localStorage.setItem("organization", JSON.stringify(result.organization));
+      }
       navigate("/");
       actions.resetForm();
     } else setServerError("Email adresa ili lozinka je netočna.");
