@@ -1,6 +1,11 @@
+.my-request {
+   background-color: #1F2340;
+   height: calc(100vh - 74.53px); 
+}
+
+
 .sidebar {
    background-color: #1F2340;
- 
 }
 
 .sidebar-requests-items {
@@ -31,6 +36,7 @@
 .navbar-container {
    border: #1F2340; 
 }
+
 
 
  

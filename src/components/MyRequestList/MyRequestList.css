@@ -1,0 +1,48 @@
+.requests-list {
+   border-radius: 36px;
+}
+
+.requests-list-navbar {
+   background-color: #EAFAFF;
+   border-top-left-radius: 36px;
+   border-top-right-radius: 36px;
+   color: #5A5753;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 700;
+   line-height: 157%;
+   text-align: center;
+   letter-spacing: 0.08em;
+}
+
+.requests-list-item {
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 700;
+   line-height: 157%;
+   color: #07169B;
+}
+
+.requests-list-item {
+   background-color: #EAFAFF;
+   border-radius: 20px;
+   cursor: "pointer"
+}
+
+.button-create-request-list {
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   border-radius: 30px;
+   height: 6vh;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 600;
+   line-height: 157%;
+   letter-spacing: 0.08em;
+   color: #FFFFFF;
+   text-transform: uppercase;
+}
+
+.container-pagation {
+   border: 3px solid #09115B;
+   background-color: white;
+}

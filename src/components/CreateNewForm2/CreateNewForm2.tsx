@@ -18,9 +18,10 @@ import "./CreateNewForm2.css";
 
 interface CreateNewFormProps {
   request?: boolean;
+  toggleFormVisibility: () => void;
 }
 
-export default function CreateNewForm2({ request }: CreateNewFormProps) {
+export default function CreateNewForm2({ request, toggleFormVisibility }: CreateNewFormProps) {
   const queryClient = useQueryClient();
   const { currentUser } = useContext(AuthContext) as IAuth;
 
@@ -119,7 +120,6 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
       typeOfAction: values.typeOfAction,
       userId: currentUser?.id,
     };
-    console.log(data);
     api
       .post("/request", data, {
         headers: {
@@ -142,6 +142,9 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
         });
         formikHelpers.resetForm();
         formikHelpers.setErrors({});
+        setTimeout(() => {
+          toggleFormVisibility();
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
@@ -164,7 +167,7 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="flex flex-col items-center justify-center text-base lg:grid lg:grid-cols-2 lg:text-xl">
+          <Form className="flex flex-col items-center justify-center text-base lg:grid lg:grid-cols-2 lg:text-xl w-11/12 h-fit border border-1 rounded-lg bg-white request-form">
             <div className="mr-5 flex h-full w-1/2 flex-col items-start lg:w-full">
               <div className="title-input-container flex w-full max-w-sm items-start justify-end">
                 <label htmlFor="title" className="formTitle ml-1 mt-1">
@@ -176,7 +179,7 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
                     name="requestTitle"
                     placeholder="Upišite naziv oglasa"
                     className={
-                      touched && touched.requestTitle && errors && errors.requestTitle ? ERROR : " regInputCreateForm"
+                      touched && touched.requestTitle && errors && errors.requestTitle ? ERROR : "regInputCreateForm"
                     }
                   />
                   {touched && touched.requestTitle && errors && errors.requestTitle && (
@@ -226,6 +229,8 @@ export default function CreateNewForm2({ request }: CreateNewFormProps) {
                   images={categories}
                   categories_images={categories_images}
                   eng_names={categories_eng}
+                  touched={touched}
+                  errors={errors}
                   name={"category"}
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}

@@ -61,7 +61,8 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
           categories_images={categories_images_helpTypes}
           eng_names={helpTypes_eng}
           name={"helpType"}
-        />
+          touched={touched}
+          errors={errors} />
         {touched.helpType && errors.helpType && <p className="error">{errors.helpType}</p>}
       </div>
       <div className="button-create-request flex justify-center lg:justify-end w-full mt-10 mb-5">

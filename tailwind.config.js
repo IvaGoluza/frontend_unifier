@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customPurple: '#5422E1',
+        customPurpleDarker: '#09115B',
+      },
+    },
   },
   plugins: [require('prettier-plugin-tailwindcss')],
 };

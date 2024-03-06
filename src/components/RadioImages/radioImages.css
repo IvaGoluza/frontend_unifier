@@ -50,3 +50,8 @@
     width: 30vw;
 }
 
+.image-container-form.error {
+    border: 1px solid red;
+    border-radius: 15px;
+}
+
