@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import "./home.css";
 
 import { routes } from "../../api/paths";
+import Slider from "../../components/7stepsUnifier/Slider";
+import YTEmbed from "../../components/YTembed/YTEmbed";
 
 export default function Home() {
   const user = localStorage.getItem("user");
@@ -43,8 +45,40 @@ export default function Home() {
     "ZAŠTITA - volontiranje kao bijeg od osjećaja osamljenosti",
   ];
 
+  const par6: string[][] = [
+    [
+      "Pravo na sklapanje ugovora o volontiranju u pisanom obliku, te potvrdu o volontiranju.",
+      "Unifier za svaku dogovorenu volontersku akciju generira navedene dokumente i možete ih lako preuzeti.",
+    ],
+    [
+      "Pravo na prikladnu edukaciju, stručnu pomoć i podršku tijekom volontiranja.",
+      "Unifier povezuje volontersku zajednicu, potiče upoznavanje volontera, te organiziranje edukativnih radionica.",
+    ],
+    [
+      "Pravo na zaštitu privatnosti i osobnih podataka.",
+      "Određeni osobni podaci dostupni su isključivo administratoru stranice.",
+    ],
+  ];
+
+  const par7: string[][] = [
+    [
+      "Pravo na detaljni opis poslova i aktivnosti volontiranja.",
+      "Pravo na stjecanje novih znanja, vještina i kompetencija kroz volontiranje.",
+      "Pravo na potvrdu o kompetencijama stečenima volontiranjem u slučajevima dugotrajnog volontiranja, ako je zatraži.",
+    ],
+    [
+      "Unifier Vam pruža mogućnost lakog pregleda traženih volonterskih aktivnosti i sklapanje dogovora pružanja pomoći korisnicima u potrebi.",
+    ],
+  ];
+
+  const par8: string[] = [
+    "Pravo na upoznavanje s uvjetima volontiranja, aktivnostima koje će obavljati, uslugama koje će pružati i pravima koja im pripadaju.",
+    "Detaljniji dokumenti za upoznavanje volonterskih prava, pa i samog volonterstva mogu se preuzeti na Unifier stranicama.",
+  ];
+
   const { ref: txtSection2, inView: txtSection2IsVisible } = useInView();
   const { ref: txtSection3, inView: txtSection3IsVisible } = useInView();
+  const { ref: slider, inView: sliderIsVisible } = useInView();
 
   useEffect(() => {
     // important so the DOM elements are fully loaded!
@@ -75,6 +109,84 @@ export default function Home() {
     setClassAdded(false);
   };
 
+  const [activeSlider, setActiveSlider] = useState<number | null>(null);
+
+  const slidersData = [
+    {
+      bgColor: "#B0A9F9",
+      text: [
+        "Koristite Unifier za oglašavanje svojih volonterskih akcija, traženje volonterskih prilika, pronalazak volontera koji Vam mogu pomoći ili radionica na kojima možete sudjelovati.",
+        "Stvorite vlastiti profil ili prijavite svoju organizaciju.",
+      ],
+      number: 1,
+      textColor: "#0F182C",
+      letter: "U",
+    },
+    {
+      bgColor: "#0F182C",
+      text: [
+        "Ako tražite volontersku pomoć:",
+        "Objavite zahtjev za pomoć, a zatim pregledajte profile volontera koji su se prijavili na Vaš zahtjev, te odaberite one koji Vam odgovaraju.",
+        "Pregledajte aktivne oglase volonterskih akcija i radionica, te se prijavite na one koji Vas zanimaju.",
+      ],
+      number: 2,
+      textColor: "#FFFFFF",
+      letter: "N",
+    },
+    {
+      bgColor: "#F8F26C",
+      text: [
+        "Ako želite volontirati:",
+        "Objavite oglase kojima predstavljate svoj rad, pregledajte korisnike koji se prijave na Vaš oglas, te odaberite one kojima ćete pomoći ili koji će sudjelovati na Vašim radionicama.",
+        "Pregledajte aktivne zahtjeve za pomoć, te se prijavite na zahtjev ako se slaže s Vašim područjem djelovanja.",
+      ],
+      number: 3,
+      textColor: "#0F182C",
+      letter: "I",
+    },
+    {
+      bgColor: "#F9F9F8",
+      text: [
+        "Ako predstavljate organizaciju:",
+        "Promovirajte svoje područje djelovanja. Potražite volontere za svoje akcije ili platformu iskoristite za objavu svojih volonterskih akcija na koje se korisnici mogu prijaviti.",
+      ],
+      number: 4,
+      textColor: "#0F182C",
+      letter: "F",
+    },
+    {
+      bgColor: "#99D7E8",
+      text: [
+        "Sve dogovorene akcije na jednom mjestu:",
+        "Detalji o svakoj dogovorenoj akciji nalaze se na jednom mjestu uz mogućnost pisanja/preuzimanja potvrde o volontiranju.",
+        "Lako pregledajte sve svoje dogovorene akcije, te arhivirajte one koje Vam više nisu bitne.",
+      ],
+      number: 5,
+      textColor: "#0F182C",
+      letter: "I",
+    },
+    {
+      bgColor: "#B0A9F9",
+      text: [
+        "Korisnički profili",
+        "Organizacije i volonteri mogu stvoriti vrlo detaljne i zanimljive Unifier profile kako bi promovirali svoje djelovanje. Na profile možete pohraniti određene potvrde, skupljati značke, objaviti slike i tekstove svojih volonterskih akcija. Na profilu se prikazuju i poruke koje su o Vama napisali korisnici kojima ste pomogli.",
+      ],
+      number: 6,
+      textColor: "#0F182C",
+      letter: "E",
+    },
+    {
+      bgColor: "#0F182C",
+      text: [
+        "Nikada ne sumnjaj u to da mala grupa ljudi može promijeniti svijet. Uistinu, to je jedino što ga je ikada i mijenjalo.",
+        "Margaret Mead",
+      ],
+      number: 7,
+      textColor: "#FFFFFF",
+      letter: "R",
+    },
+  ];
+
   return (
     <div className="flex flex-col items-stretch bg-white">
       <section className="relative flex h-[34rem] w-full items-center justify-center overflow-hidden bg-white sm:h-screen">
@@ -98,7 +210,7 @@ export default function Home() {
             ref={txtSection2}
             className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-700" : "scale-90"}`}
           >
-            <h2 className="mb-1 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">{"ŽELIŠ POMOĆI?"}</h2>
+            <h2 className="mb-1 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">ŽELIŠ POMOĆI?</h2>
             {par.map((text: string, index: React.Key) => (
               <p key={index} className="text-nowrap text-center text-xs sm:text-sm md:text-lg lg:text-left xl:text-xl">
                 {text}
@@ -106,7 +218,7 @@ export default function Home() {
             ))}
           </div>
           <div className={`text-white opacity-0 ${txtSection2IsVisible ? "animateTxt duration-1000" : "scale-90"}`}>
-            <h2 className="mb-1 mt-10 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">{"TRAŽIŠ POMOĆ?"}</h2>
+            <h2 className="mb-1 mt-10 text-center text-lg lg:text-left lg:text-xl xl:text-2xl">TRAŽIŠ POMOĆ</h2>
             {par2.map((text: string, index: React.Key) => (
               <p key={index} className="text-nowrap text-center text-xs sm:text-sm md:text-lg lg:text-left xl:text-xl">
                 {text}
@@ -232,6 +344,74 @@ export default function Home() {
         src="../../../assets/svgs/purpleWave.svg"
         alt="wave"
       />
+      <h2 className="mt-16 flex flex-row items-end px-[6.5rem] text-left text-lg font-bold text-[#0F182C] lg:text-xl xl:text-2xl">
+        <img className="" src="../../../assets/svgs/sm_flower_dark.svg" alt="wave" />
+        UNIFIER POZNAJE PRAVA VOLONTERA
+      </h2>
+
+      <section className="mb-16 mt-3 grid w-full grid-cols-1 bg-white px-16 pb-10 lg:grid-cols-3 lg:grid-rows-5">
+        <article className="m-1 rounded-[30px] bg-[#99D7E8] px-10 py-10 shadow-md md:col-span-1 md:row-span-5">
+          {par6.map((text: string[], index: React.Key) => (
+            <section
+              key={index}
+              className="text-nowrap py-1 text-center text-xs text-[#0F182C] sm:text-sm md:text-base lg:text-left xl:text-lg "
+            >
+              <p className="font-bold leading-tight">{text[0]}</p>
+              <p className="italic leading-tight">{text[1]}</p>
+            </section>
+          ))}
+        </article>
+        <article className="m-1 rounded-[30px] bg-[#0F182C] px-10 py-10 shadow-md md:col-span-1 md:row-span-4">
+          {par7[0].map((text: string, index: React.Key) => (
+            <p
+              key={index}
+              className="text-nowrap translate-y-1 transform text-center text-xs font-bold leading-tight text-white sm:text-sm md:text-base lg:text-left"
+            >
+              {text}
+            </p>
+          ))}
+          <p className="text-nowrap pt-1 text-center text-xs italic leading-tight text-[#FFF634] sm:text-sm md:text-base lg:text-left">
+            {par7[1][0]}
+          </p>
+        </article>
+        <article className="m-1 rounded-[30px] bg-[#B0A9F9] px-10 py-10 text-[#0F182C] shadow-md md:col-span-1 md:row-span-3">
+          <p className="text-nowrap pt-1 text-center text-xs font-bold leading-tight sm:text-sm md:text-base lg:text-left">
+            {par8[0]}
+          </p>
+          <p className="text-nowrap pt-1 text-center text-xs italic leading-tight sm:text-sm md:text-base lg:text-left">
+            {par8[1]}
+          </p>
+        </article>
+      </section>
+      <img className="w-full" src="../../../assets/svgs/waveTop.svg" alt="wave" />
+      <section className="flex h-fit min-h-[90vh] w-full translate-y-[-1px] transform flex-col-reverse items-center overflow-hidden bg-[#1F2340] py-10 md:flex-row md:items-start md:justify-between md:px-16 lg:px-32 lg:pt-20">
+        <div>
+          <p className="italic text-white">Unifier u 7 koraka</p>
+          <div
+            ref={slider}
+            className={`flex w-80 flex-col lg:w-fit ${
+              sliderIsVisible ? "lg:h-80" : "lg:h-16"
+            } transition-all duration-[2000ms] lg:flex-row`}
+          >
+            {slidersData.map((slider, index) => (
+              <Slider
+                key={index}
+                bgColor={slider.bgColor}
+                text={slider.text}
+                number={slider.number}
+                textColor={slider.textColor}
+                letter={slider.letter}
+                showParagraph={index === activeSlider}
+                onSliderClick={() => setActiveSlider(index === activeSlider ? null : index)}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="w-fit">
+          <YTEmbed embedId="kmg8EAD-Kjw?si=meM8Hi84dx73dhPH" />
+        </div>
+      </section>
+      <img className="translate-y-[-2px] rotate-180 transform" src="../../../assets/svgs/waveTop.svg" alt="wave" />
     </div>
   );
 }
