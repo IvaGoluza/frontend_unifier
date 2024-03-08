@@ -8,11 +8,11 @@ import "./home.css";
 import { imgs, par, par2, par3, par4, par5, par6, par7, par8, par9, slidersData } from "./HomeData";
 import { routes } from "../../api/paths";
 import Slider from "../../components/7stepsUnifier/Slider";
+import FlowerTitle from "../../components/HomeComponents/FlowerTitle";
 import RegistrationLink from "../../components/HomeComponents/RegistrationLink";
 import Section1 from "../../components/HomeComponents/Section1";
 import { TextSection } from "../../components/HomeComponents/TextSection";
 import YTEmbed from "../../components/YTembed/YTEmbed";
-import FlowerTitle from "../../components/HomeComponents/FlowerTitle";
 
 export default function Home() {
   const { ref: txtSection2, inView: txtSection2IsVisible } = useInView();
