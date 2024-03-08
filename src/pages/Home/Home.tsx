@@ -76,6 +76,9 @@ export default function Home() {
     "Detaljniji dokumenti za upoznavanje volonterskih prava, pa i samog volonterstva mogu se preuzeti na Unifier stranicama.",
   ];
 
+  const par9 =
+    "Unifier je nastao suradnjom studenata FER-a i ERF-a. Glavni cilj bio je kreirati platformu koja će omogućiti umrežavanje organizacija, neprofitnih udruženja i pojedinaca za različite humanitarne, ekološke, socijalne i obrazovne projekte. Želimo istaknuti važnost volontiranja kao načina za doprinos zajednici i osobni razvoj. Posebnost Unifier-a je pružanje mogućnosti oglašavanja volonterskih akcija, korisnici mogu i sami zatražiti neku pomoć volontera stvaranjem zahtjeva za pomoć. Unifier je mjesto gdje se svaka ideja pomoći može ostvariti. Postani dio naše priče!";
+
   const { ref: txtSection2, inView: txtSection2IsVisible } = useInView();
   const { ref: txtSection3, inView: txtSection3IsVisible } = useInView();
   const { ref: slider, inView: sliderIsVisible } = useInView();
@@ -249,7 +252,7 @@ export default function Home() {
         </div>
       </section>
       <img className="translate-y-[-2px] rotate-180 transform" src="../../../assets/svgs/waveTop.svg" alt="wave" />
-      <section className="grid w-full grid-cols-1 bg-white px-16 py-10 md:grid-cols-9 md:grid-rows-4">
+      <section className="grid w-full grid-cols-1 bg-white px-16 py-10 md:grid-cols-9 md:grid-rows-4 lg:my-32">
         <article
           ref={txtSection3}
           className="my-1 rounded-[30px] bg-[#FFF634] px-10 py-5 shadow-md md:col-span-9 md:row-span-1"
@@ -344,12 +347,12 @@ export default function Home() {
         src="../../../assets/svgs/purpleWave.svg"
         alt="wave"
       />
-      <h2 className="mt-16 flex flex-row items-end px-[6.5rem] text-left text-lg font-bold text-[#0F182C] lg:text-xl xl:text-2xl">
+      <h2 className="mt-16 flex flex-row items-end px-[6.5rem] text-left text-lg font-bold text-[#0F182C] lg:mt-32 lg:text-xl xl:text-2xl">
         <img className="" src="../../../assets/svgs/sm_flower_dark.svg" alt="wave" />
         UNIFIER POZNAJE PRAVA VOLONTERA
       </h2>
 
-      <section className="mb-16 mt-3 grid w-full grid-cols-1 bg-white px-16 pb-10 lg:grid-cols-3 lg:grid-rows-5">
+      <section className="mb-16 mt-3 grid w-full grid-cols-1 bg-white px-16 pb-10 lg:mb-32 lg:grid-cols-3 lg:grid-rows-5">
         <article className="m-1 rounded-[30px] bg-[#99D7E8] px-10 py-10 shadow-md md:col-span-1 md:row-span-5">
           {par6.map((text: string[], index: React.Key) => (
             <section
@@ -384,7 +387,10 @@ export default function Home() {
         </article>
       </section>
       <img className="w-full" src="../../../assets/svgs/waveTop.svg" alt="wave" />
-      <section className="flex h-fit min-h-[90vh] w-full translate-y-[-1px] transform flex-col-reverse items-center overflow-hidden bg-[#1F2340] py-10 md:flex-row md:items-start md:justify-between md:px-16 lg:px-32 lg:pt-20">
+      <section
+        id="unifier"
+        className="flex h-fit min-h-[90vh] w-full translate-y-[-1px] transform flex-col-reverse items-center overflow-hidden bg-[#1F2340] py-10 md:flex-row md:items-start md:justify-between md:px-16 lg:min-h-[80vh] lg:px-32 lg:pt-20"
+      >
         <div>
           <p className="italic text-white">Unifier u 7 koraka</p>
           <div
@@ -407,11 +413,24 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="w-fit">
+        <div className="flex w-fit flex-col-reverse items-center justify-center lg:flex-col">
           <YTEmbed embedId="kmg8EAD-Kjw?si=meM8Hi84dx73dhPH" />
+          <img className="mt-10" src="../../../assets/svgs/unifierYT.svg" alt="unifierYouTube" />
         </div>
       </section>
       <img className="translate-y-[-2px] rotate-180 transform" src="../../../assets/svgs/waveTop.svg" alt="wave" />
+      <section
+        id="about"
+        className="mx-auto my-24 mb-16 flex w-full flex-col items-center bg-white px-16 pb-10 lg:w-[70vw]"
+      >
+        <div className="flex flex-col items-start">
+          <h2 className="mt-16 flex flex-row items-end text-left text-lg font-bold text-[#0F182C] lg:text-xl xl:text-2xl">
+            <img className="" src="../../../assets/svgs/sm_flower_dark.svg" alt="wave" />O NAMA
+          </h2>
+          <p>{par9}</p>
+        </div>
+        <img className="mt-2 w-96" src="../../../assets/images/dean.jpg" alt="unifierTeam" />
+      </section>
     </div>
   );
 }
