@@ -51,6 +51,9 @@ export default function AuthProvider({ children }: AuthProp) {
       });
       setCurrentUser(response.data);
       localStorage.setItem("user", JSON.stringify(response.data));
+      if ("organization" in response.data) {
+        localStorage.setItem("organization", JSON.stringify(response.data.organization));
+      }
     } catch (e) {
       console.error("Error during the signup process:", e);
       return false;
@@ -67,6 +70,9 @@ export default function AuthProvider({ children }: AuthProp) {
       });
       setCurrentUser(response.data);
       localStorage.setItem("user", JSON.stringify(response.data));
+      if ("organization" in response.data) {
+        localStorage.setItem("organization", JSON.stringify(response.data.organization));
+      }
     } catch (e) {
       console.error("Error during the organization signup process:", e);
       return false;
@@ -91,6 +97,7 @@ export default function AuthProvider({ children }: AuthProp) {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("organization");
   };
 
   const value = {

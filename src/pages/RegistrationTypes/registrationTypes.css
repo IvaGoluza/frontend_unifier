@@ -74,15 +74,26 @@
   text-decoration: underline; 
 }
 
+.regImage0 {
+  width: 100%;
+  display: block; 
+  height:100vh; 
+}
 
 @media screen and (max-width: 768px) {
-  .regImage0 {
-    width: 0;
+  .register0 {
+    flex-direction: column;
   }
 
-  .regForm0 {
-    width: 100%;
-    background-image: url("../../../assets/images/logoMulBack.png");
-    justify-content: flex-start;
+  .regImage0 {
+    display: none; 
   }
+
+.regForm0 {
+  width: 100%;
+  background-image: url("../../../assets/images/logoMulBack.png");
+  justify-content: flex-start;
+}
+
+
 }

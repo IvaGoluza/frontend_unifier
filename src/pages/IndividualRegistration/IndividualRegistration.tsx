@@ -36,7 +36,21 @@ const ValidationSchema = (step: number) => {
         .oneOf([Yup.ref("password"), null], "Lozinke moraju biti iste")
         .required("Ponovljena lozinka je obavezna"),
       volunteerCenter: Yup.string()
-        .oneOf(["OSIJEK", "RIJEKA", "SPLIT", "ZADAR", "ZAGREB"], "Odabir volonterskog centra je obavezan")
+        .oneOf(
+          [
+            "OSIJEK",
+            "RIJEKA",
+            "SPLIT",
+            "ZADAR",
+            "ZAGREB",
+            "BELISCE",
+            "DUBROVNIK",
+            "SLAVONSKI_BROD",
+            "SISAK",
+            "MEDJIMURJE",
+          ],
+          "Odabir volonterskog centra je obavezan"
+        )
         .required("Odabir volonterskog centra je obavezan"),
     });
   }
@@ -63,7 +77,7 @@ const roles = [
 const IndividualRegistration = () => {
   const { signup } = useContext(AuthContext) as IAuth;
   const navigate = useNavigate();
-  const [serverError, setServerError] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<string | boolean>(false);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const nextStep = () => setCurrentStep(currentStep + 1);
   const prevStep = () => setCurrentStep(currentStep - 1);
@@ -103,6 +117,11 @@ const IndividualRegistration = () => {
       userType: userType,
     };
 
+    if ((selectedRole === "VOLUNTEER" || selectedRole === "VOLUNTEER_AND_PERSON_IN_NEED") && !certificate) {
+      setServerError("Potvrda o nekažnjavanju je obavezna.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("personRegisterDTO", new Blob([JSON.stringify(personRegisterDTO)], { type: "application/json" }));
 
@@ -111,10 +130,13 @@ const IndividualRegistration = () => {
     }
     console.log(formData);
     const result = await signup(formData);
-    if (result.valueOf()) navigate("/");
-    else setServerError(true);
+    if (result.valueOf()) {
+      navigate("/login");
+      actions.resetForm();
+    } else if (typeof serverError !== "string") {
+      setServerError(true);
+    }
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    actions.resetForm();
   };
 
   const renderCertificateUploadSection = () => {
@@ -123,7 +145,7 @@ const IndividualRegistration = () => {
     return (
       <div className="max-w-80 w-2/4">
         <label htmlFor="criminalRecordCertificate" className="inputLabel">
-          Potvrda o nekaznjavanju
+          Potvrda o nekažnjavanju (pdf)
         </label>
         <div className="fileInputContainer">
           <input type="file" name="certificate" id="certificate" className="fileInput" onChange={handleFileChange} />
@@ -132,6 +154,7 @@ const IndividualRegistration = () => {
           </label>
           {certificateName && <div className="fileName">{certificateName}</div>}
         </div>
+        {serverError && typeof serverError === "string" && <p className="error">{serverError}</p>}
       </div>
     );
   };
@@ -233,6 +256,11 @@ const IndividualRegistration = () => {
                       <option value="SPLIT">Split</option>
                       <option value="ZADAR">Zadar</option>
                       <option value="ZAGREB">Zagreb</option>
+                      <option value="BELISCE">Belišće</option>
+                      <option value="DUBROVNIK">Dubrovnik</option>
+                      <option value="SLAVONSKI_BROD">Slavonski Brod</option>
+                      <option value="SISAK">Sisak</option>
+                      <option value="MEDJIMURJE">Međimurje</option>
                     </Field>
                     {touched.volunteerCenter && errors.volunteerCenter && (
                       <p className="error">{errors.volunteerCenter}</p>
@@ -260,7 +288,9 @@ const IndividualRegistration = () => {
                 </>
               )}
 
-              {serverError && <p className="error">{"Email adresa ili broj mobitela je zauzet"}</p>}
+              {serverError && serverError !== "Potvrda o nekažnjavanju je obavezna." && (
+                <p className="error">{"Email adresa ili broj mobitela je zauzet"}</p>
+              )}
               <div className="buttons">
                 <div style={{ display: "flex", flexDirection: "row" }}>
                   {currentStep === 2 && (
