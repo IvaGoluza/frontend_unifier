@@ -131,7 +131,7 @@ const IndividualRegistration = () => {
     console.log(formData);
     const result = await signup(formData);
     if (result.valueOf()) {
-      navigate("/login");
+      navigate("/");
       actions.resetForm();
     } else if (typeof serverError !== "string") {
       setServerError(true);

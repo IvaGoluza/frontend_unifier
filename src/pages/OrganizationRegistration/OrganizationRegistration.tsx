@@ -117,7 +117,7 @@ const OrganizationRegistration = () => {
     console.log("aaa" + organizationData);
     const result = await signupOrganization(organizationData);
     if (result.valueOf()) {
-      navigate("/login");
+      navigate("/");
       actions.resetForm();
     } else {
       setServerError(true);
