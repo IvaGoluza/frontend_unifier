@@ -27,9 +27,11 @@ const ValidationSchema = (step: number) => {
       });
     case 2:
       return Yup.object().shape({
-        townName: Yup.string().required("Ime mjesta je obavezno"),
-        postcode: Yup.string().required("Poštanski broj je obavezan"),
-        streetName: Yup.string().required("Ime ulice je obavezno"),
+        address: Yup.object().shape({
+          townName: Yup.string().required("Ime mjesta je obavezno"),
+          postcode: Yup.string().required("Poštanski broj je obavezan"),
+          streetName: Yup.string().required("Ime ulice je obavezno"),
+        }),
         volunteerCenter: Yup.string()
           .oneOf(
             [
@@ -111,11 +113,11 @@ const OrganizationRegistration = () => {
       ...values,
       userType,
     };
-
+    console.log(organizationData.address);
     console.log("aaa" + organizationData);
     const result = await signupOrganization(organizationData);
     if (result.valueOf()) {
-      navigate("/login");
+      navigate("/");
       actions.resetForm();
     } else {
       setServerError(true);
@@ -187,7 +189,7 @@ const OrganizationRegistration = () => {
         <h3 className="address-title text-blue-700">Adresa organizacije</h3>
         <div className="address-container text-blue-700">
           <TextInput
-            name="townName"
+            name="address.townName"
             className="regInput"
             label="Mjesto"
             type="text"
@@ -198,7 +200,7 @@ const OrganizationRegistration = () => {
           />
 
           <TextInput
-            name="postcode"
+            name="address.postcode"
             className="regInput"
             label="Poštanski broj"
             type="text"
@@ -209,7 +211,7 @@ const OrganizationRegistration = () => {
           />
 
           <TextInput
-            name="streetName"
+            name="address.streetName"
             className="regInput"
             label="Ulica"
             type="text"
