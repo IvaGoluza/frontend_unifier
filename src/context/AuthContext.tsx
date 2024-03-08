@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 
 import { loggedInUserType, IAuth } from "../api/auth/IAuth";
-import { LoginCommand, OrganizationRegistrationForm, RegisterUser, UserRegisterForm } from "../api/auth/types";
+import { LoginCommand, OrganizationRegistrationForm } from "../api/auth/types";
 import api from "../api/createAxiosClient";
 
 export const AuthContext = createContext<IAuth | null>(null);
