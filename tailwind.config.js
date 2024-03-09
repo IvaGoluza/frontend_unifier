@@ -6,6 +6,10 @@ module.exports = {
       colors: {
         customPurple: '#5422E1',
         customPurpleDarker: '#09115B',
+        customPurpleDarkest: '#1F2340',
+      },
+      fontFamily: {
+        krub: ['Krub', 'sans-serif'],
       },
     },
   },

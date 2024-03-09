@@ -11,10 +11,12 @@ import RadioImages from "../../components/RadioImages/RadioImages";
 import { AuthContext } from "../../context/AuthContext";
 import Options from "../CheckBox/CheckBox";
 import { CreateNewFormValidationSchemaForCreatingRequest } from "../Validation/Validation";
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./CreateNewForm2.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface CreateNewFormProps {
   request?: boolean;
@@ -128,8 +130,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
       })
       .then((res) => {
         queryClient.refetchQueries(["myRequests"]);
-        console.log(res);
-        toast.success('Uspješno kreiran zahtjev!', {
+        toast.success("Uspješno kreiran zahtjev!", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
@@ -148,7 +149,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
       })
       .catch((err) => {
         console.log(err);
-        toast.error('Ponovo pokušajte stvoriti zahtjev', {
+        toast.error("Ponovo pokušajte stvoriti zahtjev", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
@@ -159,16 +160,20 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
           theme: "light",
           transition: Bounce,
         });
-      }
-      );
+      });
   };
 
   return (
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="flex flex-col items-center justify-center text-base lg:grid lg:grid-cols-2 lg:text-xl w-11/12 h-fit border border-1 rounded-lg bg-white request-form">
-            <div className="mr-5 flex h-full w-1/2 flex-col items-start lg:w-full">
+          <Form className="border-1 request-form relative mb-4 mt-4 flex h-fit w-10/12 flex-col items-center justify-center rounded-lg border bg-gray-200 bg-white text-base md:mb-1 lg:grid lg:grid-cols-2 lg:text-xl">
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              onClick={toggleFormVisibility}
+              className="absolute right-3 top-3 text-3xl text-gray-400 hover:scale-110"
+            />
+            <div className="ml-10 mt-10 flex h-full w-full flex-col items-start md:w-1/2 lg:w-full">
               <div className="title-input-container flex w-full max-w-sm items-start justify-end">
                 <label htmlFor="title" className="formTitle ml-1 mt-1">
                   Naziv zahtjeva za pomoć
@@ -224,7 +229,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                 </div>
               </div>
               <div className="mt-3">
-                <p className="formTitle mb-5 ml-1 mt-1">Skupina ljudi kojoj se pomoć pruža</p>
+                <p className="formTitle mb-2 ml-1 mt-1">Skupina ljudi kojoj se pomoć pruža</p>
                 <RadioImages
                   images={categories}
                   categories_images={categories_images}
@@ -235,45 +240,47 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
               </div>
-              <div className="title-input-container my-2 mt-5 flex w-full max-w-sm items-start justify-end">
-                <label htmlFor="numOfVolunteers" className="formTitle mb-2">
-                  Broj potrebnih volontera
-                </label>
-                <div className="title-input-container">
-                  <div className="relative w-1/3 rounded-md">
-                    <Field
-                      type="text"
-                      name="numOfVolunteers"
-                      placeholder="0"
-                      className={
-                        touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
-                          ? ERROR
-                          : "regInputCreateForm inputNumOfVol"
-                      }
-                    />
-                    {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
-                      <p className="error">{errors.numOfVolunteers}</p>
-                    )}
+              <div className="flex flex-row w-full mt-5">
+                <div className="flex flex-col w-2/3 my-2 mr-5 flex w-full max-w-sm items-start justify-end">
+                  <label htmlFor="numOfVolunteers" className="formTitle mb-2">
+                    Broj potrebnih volontera
+                  </label>
+                  <div className="title-input-container">
+                    <div className="relative w-1/3 rounded-md">
+                      <Field
+                        type="text"
+                        name="numOfVolunteers"
+                        placeholder="0"
+                        className={
+                          touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
+                            ? ERROR
+                            : "regInputCreateForm inputNumOfVol"
+                        }
+                      />
+                      {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
+                        <p className="error w-48">{errors.numOfVolunteers}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="my-2 mb-10 mt-10 flex w-full max-w-sm justify-start">
-                <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
+                <div className="my-2 flex w-full max-w-sm justify-start">
+                  <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
+                </div>
               </div>
             </div>
-            <div className="mr-5 h-full w-1/2">
-              <FormFieldSection
-                touched={touched}
-                errors={errors}
-                isSubmitting={isSubmitting}
-                categories={categories}
-                categories_images={categories_images}
-                helpTypes={helpTypes}
-                categories_images_helpTypes={categories_images_helpTypes}
-                request={request}
-                helpTypes_eng={helpTypes_eng}
-              />
-            </div>
+
+            <FormFieldSection
+              touched={touched}
+              errors={errors}
+              isSubmitting={isSubmitting}
+              categories={categories}
+              categories_images={categories_images}
+              helpTypes={helpTypes}
+              categories_images_helpTypes={categories_images_helpTypes}
+              request={request}
+              helpTypes_eng={helpTypes_eng}
+            />
+
           </Form>
         )}
       </Formik>

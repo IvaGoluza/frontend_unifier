@@ -14,10 +14,17 @@ interface ImagesProps {
 
 export default function RadioImages({ images, name, categories_images, eng_names, touched, errors }: ImagesProps) {
   const { setFieldValue } = useFormikContext();
-
   return (
-    <div className={errors && touched && errors[name] && touched[name] ? "border border-red-500 border-1 rounded-md flex justify-center items-center w-3/5 md:w-4/5 image-container-form-" + name : "image-container-form flex justify-center items-center w-3/5 md:w-4/5 image-container-form-" + name}>
-      < Field name={name} validateOnChange={false} validateOnBlur={true} >
+    <div
+      className={
+        errors && touched && errors[name] && touched[name]
+          ? "border-1 flex w-4/5 items-center justify-center rounded-md border border-red-500 image-container-form-" +
+          name
+          : `image-container-form lg:h-64 flex items-center justify-center ${name === 'helpType' ? 'w-9/12' : 'w-11/12'}`
+
+      }
+    >
+      <Field name={name} validateOnChange={false} validateOnBlur={true}>
         {({ field, form }: { field: any; form: any }) => (
           <div className="image-container flex">
             {images.map((image, index) => (
@@ -43,9 +50,8 @@ export default function RadioImages({ images, name, categories_images, eng_names
             ))}
             {_.get(form.errors, name) && _.get(form.touched, name) && <div>{_.get(form.touched, name)}</div>}
           </div>
-        )
-        }
-      </Field >
-    </div >
+        )}
+      </Field>
+    </div>
   );
 }

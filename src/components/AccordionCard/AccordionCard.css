@@ -101,7 +101,7 @@
    border: 2px solid #F9F4F4;
    border-radius: 15px;
    background-color: #F9F4F4;
-   padding: 4px; /* Adjust padding as needed */
+   padding: 4px;
    font-size: 90%;
    margin:1px;
    text-transform: uppercase;
@@ -117,8 +117,8 @@
    color: #09115B;
    font-family: 'Krub', sans-serif;
    display: flex;
-   justify-content: center; /* Horizontally center the content */
-   align-items: center; /* Vertically center the content */
+   justify-content: center;
+   align-items: center;
    width: 100%;
    font-style: normal;
    font-weight: 500;
@@ -153,9 +153,6 @@
    justify-content: center;
 }
 
-.request-container {
-width: 431px;
-}
 
 @media (max-width: 456px) {
    .infoTitle {

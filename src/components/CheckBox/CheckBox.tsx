@@ -10,27 +10,30 @@ interface OptionsProps {
   ERROR: string;
 }
 
-const Options: React.FC<OptionsProps> = ({
-  touched,
-  errors,
-  isSubmitting,
-  ERROR,
-}) => {
+const Options: React.FC<OptionsProps> = ({ touched, errors, isSubmitting, ERROR }) => {
   return (
     <div className="grid grid-rows-2">
       <div className="option">
-        <Field type="radio" id="jednokratna" name="typeOfAction" value="ONE_TIME" className={
-          touched && touched.typeOfAction && errors && errors.typeOfAction ? ERROR : ""
-        } />
+        <Field
+          type="radio"
+          id="jednokratna"
+          name="typeOfAction"
+          value="ONE_TIME"
+          className={touched && touched.typeOfAction && errors && errors.typeOfAction ? ERROR : ""}
+        />
         <label htmlFor="jednokratna"></label>
-        <span className="pl-2">Jednokratna opcija</span>
+        <span className="pl-2 text-base">Jednokratna opcija</span>
       </div>
       <div className="option">
-        <Field type="radio" id="dvokratna" name="typeOfAction" value="MULTIPLE_TIMES" className={
-          touched && touched.typeOfAction && errors && errors.typeOfAction ? ERROR : " "
-        } />
+        <Field
+          type="radio"
+          id="dvokratna"
+          name="typeOfAction"
+          value="MULTIPLE_TIMES"
+          className={touched && touched.typeOfAction && errors && errors.typeOfAction ? ERROR : " "}
+        />
         <label htmlFor="dvokratna"></label>
-        <span className="pl-2">Višekratna opcija</span>
+        <span className="pl-2 text-base">Višekratna opcija</span>
       </div>
       {touched && touched.typeOfAction && errors && errors.typeOfAction && (
         <p className="error">{errors.typeOfAction}</p>

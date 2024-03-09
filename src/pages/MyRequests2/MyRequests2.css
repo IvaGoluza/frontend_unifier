@@ -1,6 +1,7 @@
 .my-request {
    background-color: #1F2340;
    height: calc(100vh - 74.53px); 
+   overflow: auto; 
 }
 
 
@@ -36,6 +37,7 @@
 .navbar-container {
    border: #1F2340; 
 }
+
 
 
 

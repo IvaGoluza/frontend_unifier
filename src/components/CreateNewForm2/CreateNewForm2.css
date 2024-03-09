@@ -1,5 +1,6 @@
 .request-form {
-   transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+   border-radius: 25px;
+   border: 3px solid #00C2FE;
 }
 
 .formTitle {
@@ -65,19 +66,21 @@
 }
 
 .inputNumOfVol {
-   width: 10vw;
+   width: 13.2vw;
 }
 
 .input-form-description {
-   height: 12vh;
+   height: 10vh;
+   padding: 0.2rem 0.2rem;
+   font-size: 0.8vw;
+   color: gray;
+   border: 1.3px solid lightgray;
+   border-radius: 10px;
+   outline: none;
 }
 
 .button-create-request button{
-   background: #09115B;
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-   border-radius: 13px;
-   font-size: 1vw;
-   width: 10vw;
    height: 5vh;
 }
 

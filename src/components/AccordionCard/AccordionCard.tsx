@@ -41,7 +41,7 @@ const AccordionCard = ({
   };
 
   return (
-    <div className="request-container relative m-5 h-64 overflow-hidden rounded-[18px] border bg-white pt-2 shadow-xl md:max-w-xl">
+    <div className="request-container relative m-5 w-480 h-64 rounded-[18px] border bg-white pt-2 shadow-xl md:max-w-xl">
       <div className="grid w-full grid-cols-4 place-items-center border-b-2 pb-2">
         <button
           className={`tablinks ${activeTab === "Info" && "active"} w-full text-center`}
