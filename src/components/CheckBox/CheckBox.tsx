@@ -12,7 +12,7 @@ interface OptionsProps {
 
 const Options: React.FC<OptionsProps> = ({ touched, errors, isSubmitting, ERROR }) => {
   return (
-    <div className="grid grid-rows-2">
+    <div className="grid grid-rows-2 h-24 md:h-16">
       <div className="option">
         <Field
           type="radio"

@@ -1,8 +1,3 @@
-.request-form {
-   border-radius: 25px;
-   border: 3px solid #00C2FE;
-}
-
 .formTitle {
   font-family: 'Krub';
   font-style: normal;
@@ -39,8 +34,6 @@
  }
 
 .regInputCreateForm {
-   width: 25vw;
-   padding: 0.2rem 0.2rem;
    font-size: 0.8vw;
    color: gray;
    border: 1.3px solid lightgray;
@@ -66,11 +59,17 @@
 }
 
 .inputNumOfVol {
-   width: 13.2vw;
+   width: 6vw;
+   padding: 0.2rem 0.2rem;
+   font-size: 0.8vw;
+   color: gray;
+   border: 1.3px solid lightgray;
+   border-radius: 10px;
+   outline: none;
 }
 
 .input-form-description {
-   height: 10vh;
+   height: 10.3vh;
    padding: 0.2rem 0.2rem;
    font-size: 0.8vw;
    color: gray;
@@ -87,5 +86,36 @@
 .button-create-request button:hover {
    transform: scale(1.1);
    background: #060d46;
+}
+
+@media screen and (max-width: 540px) {
+   .regInputCreateForm::-webkit-input-placeholder { /* WebKit browsers */
+       color: transparent;
+   }
+   .regInputCreateForm:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: transparent;
+   }
+   .regInputCreateForm::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: transparent;
+   }
+  .regInputCreateForm :-ms-input-placeholder { /* Internet Explorer 10+ */
+      color: transparent;
+   }
+   .inputNumOfVol {
+      width: 10vw;
+   }
+   .input-form-description::-webkit-input-placeholder { /* WebKit browsers */
+      color: transparent;
+  }
+  .input-form-description:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color: transparent;
+  }
+  .input-form-description::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color: transparent;
+  }
+ .input-form-description :-ms-input-placeholder { /* Internet Explorer 10+ */
+     color: transparent;
+  }
+
 }
 

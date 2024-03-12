@@ -28,7 +28,7 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
   helpTypes_eng,
 }) => {
   return (
-    <div className="ml-10 mt-10 h-full lg:w-full md:w-1/2">
+    <div className="sm:ml-5 w-11/12 sm:ml-10 sm:mt-10 h-full lg:w-full md:w-1/2">
       <div className="my-2 flex w-full flex-col flex-col items-start justify-end">
         <label htmlFor="description" className="formTitle">
           Opis potrebne pomoći
@@ -36,7 +36,7 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         <Field
           name="description"
           as="textarea"
-          className={touched.description && errors.description ? ERROR : "input-form-description w-9/12 mt-1 pb-0"}
+          className={touched.description && errors.description ? ERROR : "input-form-description w-11/12 sm:w-9/12 mt-1 pb-0"}
           placeholder="Dodajte opis svom oglasu"
         />
         {touched.description && errors.description && <p className="error">{errors.description}</p>}
@@ -48,7 +48,7 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         <Field
           name="skillSet"
           as="textarea"
-          className={touched.skillSet && errors.skillSet ? ERROR : "input-form-description w-9/12 mt-1 pb-0"}
+          className={touched.skillSet && errors.skillSet ? ERROR : "input-form-description w-11/12 sm:w-9/12 mt-1 pb-0"}
           placeholder="Dodajte potrebna znanja i vještine potrebne za ovaj zahtjev"
         ></Field>
         {touched && touched.skillSet && errors && errors.skillSet && <p className="error">{errors.skillSet}</p>}
@@ -66,10 +66,10 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         />
         {touched.helpType && errors.helpType && <p className="error">{errors.helpType}</p>}
       </div>
-      <div className="button-create-request mb-5 mr-10 mt-5 flex w-9/12 justify-center lg:justify-end">
+      <div className="button-create-request mb-5 mr-10 mt-5 flex w-11/12 sm:w-9/12 justify-center lg:justify-end">
         <button
           type={"submit"}
-          className="font-krub rounded-[35px] sm:w-3/12 text-xs w-3/5 md:text-lg letter-spacing-0-06 bg-customPurple flex items-center justify-center p-2 font-bold text-white lg:p-4"
+          className="font-krub rounded-[35px] sm:w-4/12 text-xs w-3/5 md:text-lg letter-spacing-0-06 bg-customPurple flex items-center justify-center p-2 font-bold text-white lg:p-4"
         >
           KREIRAJ ZAHTJEV
         </button>
