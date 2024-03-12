@@ -12,6 +12,7 @@ import Deals from "./pages/Deals/Deals";
 import HelpRequests from "./pages/HelpRequests/HelpRequests";
 import Home from "./pages/Home/Home";
 import IndividualRegistration from "./pages/IndividualRegistration/IndividualRegistration";
+import InfoRequest from "./pages/InfoRequest/InfoRequest";
 import Login from "./pages/Login/Login";
 import MyAdverts from "./pages/MyAdverts/MyAdverts";
 import MyRequests from "./pages/MyRequests/MyRequests";
@@ -21,9 +22,9 @@ import Profile from "./pages/Profile/Profile";
 import Recensions from "./pages/Recensions/Recensions";
 import RegistrationTypes from "./pages/RegistrationTypes/RegistrationTypes";
 import Requests from "./pages/Requests/Requests";
+import UserProfile from "./pages/UserProfile/UserProfile";
 import VolunteerChances from "./pages/VolunteerChances/VolunteerChances";
 import AuthProvider from "../src/context/AuthContext";
-import InfoRequest from "./pages/InfoRequest/InfoRequest";
 
 export default function Router() {
   return (
@@ -39,6 +40,7 @@ export default function Router() {
           <Route path={routes.REQUESTS_URL} element={<Requests />} />
           <Route path={routes.DEALS_URL} element={<Deals />} />
           <Route path={routes.PROFILE_URL} element={<Profile />} />
+          <Route path={routes.USER_PROFILE} element={<UserProfile />} />
           <Route path={routes.RECENSIONS_URL} element={<Recensions />} />
           <Route path={routes.NOTES_URL} element={<Notes />} />
           <Route path={routes.ADMIN_REQUESTS} element={<AdminRequests />} />

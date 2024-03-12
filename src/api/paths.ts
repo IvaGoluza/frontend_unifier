@@ -19,4 +19,5 @@ export const routes = {
   ADMIN_REQUESTS: "/admin-requests",
   ADMIN_ADVERTS: "/admin-adverts",
   ADMIN_USERS: "/admin-users",
+  USER_PROFILE: "/user-profile",
 };

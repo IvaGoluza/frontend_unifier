@@ -1,0 +1,123 @@
+.user-profile {
+  font-family: 'Arial', sans-serif;
+  background-color: #1F2340; 
+  background-image: url('../../../assets/svgImages/profile_wave.svg'); 
+  background-size: 101%;
+  background-repeat: no-repeat; 
+  background-position: top 5vh center;
+  position: relative; 
+  padding-top: 80vh; 
+  width: 100%;
+  z-index: 1; 
+}
+
+.profile-picture-container {
+  position: absolute; 
+  top: calc(50% - 125vh); 
+  width: 25vh;
+  height: 25vh;
+  left: calc(50% - 12.5vh);
+  background-image: url('../../../assets/images/cat6.png');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 7px solid white; 
+  border-radius: 50%;
+  z-index: 10; 
+}
+
+.fullname {
+  position: absolute;
+  top: calc(50% - 98vh);
+  left: 50%; 
+  transform: translateX(-50%);
+  width: auto; 
+  z-index: 10;
+}
+
+.profile-images {
+  position: relative;
+  width: 100vh;
+  height: 40vh;
+  border-radius: 1rem; 
+  z-index: 6;
+  border: 0.5px solid white;
+}
+
+.image-controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  max-width: 100%; 
+}
+
+.image-controls button {
+  background: none;
+  border: none;
+  color: white;
+  margin: 0 0.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: #0F182C;
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.image-controls button:focus {
+  outline: none;
+}
+
+.description-container {
+  position: absolute;
+  top: 0;
+  left: 95%;
+  width: 65%; 
+  height: 100%;
+  border: 0.5px solid white;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  transform: translateX(-100%); 
+  transition: transform 1.7s ease-out, opacity 1.7s ease, visibility 1.7s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+}
+
+.description-container.visible {
+  transform: translateY(0); 
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
+}
+
+.description-container {
+  animation: slideInDescription 0.5s ease-out forwards;
+  z-index: 0;
+}
+
+.center-image {
+  margin-left: 35%;
+}
+
+.image-controls2 {
+  margin-left: 70%;
+}
+
+@media screen and (min-width: 240px) and (max-width: 1400px) {
+  .user-profile {
+    padding-top: 60vh; 
+    width: 100%;
+  }
+  
+  .profile-picture-container {
+    top: calc(50% - 67vh); 
+  }
+  
+}
