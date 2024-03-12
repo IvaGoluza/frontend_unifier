@@ -4,7 +4,7 @@
     align-items: center;
     width: 100%;
     padding: 20px 40px 20px 65px;
-    font-size: 1.1em;
+    font-size: 0.9em;
     background-size: cover;
     color: white;
     position: relative;
@@ -12,7 +12,6 @@
     font-family: 'Krub';
     font-style: normal;
     font-weight: 700;
-    font-size: 22px;
     line-height: 157%;
     letter-spacing: 0.09em;
 }

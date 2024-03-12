@@ -1,69 +1,151 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 
-import { nanoid } from "nanoid";
-import { useQuery } from "react-query";
+import AdvertModal, { AdvertType } from "./AdvertModal";
+import DealsTableModal from "./DealsTableModal";
+import MsgModal from "./MsgModal";
+import RequestModal, { RequestType } from "./RequestModal";
 
-import { IAuth } from "../../api/auth/IAuth";
-import { DealAdvertType, DealRequestType } from "../../api/auth/IForm";
-import api from "../../api/createAxiosClient";
-import DealAdvertCard from "../../components/Card/DealAdvertCard";
-import DealRequestCard from "../../components/Card/DealRequestCard";
-import DealsText from "../../components/Card/DealsText";
-import { AuthContext } from "../../context/AuthContext";
+export interface DealsContentType {
+  volunteerId: number;
+  volunteerName: string;
+  volunteerApplicationMessage?: string;
+  volunteerApplicationAdvert?: AdvertType;
+  personInNeedMessage?: string;
+  personInNeedRequest?: RequestType;
+  contractDetailsFulfilled: boolean;
+  recensionFulfilled: boolean;
+}
 
 export default function Deals() {
-  const { currentUser } = useContext(AuthContext) as IAuth;
-
-  const fetchDealsRequests = async () => {
-    let response;
-    if (currentUser?.userType === "VOLUNTEER") response = await api.get("/deal/my-deals-requests/" + currentUser?.id);
-    else if (currentUser?.userType !== "VOLUNTEER")
-      response = await api.get("/deal/my-deals-adverts/" + currentUser?.id);
-    return response?.data;
-  };
-
-  const { data, isLoading, isError, error } = useQuery("deals-adverts", fetchDealsRequests, {
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-    enabled: !!currentUser,
-  });
-
-  if (isLoading) return <>Loading...</>;
-  if (isError) return <>{error}</>;
+  const personInNeedHeader = [
+    "Volonter",
+    "Prijava volontera",
+    "Vaša prijava",
+    "Ugovor o volontiranju",
+    "Potvrda volontiranja",
+  ];
+  const contentDummy = [
+    {
+      volunteerId: 0,
+      volunteerName: "string",
+      volunteerApplicationAdvert: {
+        advertTitle: "string",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        advertImage: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "string",
+      personInNeedRequest: {
+        requestTitle: "string",
+        location: "string",
+        time: "string",
+        helpType: "string",
+        category: "string",
+        typeOfAction: "string",
+        description: "string",
+        skillSet: "string",
+        volunteerCenter: "string",
+        numOfVolunteers: 0,
+      },
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "string",
+      volunteerApplicationMessage: "string",
+      personInNeedMessage: "string",
+      personInNeedRequest: {
+        requestTitle: "string",
+        location: "string",
+        time: "string",
+        helpType: "string",
+        category: "string",
+        typeOfAction: "string",
+        description: "string",
+        skillSet: "string",
+        volunteerCenter: "string",
+        numOfVolunteers: 0,
+      },
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "string",
+      volunteerApplicationMessage: "string",
+      volunteerApplicationAdvert: {
+        advertTitle: "string",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        advertImage: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+  ];
+  const [activeModal, setActiveModal] = useState("USER_NEED_MSG_MODAL");
+  const [pagationFirst, setPagationFirst] = useState(true);
+  const [pagationLast, setPagationLast] = useState(true);
+  const [content, setContent] = useState<DealsContentType[]>([]);
+  const [requestModalData, setRequestModalData] = useState<RequestType | null>(null);
 
   return (
-    <>
-      <div className={"relative"}>
-        <img src="../../../assets/images/deals1.png" alt="helpRequests" className="h-full object-cover" />
-        {currentUser?.userType === "VOLUNTEER" && (
-          <DealsText
-            h1={"NE ZABORAVI SVOJE"}
-            h2={"VOLONTERSKE PRILIKE"}
-            p1={"+ sve već dogovorene akcije pružanja pomoći"}
-            p2={"+ akcije na koje ste ste prijavili, ali ste još na čekanju"}
-            p3={"O onima kojima ste već pružili pomoć napišite neke korisne informacije"}
-            p4={"za druge volontere koji će im pomagati u budućnosti."}
-          />
-        )}
-        {currentUser?.userType !== "VOLUNTEER" && (
-          <DealsText
-            h1={"VAŠI"}
-            h2={"VOLONTERI"}
-            p1={"+ oglasi volontera s kojima ste dogovorili pomoć"}
-            p2={"+ oglasi na koje ste prijavljeni, ali volonter još nije potvrdio pomoć"}
-            p3={"Napišite recenzije volontera koji su Vam već pomogli"}
-            p4={"kako bi i ostali upoznali njihov rad."}
-          />
-        )}
-      </div>
-      <div className="custom-container">
-        {data &&
-          currentUser?.userType === "VOLUNTEER" &&
-          data.map((deal: DealRequestType) => <DealRequestCard key={nanoid()} request={deal} dealId={deal.id} />)}
-        {data &&
-          currentUser?.userType !== "VOLUNTEER" &&
-          data.map((deal: DealAdvertType) => <DealAdvertCard key={nanoid()} advert={deal} dealId={deal.id} />)}
-      </div>
-    </>
+    <div className="flex flex-row items-center justify-center">
+      {activeModal === "USER_NEED_MSG_MODAL" && (
+        <MsgModal
+          name={"vaša poruka"}
+          message={
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
+          }
+          setActiveModal={setActiveModal}
+        />
+      )}
+      {activeModal === "REQUEST_MODAL" && (
+        <RequestModal
+          request={{
+            requestTitle: "string",
+            location: "string",
+            time: "string",
+            helpType: "string",
+            category: "string",
+            typeOfAction: "string",
+            description: "string",
+            skillSet: "string",
+            volunteerCenter: "string",
+            numOfVolunteers: 0,
+          }}
+          setActiveModal={setActiveModal}
+        />
+      )}
+      {activeModal === "ADVERT_MODAL" && (
+        <AdvertModal
+          volunteer={"ime volontera"}
+          advert={{
+            advertTitle: "string",
+            location: "string",
+            helpType: "string",
+            category: "string",
+            description:
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+            volunteerCenter: "string",
+            time: "string",
+          }}
+          setActiveModal={setActiveModal}
+        />
+      )}
+      {activeModal === "DEALS_TABLE" && (
+        <DealsTableModal headerColumns={personInNeedHeader} content={contentDummy} setActiveModal={setActiveModal} />
+      )}
+    </div>
   );
 }
