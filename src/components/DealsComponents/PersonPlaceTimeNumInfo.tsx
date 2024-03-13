@@ -30,8 +30,12 @@ const PersonPlaceTimeNumInfo: React.FC<PlaceTimeNumInfoProps> = ({
       <p className="col-span-11 ml-1 font-semibold">{location}</p>
       <FontAwesomeIcon icon={faClock} className="col-span-1 self-center justify-self-center" />
       <p className="col-span-11 ml-1 font-semibold">{time}</p>
-      {volunteerNumber && <FontAwesomeIcon icon={faUser} className="col-span-1 self-center justify-self-center" />}
-      {volunteerNumber && <p className="col-span-11 ml-1 font-semibold">Broj potrebnih volontera: {volunteerNumber}</p>}
+      {volunteerNumber !== undefined && (
+        <FontAwesomeIcon icon={faUser} className="col-span-1 self-center justify-self-center" />
+      )}
+      {volunteerNumber !== undefined && (
+        <p className="col-span-11 ml-1 font-semibold">Broj potrebnih volontera: {volunteerNumber}</p>
+      )}
     </section>
   );
 };
