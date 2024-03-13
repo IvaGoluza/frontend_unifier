@@ -1,6 +1,10 @@
 import React from "react";
 
+import { faCircleCheck, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import AdvReqButton from "./AdvReqButton";
+import ButtonsContainer from "./ButtonsContainer";
 import MessageButton from "./MessageButton";
 import { AdvertType } from "../../pages/Deals/AdvertModal";
 import { DealsContentType } from "../../pages/Deals/Deals";
@@ -43,22 +47,33 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   return (
-    <div className="mx-5 my-2 grid h-8 grid-cols-5 items-center justify-items-center rounded-full bg-[#EAFAFF] font-bold text-[#07169B] hover:bg-[#C6F1FF]">
+    <div className="mx-5 my-2 grid h-8 grid-cols-4 items-center justify-items-center rounded-full bg-[#EAFAFF] font-bold text-[#07169B] hover:bg-[#C6F1FF]">
       <p className="cursor-pointer">{content.volunteerName}</p>
-      <div className="flex flex-row items-center justify-center">
+      <ButtonsContainer>
         {content.volunteerApplicationAdvert && <AdvReqButton onClick={onVolunteerAdvertButtonClick} />}
         {content.volunteerApplicationMessage && <MessageButton onClick={onVolunteerMsgButtonClick} />}
-      </div>
-      <div className="flex flex-row items-center justify-center">
+      </ButtonsContainer>
+      <ButtonsContainer>
         {content.personInNeedRequest && <AdvReqButton onClick={onPersonReqButtonClick} />}
         {content.personInNeedMessage && <MessageButton onClick={onPersonMsgButtonClick} />}
-      </div>
-      <p className="cursor-pointer rounded-xl bg-[#384E77] px-5 py-[2px] text-sm font-semibold text-white">
-        Ispuni ugovor
-      </p>
-      <p className="cursor-pointer rounded-xl bg-[#5422E1] px-5 py-[2px] text-sm font-semibold text-white">
-        Ispuni potvrdu
-      </p>
+      </ButtonsContainer>
+      <ButtonsContainer>
+        <div className="flex flex-row items-center justify-center">
+          <div
+            tabIndex={0}
+            className="mx-[2px] flex flex-row items-center justify-between rounded-lg border border-[#63E6BE] bg-white px-1 py-1 text-[#63E6BE]"
+          >
+            <FontAwesomeIcon icon={faCircleCheck} className="mx-1 text-sm" />
+            <span className="cursor-default text-xs uppercase">ugovor</span>
+          </div>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <div className="mx-[2px] flex cursor-pointer flex-row items-center justify-between rounded-lg border border-[#7800F0] bg-white px-1 py-1 text-[#7800F0]">
+            <FontAwesomeIcon icon={faPenToSquare} className="mx-1 text-sm" />
+            <span className="text-xs uppercase">potvrda</span>
+          </div>
+        </div>
+      </ButtonsContainer>
     </div>
   );
 };
