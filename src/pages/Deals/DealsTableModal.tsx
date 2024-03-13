@@ -28,7 +28,7 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
 }) => {
   return (
     <ModalContainer>
-      <TableHeader columns={headerColumns} />
+      <TableHeader numCol={4} columns={headerColumns} />
       {content.map((contentData, index) => (
         <TableRow
           key={index}

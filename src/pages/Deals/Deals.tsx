@@ -17,13 +17,7 @@ export interface DealsContentType {
 }
 
 export default function Deals() {
-  const personInNeedHeader = [
-    "Volonter",
-    "Prijava volontera",
-    "Vaša prijava",
-    "Ugovor o volontiranju",
-    "Potvrda volontiranja",
-  ];
+  const personInNeedHeader = ["Volonter", "Prijava volontera", "Vaša prijava", "Ispunite dokumente"];
   const contentDummy = [
     {
       volunteerId: 0,
