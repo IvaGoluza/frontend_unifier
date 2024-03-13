@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import AdvertModal, { AdvertType } from "./AdvertModal";
+import ContractForm from "./ContractForm";
 import DealsTableModal from "./DealsTableModal";
 import MsgModal, { MessageType } from "./MsgModal";
 import RequestModal, { RequestType } from "./RequestModal";
@@ -46,7 +47,7 @@ export default function Deals() {
         numOfVolunteers: 999,
       },
       contractDetailsFulfilled: true,
-      recensionFulfilled: true,
+      recensionFulfilled: false,
     },
     {
       volunteerId: 0,
@@ -65,8 +66,8 @@ export default function Deals() {
         volunteerCenter: "string",
         numOfVolunteers: 0,
       },
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
+      contractDetailsFulfilled: false,
+      recensionFulfilled: false,
     },
     {
       volunteerId: 0,
@@ -86,19 +87,13 @@ export default function Deals() {
       recensionFulfilled: true,
     },
   ];
-  const [activeModal, setActiveModal] = useState("DEALS_TABLE");
+  const [activeModal, setActiveModal] = useState("CONTRACT_FORM");
   const [pagationFirst, setPagationFirst] = useState(true);
   const [pagationLast, setPagationLast] = useState(true);
   const [content, setContent] = useState<DealsContentType[]>([]);
   const [requestModalData, setRequestModalData] = useState<RequestType | undefined>(undefined);
   const [advertModalData, setAdvertModalData] = useState<AdvertType | undefined>(undefined);
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
-
-  useEffect(() => {
-    if (requestModalData !== undefined) {
-      setActiveModal("REQUEST_MODAL");
-    }
-  }, [requestModalData]);
 
   return (
     <div className="flex flex-row items-center justify-center">
@@ -107,6 +102,7 @@ export default function Deals() {
       {activeModal === "ADVERT_MODAL" && (
         <AdvertModal volunteer={"ime volontera"} advert={advertModalData} setActiveModal={setActiveModal} />
       )}
+      {activeModal === "CONTRACT_FORM" && <ContractForm />}
       {activeModal === "DEALS_TABLE" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}

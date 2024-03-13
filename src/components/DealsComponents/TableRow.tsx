@@ -1,11 +1,10 @@
 import React from "react";
 
-import { faCircleCheck, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import AdvReqButton from "./AdvReqButton";
 import ButtonsContainer from "./ButtonsContainer";
+import CheckedDoc from "./CheckedDoc";
 import MessageButton from "./MessageButton";
+import WriteDoc from "./WriteDoc";
 import { AdvertType } from "../../pages/Deals/AdvertModal";
 import { DealsContentType } from "../../pages/Deals/Deals";
 import { MessageType } from "../../pages/Deals/MsgModal";
@@ -28,6 +27,7 @@ const TableRow: React.FC<TableRowProps> = ({
 }) => {
   const onPersonReqButtonClick = () => {
     setRequestModalData(content.personInNeedRequest);
+    setActiveModal("REQUEST_MODAL");
   };
 
   const onVolunteerAdvertButtonClick = () => {
@@ -58,21 +58,8 @@ const TableRow: React.FC<TableRowProps> = ({
         {content.personInNeedMessage && <MessageButton onClick={onPersonMsgButtonClick} />}
       </ButtonsContainer>
       <ButtonsContainer>
-        <div className="flex flex-row items-center justify-center">
-          <div
-            tabIndex={0}
-            className="mx-[2px] flex flex-row items-center justify-between rounded-lg border border-[#63E6BE] bg-white px-1 py-1 text-[#63E6BE]"
-          >
-            <FontAwesomeIcon icon={faCircleCheck} className="mx-1 text-sm" />
-            <span className="cursor-default text-xs uppercase">ugovor</span>
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-center">
-          <div className="mx-[2px] flex cursor-pointer flex-row items-center justify-between rounded-lg border border-[#7800F0] bg-white px-1 py-1 text-[#7800F0]">
-            <FontAwesomeIcon icon={faPenToSquare} className="mx-1 text-sm" />
-            <span className="text-xs uppercase">potvrda</span>
-          </div>
-        </div>
+        {content.contractDetailsFulfilled ? <CheckedDoc text={"ugovor"} /> : <WriteDoc text={"ugovor"} />}
+        {content.recensionFulfilled ? <CheckedDoc text={"potvrda"} /> : <WriteDoc text={"potvrda"} />}
       </ButtonsContainer>
     </div>
   );
