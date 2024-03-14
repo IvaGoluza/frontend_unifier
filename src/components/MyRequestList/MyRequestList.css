@@ -25,8 +25,8 @@
 
 .requests-list-item {
    background-color: #EAFAFF;
+   cursor: "pointer";
    border-radius: 20px;
-   cursor: "pointer"
 }
 
 .button-create-request-list {
@@ -45,4 +45,24 @@
 .container-pagation {
    border: 3px solid #09115B;
    background-color: white;
+}
+
+.border-gradient-orange {
+   background: radial-gradient(circle at 100% 100%, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 0% 0%/20px 20px no-repeat,
+            radial-gradient(circle at 0 100%, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 100% 0%/20px 20px no-repeat,
+            radial-gradient(circle at 100% 0, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 0% 100%/20px 20px no-repeat,
+            radial-gradient(circle at 0 0, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 100% 100%/20px 20px no-repeat,
+            linear-gradient(#EAFAFF, #EAFAFF) 50% 50%/calc(100% - 4px) calc(100% - 40px) no-repeat,
+            linear-gradient(#EAFAFF, #EAFAFF) 50% 50%/calc(100% - 40px) calc(100% - 4px) no-repeat,
+            linear-gradient(270deg, transparent 0%, #ffa620 100%);
+}
+
+.border-gradient-green {
+   background: radial-gradient(circle at 100% 100%, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 0% 0%/20px 20px no-repeat,
+            radial-gradient(circle at 0 100%, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 100% 0%/20px 20px no-repeat,
+            radial-gradient(circle at 100% 0, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 0% 100%/20px 20px no-repeat,
+            radial-gradient(circle at 0 0, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 100% 100%/20px 20px no-repeat,
+            linear-gradient(#EAFAFF, #EAFAFF) 50% 50%/calc(100% - 4px) calc(100% - 40px) no-repeat,
+            linear-gradient(#EAFAFF, #EAFAFF) 50% 50%/calc(100% - 40px) calc(100% - 4px) no-repeat,
+            linear-gradient(270deg, transparent 0%, #00FF38 100%);
 }

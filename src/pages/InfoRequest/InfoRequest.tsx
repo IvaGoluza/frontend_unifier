@@ -35,11 +35,12 @@ interface requestData {
     role: string;
     userType: string;
     town: string;
-  }
+  };
   volunteerCenter: string;
 }
 
-export default function InfoRequest({ archived,
+export default function InfoRequest({
+  archived,
   category,
   description,
   helpType,
@@ -49,7 +50,8 @@ export default function InfoRequest({ archived,
   typeOfAction,
   skillSet,
   time,
-  volunteerCenter }: requestData) {
+  volunteerCenter,
+}: requestData) {
   const request = {
     title: "INSTRUKCIJE",
     association: true,
@@ -71,7 +73,6 @@ export default function InfoRequest({ archived,
   const userId = params.userId;
   const [requestInfo, setRequestInfo] = useState<requestData | null>(null);
 
-
   const fetchData = async () => {
     try {
       const response = await api.get(`/request/${requestId}/my-request/${userId}`, {
@@ -81,7 +82,6 @@ export default function InfoRequest({ archived,
       });
       console.log(response.data);
       setRequestInfo(response.data);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -94,7 +94,6 @@ export default function InfoRequest({ archived,
   const numberOfCards = 4;
   const cardsArray = Array.from({ length: numberOfCards }, (_, index) => index);
 
-
   const handleBack = () => {
     navigate("/my-requests2");
   };
@@ -102,13 +101,11 @@ export default function InfoRequest({ archived,
     let message = "";
     try {
       let response;
-      if (action === 'archive') {
-        response = await api.put(`/request/archive/${requestId}`, {
-        });
+      if (action === "archive") {
+        response = await api.put(`/request/archive/${requestId}`, {});
         message = "Uspješno arhiviran zahtjev!";
-      } else if (action === 'activate') {
-        response = await api.put(`/request/undo-archive/${requestId}`, {
-        });
+      } else if (action === "activate") {
+        response = await api.put(`/request/undo-archive/${requestId}`, {});
         message = "Uspješno aktiviran zahtjev!";
       }
       toast.success(message, {
@@ -124,9 +121,8 @@ export default function InfoRequest({ archived,
       });
       setRequestInfo((prevState: requestData | null) => ({
         ...prevState!,
-        archived: action === 'archive',
+        archived: action === "archive",
       }));
-
     } catch (error) {
       console.error("Error fetching data:", error);
       toast.error("Greška", {
@@ -141,7 +137,7 @@ export default function InfoRequest({ archived,
         transition: Bounce,
       });
     }
-  }
+  };
 
   return (
     <>
@@ -159,11 +155,20 @@ export default function InfoRequest({ archived,
               <div className="title-bar flex flex-auto">
                 <h1 className="title uppercase">{requestInfo.requestTitle}</h1>
                 {!requestInfo.archived ? (
-                  <button className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white" onClick={() => handleRequestState('archive')}>ARHIVIRAJ</button>
+                  <button
+                    className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white"
+                    onClick={() => handleRequestState("archive")}
+                  >
+                    ARHIVIRAJ
+                  </button>
                 ) : (
-                  <button className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white" onClick={() => handleRequestState('activate')}>AKTIVIRAJ</button>
+                  <button
+                    className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white"
+                    onClick={() => handleRequestState("activate")}
+                  >
+                    AKTIVIRAJ
+                  </button>
                 )}
-
               </div>
 
               <div className="request-info flex">
@@ -182,22 +187,19 @@ export default function InfoRequest({ archived,
                 <FontAwesomeIcon icon={faClock} style={{ marginRight: "5px" }} />
                 {requestInfo.time}
               </div>
-              <div className="request-info-data-number mt-3"># Broj potrebnih volontera: {requestInfo.numOfVolunteers}</div>
+              <div className="request-info-data-number mt-3">
+                # Broj potrebnih volontera: {requestInfo.numOfVolunteers}
+              </div>
             </div>
-
           </div>
           <div className="description-requirements">
             <div>
               <div className="description-requirements-title">POTREBNA ZNANJA I VJEŠTINE VOLONTERA</div>
-              <div className="description-requirements-desc mr-20 w-80">
-                {requestInfo.skillSet}
-              </div>
+              <div className="description-requirements-desc mr-20 w-80">{requestInfo.skillSet}</div>
             </div>
             <div>
               <div className="description-requirements-title">OPIS POTREBNE POMOĆI</div>
-              <div className="description-requirements-desc w-80">
-                {requestInfo.description}
-              </div>
+              <div className="description-requirements-desc w-80">{requestInfo.description}</div>
             </div>
           </div>
           <div className="volunteer">

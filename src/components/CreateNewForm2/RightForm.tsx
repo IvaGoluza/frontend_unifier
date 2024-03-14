@@ -7,8 +7,8 @@ import RadioImages from "../RadioImages/RadioImages";
 import "./CreateNewForm2.css";
 
 interface FormFieldSectionProps {
-  touched: any;
-  errors: any;
+  touched: { [key: string]: boolean };
+  errors: { [key: string]: string };
   isSubmitting: boolean;
   categories: string[];
   categories_images: string[];
@@ -28,16 +28,18 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
   helpTypes_eng,
 }) => {
   return (
-    <div className="sm:ml-5 w-11/12 sm:ml-10 sm:mt-10 h-full lg:w-full md:w-1/2">
-      <div className="my-2 flex w-full flex-col flex-col items-start justify-end">
+    <div className="h-full w-11/12 2xl:mt-10 2xl:ml-10 2xl:ml-5 2xl:w-full">
+      <div className="flex w-full flex-col flex-col items-start justify-end">
         <label htmlFor="description" className="formTitle">
           Opis potrebne pomoći
         </label>
         <Field
           name="description"
           as="textarea"
-          className={touched.description && errors.description ? ERROR : "input-form-description w-11/12 sm:w-9/12 mt-1 pb-0"}
-          placeholder="Dodajte opis svom oglasu"
+          className={
+            touched.description && errors.description ? "h-[10vh] px-1 py-1 text-base text-gray-500 border border-rose-400 rounded-lg outline-none mt-1 w-11/12 pb-0 lg:w-9/12" : "h-[10.3vh] px-1 py-1 text-base text-gray-500 border border-gray-300 rounded-lg outline-none mt-1 w-11/12 pb-0 lg:w-9/12"
+          }
+          placeholder="Treba mi pomoć iz matematike. Razred 7. osnovne. Muči me gradivo vektora..."
         />
         {touched.description && errors.description && <p className="error">{errors.description}</p>}
       </div>
@@ -48,14 +50,14 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         <Field
           name="skillSet"
           as="textarea"
-          className={touched.skillSet && errors.skillSet ? ERROR : "input-form-description w-11/12 sm:w-9/12 mt-1 pb-0"}
-          placeholder="Dodajte potrebna znanja i vještine potrebne za ovaj zahtjev"
+          className={touched.skillSet && errors.skillSet ? "h-[10vh] px-1 py-1 text-base text-gray-500 border border-rose-400 rounded-lg outline-none mt-1 w-11/12 pb-0 lg:w-9/12" : "h-[10.3vh] px-1 py-1 text-base text-gray-500 border border-gray-300 rounded-lg outline-none mt-1 w-11/12 pb-0 lg:w-9/12"}
+          placeholder="U tijeku ili završena srednja škola. Dobro razumijevanje matematike..."
         ></Field>
         {touched && touched.skillSet && errors && errors.skillSet && <p className="error">{errors.skillSet}</p>}
       </div>
 
       <div className="my-4 flex w-full flex-col justify-end">
-        <p className={"formTitle my-2 mb-2"}>Kategorija vrste pomoći</p>
+        <p className={"formTitle mb-2"}>Kategorija vrste pomoći</p>
         <RadioImages
           images={helpTypes}
           categories_images={categories_images_helpTypes}
@@ -66,10 +68,10 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         />
         {touched.helpType && errors.helpType && <p className="error">{errors.helpType}</p>}
       </div>
-      <div className="button-create-request mb-5 mr-10 mt-5 flex w-11/12 sm:w-9/12 justify-center lg:justify-end">
+      <div className="button-create-request mb-5 mr-10 mt-5 flex w-11/12 justify-center lg:w-9/12 lg:justify-end">
         <button
           type={"submit"}
-          className="font-krub rounded-[35px] sm:w-4/12 text-xs w-3/5 md:text-lg letter-spacing-0-06 bg-customPurple flex items-center justify-center p-2 font-bold text-white lg:p-4"
+          className="letter-spacing-0-06 flex w-2/5 items-center justify-center rounded-[35px] bg-customPurple p-2 font-krub text-xs font-bold text-white sm:w-4/12 lg:p-4 lg:text-sm 2xl:text-lg"
         >
           KREIRAJ ZAHTJEV
         </button>

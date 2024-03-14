@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useQueryClient } from "react-query";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import FormFieldSection from "./RightForm";
 import { IAuth } from "../../api/auth/IAuth";
@@ -11,12 +15,8 @@ import RadioImages from "../../components/RadioImages/RadioImages";
 import { AuthContext } from "../../context/AuthContext";
 import Options from "../CheckBox/CheckBox";
 import { CreateNewFormValidationSchemaForCreatingRequest } from "../Validation/Validation";
-import { Bounce, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import "./CreateNewForm2.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface CreateNewFormProps {
   request?: boolean;
@@ -106,7 +106,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     "OTHER",
   ];
   const ERROR = "input-error-form mt-3";
-  const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 sm:w-8/12";
+  const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 min-[700px]:w-8/12 sm:text-base text-xs p-1";
 
   const ValidationSchema = CreateNewFormValidationSchemaForCreatingRequest;
 
@@ -129,7 +129,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
           "Content-Type": "application/json",
         },
       })
-      .then((res) => {
+      .then(() => {
         queryClient.refetchQueries(["myRequests"]);
         toast.success("Uspješno kreiran zahtjev!", {
           position: "top-center",
@@ -168,13 +168,13 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="request-form relative mb-4 ml-5 sm:ml-0 lg:pl-16 flex w-full h-dvh sm:w-10/12 sm:border-[3px] sm:h-fit sm:border-bold sm:border-customBlueLight sm:mt-4 sm:rounded-[25px] flex-col items-center justify-center bg-gray-200 bg-white text-base md:mb-1 lg:grid lg:grid-cols-2 lg:text-xl">
+          <Form className="request-form h-dvh sm:border-bold relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] sm:border-customBlueLight md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
             <FontAwesomeIcon
               icon={faCircleXmark}
               onClick={toggleFormVisibility}
               className="absolute right-3 top-3 text-3xl text-gray-400 hover:scale-110"
             />
-            <div className="sm:ml-10 mt-8 sm:mt-10 flex h-full w-11/12 flex-col items-start md:w-1/2 lg:w-full">
+            <div className="mt-8 h-full flex  flex-col items-center w-11/12">
               <div className="title-input-container flex w-full items-start justify-end">
                 <label htmlFor="title" className="formTitle ml-1 mt-1">
                   Naziv zahtjeva za pomoć
@@ -183,17 +183,15 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                   <Field
                     type="text"
                     name="requestTitle"
-                    placeholder="Upišite naziv oglasa"
-                    className={
-                      touched && touched.requestTitle && errors && errors.requestTitle ? ERROR : widthOfInput
-                    }
+                    placeholder="Instrukcije iz matematike"
+                    className={touched && touched.requestTitle && errors && errors.requestTitle ? ERROR : widthOfInput}
                   />
                   {touched && touched.requestTitle && errors && errors.requestTitle && (
                     <p className="error">{errors.requestTitle}</p>
                   )}
                 </div>
               </div>
-              <div className="title-input-container mt-1 mb-1 sm:my-2 flex w-full items-start justify-end">
+              <div className="title-input-container mb-1 mt-1 flex w-full items-start justify-end sm:my-2">
                 <label htmlFor="location" className="formTitle ml-1 mt-1">
                   Lokacija
                 </label>
@@ -204,7 +202,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                   <Field
                     type="text"
                     name="location"
-                    placeholder="Upišite lokaciju"
+                    placeholder="Jarun"
                     className={touched && touched.location && errors && errors.location ? ERROR : widthOfInput}
                   />
                   {touched && touched.location && errors && errors.location && (
@@ -212,7 +210,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                   )}
                 </div>
               </div>
-              <div className="title-input-container mt-1 mb-1 sm:my-2 flex w-full items-start justify-end">
+              <div className="title-input-container mb-1 mt-1 flex w-full items-start justify-end sm:my-2">
                 <label htmlFor="time" className="formTitle ml-1 mt-1">
                   Vrijeme
                 </label>
@@ -223,7 +221,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                   <Field
                     type="text"
                     name="time"
-                    placeholder="Upišite vrijeme"
+                    placeholder="20.-28. veljače 2024."
                     className={touched && touched.time && errors && errors.time ? ERROR : widthOfInput}
                   />
                   {touched && touched.time && errors && errors.time && <p className="error">{errors.time}</p>}
@@ -241,8 +239,8 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
               </div>
-              <div className="flex flex-row w-full mt-5 ml-2">
-                <div className="flex flex-col w-[15rem] sm:w-2/3 my-2 mr-5 flex w-11/12 items-start justify-start sm:justify-end">
+              <div className="mt-5 flex w-full flex-row">
+                <div className="my-2 mr-5 flex w-8/12 sm:w-10/12 flex-col items-start justify-start  lg:justify-end">
                   <label htmlFor="numOfVolunteers" className="formTitle mb-2">
                     Broj potrebnih volontera
                   </label>
@@ -251,11 +249,11 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                       <Field
                         type="text"
                         name="numOfVolunteers"
-                        placeholder="0"
+                        placeholder="1"
                         className={
                           touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
-                            ? ERROR
-                            : "inputNumOfVol"
+                            ? "inputNumOfVol-error text-center"
+                            : "inputNumOfVol text-center sm:w-[2vw] w-[6vw]"
                         }
                       />
                       {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
@@ -264,7 +262,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                     </div>
                   </div>
                 </div>
-                <div className="my-2 flex w-full items-center justify-start sm:justify-end sm:justify-center">
+                <div className="my-2 flex w-full items-center justify-start lg:justify-end lg:justify-center">
                   <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
                 </div>
               </div>
