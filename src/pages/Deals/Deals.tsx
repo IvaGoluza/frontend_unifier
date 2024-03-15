@@ -87,7 +87,7 @@ export default function Deals() {
       recensionFulfilled: true,
     },
   ];
-  const [activeModal, setActiveModal] = useState("CONTRACT_FORM");
+  const [activeModal, setActiveModal] = useState("DEALS_TABLE");
   const [pagationFirst, setPagationFirst] = useState(true);
   const [pagationLast, setPagationLast] = useState(true);
   const [content, setContent] = useState<DealsContentType[]>([]);
@@ -102,7 +102,7 @@ export default function Deals() {
       {activeModal === "ADVERT_MODAL" && (
         <AdvertModal volunteer={"ime volontera"} advert={advertModalData} setActiveModal={setActiveModal} />
       )}
-      {activeModal === "CONTRACT_FORM" && <ContractForm />}
+      {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} />}
       {activeModal === "DEALS_TABLE" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}

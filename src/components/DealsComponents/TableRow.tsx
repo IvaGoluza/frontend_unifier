@@ -46,6 +46,10 @@ const TableRow: React.FC<TableRowProps> = ({
     setActiveModal("MESSAGE_MODAL");
   };
 
+  const onContractButtonClick = () => {
+    setActiveModal("CONTRACT_FORM");
+  };
+
   return (
     <div className="mx-5 my-2 grid h-8 grid-cols-4 items-center justify-items-center rounded-full bg-[#EAFAFF] font-bold text-[#07169B] hover:bg-[#C6F1FF]">
       <p className="cursor-pointer">{content.volunteerName}</p>
@@ -58,8 +62,16 @@ const TableRow: React.FC<TableRowProps> = ({
         {content.personInNeedMessage && <MessageButton onClick={onPersonMsgButtonClick} />}
       </ButtonsContainer>
       <ButtonsContainer>
-        {content.contractDetailsFulfilled ? <CheckedDoc text={"ugovor"} /> : <WriteDoc text={"ugovor"} />}
-        {content.recensionFulfilled ? <CheckedDoc text={"potvrda"} /> : <WriteDoc text={"potvrda"} />}
+        {content.contractDetailsFulfilled ? (
+          <CheckedDoc text={"ugovor"} />
+        ) : (
+          <WriteDoc text={"ugovor"} onClick={onContractButtonClick} />
+        )}
+        {content.recensionFulfilled ? (
+          <CheckedDoc text={"potvrda"} />
+        ) : (
+          <WriteDoc text={"potvrda"} onClick={() => console.log("to do")} />
+        )}
       </ButtonsContainer>
     </div>
   );
