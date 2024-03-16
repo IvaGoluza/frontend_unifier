@@ -12,8 +12,8 @@ interface OptionsProps {
 
 const Options: React.FC<OptionsProps> = ({ touched, errors, isSubmitting, ERROR }) => {
   return (
-    <div className="flex h-24 flex-col md:h-16">
-      <div className="option">
+    <div className="flex flex-col h-full">
+      <div className="option my-1 lg:m-2">
         <Field
           type="radio"
           id="jednokratna"
@@ -24,7 +24,7 @@ const Options: React.FC<OptionsProps> = ({ touched, errors, isSubmitting, ERROR 
         <label htmlFor="jednokratna" className={touched && touched.typeOfAction && errors && errors.typeOfAction ? "option-label-error" : "option-label"}></label>
         <span className="formTitle pl-2 text-base lg:text-xl">Jednokratna opcija</span>
       </div>
-      <div className="option">
+      <div className="option my-1 lg:m-2">
         <Field
           type="radio"
           id="dvokratna"

@@ -106,7 +106,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     "OTHER",
   ];
   const ERROR = "input-error-form mt-3";
-  const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 min-[700px]:w-8/12 sm:text-base text-xs p-1";
+  const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 min-[640px]:w-9/12 sm:text-base text-xs p-1";
 
   const ValidationSchema = CreateNewFormValidationSchemaForCreatingRequest;
 
@@ -239,8 +239,8 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
               </div>
-              <div className="mt-5 flex w-full flex-row">
-                <div className="my-2 mr-5 flex w-8/12 sm:w-10/12 flex-col items-start justify-start  lg:justify-end">
+              <div className="mt-5 flex w-full flex-col min-[1100px]:h-[8rem] min-[1000px]:flex-row">
+                <div className="my-2 mr-5 flex w-8/12 sm:w-10/12 flex-col items-start justify-start">
                   <label htmlFor="numOfVolunteers" className="formTitle mb-2">
                     Broj potrebnih volontera
                   </label>
@@ -262,7 +262,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                     </div>
                   </div>
                 </div>
-                <div className="my-2 flex w-full items-center justify-start lg:justify-end lg:justify-center">
+                <div className="my-2 flex w-full items-center justify-start lg:justify-center">
                   <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
                 </div>
               </div>

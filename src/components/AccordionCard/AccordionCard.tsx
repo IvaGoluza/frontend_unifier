@@ -112,7 +112,7 @@ const AccordionCard = ({
       </div>
 
       <div id="Volonter" className={`tabcontent ${activeTab === "Volonter" && "active"}`}>
-        <div className="Infoimage m-5 md:shrink-0 lg:col-span-1">
+        <div className="Infoimage m-2 md:shrink-0 lg:col-span-1">
           <img src="../../../assets/images/optionsImages/profileImage.jpg" className="rounded-lg" />
         </div>
         <div className="mt-3 grid grid-cols-1 grid-rows-4 md:max-h-48 md:max-w-2xl lg:col-span-1">
