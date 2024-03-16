@@ -14,7 +14,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({ numCol, columns }) => {
 
   return (
     <div
-      className="mb-4 grid h-16 w-full grid-cols-4 items-center justify-items-center rounded-t-[50px] bg-[#00C2FE] px-5 text-center font-bold text-white"
+      className="mb-4 hidden h-16 w-full grid-cols-4 items-center justify-items-center rounded-t-[50px] bg-[#00C2FE] px-5 text-center font-bold text-white sm:grid"
       style={additionalCSS}
     >
       {columns.map((column) => (

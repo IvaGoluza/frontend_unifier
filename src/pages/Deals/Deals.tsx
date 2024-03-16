@@ -96,7 +96,7 @@ export default function Deals() {
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
 
   return (
-    <div className="flex flex-row items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       {activeModal === "MESSAGE_MODAL" && <MsgModal message={msgModalData} setActiveModal={setActiveModal} />}
       {activeModal === "REQUEST_MODAL" && <RequestModal request={requestModalData} setActiveModal={setActiveModal} />}
       {activeModal === "ADVERT_MODAL" && (

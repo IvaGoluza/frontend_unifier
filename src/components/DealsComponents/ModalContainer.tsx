@@ -2,11 +2,16 @@ import React, { ReactNode } from "react";
 
 interface ModalContainerProps {
   children: ReactNode;
+  mobileCSS?: boolean;
 }
 
-const ModalContainer: React.FC<ModalContainerProps> = ({ children }) => {
+const ModalContainer: React.FC<ModalContainerProps> = ({ children, mobileCSS }) => {
   return (
-    <div className="relative mx-5 my-8 grid h-fit min-h-[80vh] w-full grid-rows-5 overflow-hidden rounded-[50px] border border-[0.2px] border-[#B3B0A9] shadow-xl lg:w-4/5">
+    <div
+      className={`${
+        mobileCSS ? "hidden sm:grid" : "grid"
+      } relative mx-5 my-8 h-fit min-h-[80vh] w-full grid-rows-5 rounded-[50px] sm:overflow-hidden sm:border sm:border-[0.2px] sm:border-[#B3B0A9] sm:shadow-xl lg:w-4/5`}
+    >
       {children}
     </div>
   );

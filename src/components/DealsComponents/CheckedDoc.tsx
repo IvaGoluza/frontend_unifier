@@ -11,7 +11,7 @@ const CheckedDoc: React.FC<CheckedDocProps> = ({ text }) => {
   return (
     <div
       tabIndex={0}
-      className="mx-[2px] flex flex-row items-center justify-between rounded-lg border border-[#63E6BE] bg-white px-1 py-1 text-[#63E6BE]"
+      className="mx-[2px] flex flex-row items-center justify-between rounded-lg border border-[#63E6BE] bg-white px-1 py-1 font-bold text-[#63E6BE]"
     >
       <FontAwesomeIcon icon={faCircleCheck} className="mx-1 text-sm" />
       <span className="cursor-default text-xs uppercase">{text}</span>

@@ -2,6 +2,7 @@ import React from "react";
 
 import AdvReqButton from "./AdvReqButton";
 import ButtonsContainer from "./ButtonsContainer";
+import CardSidebarCell from "./CardSidebarCell";
 import CheckedDoc from "./CheckedDoc";
 import MessageButton from "./MessageButton";
 import WriteDoc from "./WriteDoc";
@@ -10,7 +11,7 @@ import { DealsContentType } from "../../pages/Deals/Deals";
 import { MessageType } from "../../pages/Deals/MsgModal";
 import { RequestType } from "../../pages/Deals/RequestModal";
 
-interface TableRowProps {
+export interface TableRowProps {
   content: DealsContentType;
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
@@ -18,7 +19,7 @@ interface TableRowProps {
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
 }
 
-const TableRow: React.FC<TableRowProps> = ({
+const DealCard: React.FC<TableRowProps> = ({
   content,
   setActiveModal,
   setRequestModalData,
@@ -51,16 +52,22 @@ const TableRow: React.FC<TableRowProps> = ({
   };
 
   return (
-    <div className="mx-5 my-2 grid h-8 grid-cols-4 items-center justify-items-center rounded-full bg-[#EAFAFF] font-bold text-[#07169B] hover:bg-[#C6F1FF]">
-      <p className="cursor-pointer">{content.volunteerName}</p>
+    <div className="m-2 grid h-48 grid-cols-5 grid-rows-4 gap-0.5 overflow-hidden rounded-xl border border-[0.5px] border-slate-200 shadow-xl sm:mx-5 sm:h-8 sm:grid-cols-4 sm:grid-rows-1 sm:items-center sm:justify-items-center sm:gap-0 sm:overflow-visible sm:border-0 sm:bg-[#EAFAFF] sm:shadow-none hover:sm:bg-[#C6F1FF]">
+      <CardSidebarCell text={"Volonter"} />
+      <p className="col-span-3 flex cursor-pointer items-center bg-[#EAFAFF] pl-2 font-bold text-[#07169B] sm:col-span-1 sm:bg-transparent sm:pl-0">
+        {content.volunteerName}
+      </p>
+      <CardSidebarCell text={"Prijava volontera"} />
       <ButtonsContainer>
         {content.volunteerApplicationAdvert && <AdvReqButton onClick={onVolunteerAdvertButtonClick} />}
         {content.volunteerApplicationMessage && <MessageButton onClick={onVolunteerMsgButtonClick} />}
       </ButtonsContainer>
+      <CardSidebarCell text={"Vaša prijava"} />
       <ButtonsContainer>
         {content.personInNeedRequest && <AdvReqButton onClick={onPersonReqButtonClick} />}
         {content.personInNeedMessage && <MessageButton onClick={onPersonMsgButtonClick} />}
       </ButtonsContainer>
+      <CardSidebarCell text={"Dokumenti"} />
       <ButtonsContainer>
         {content.contractDetailsFulfilled ? (
           <CheckedDoc text={"ugovor"} />
@@ -77,4 +84,4 @@ const TableRow: React.FC<TableRowProps> = ({
   );
 };
 
-export default TableRow;
+export default DealCard;

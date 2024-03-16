@@ -4,12 +4,12 @@ import { AdvertType } from "./AdvertModal";
 import { DealsContentType } from "./Deals";
 import { MessageType } from "./MsgModal";
 import { RequestType } from "./RequestModal";
+import DealCard from "../../components/DealsComponents/DealCard";
 import ModalBodyContainer from "../../components/DealsComponents/ModalBodyContainer";
 import ModalContainer from "../../components/DealsComponents/ModalContainer";
 import ModalFooterContainer from "../../components/DealsComponents/ModalFooterContainer";
 import NavButton from "../../components/DealsComponents/NavButton";
 import TableHeader from "../../components/DealsComponents/TableHeader";
-import TableRow from "../../components/DealsComponents/TableRow";
 
 interface DealsTableModalProps {
   headerColumns: string[];
@@ -29,24 +29,28 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
   setMsgModalData,
 }) => {
   return (
-    <ModalContainer>
-      <ModalBodyContainer>
-        <TableHeader numCol={4} columns={headerColumns} />
-        {content.map((contentData, index) => (
-          <TableRow
-            key={index}
-            content={contentData}
-            setActiveModal={setActiveModal}
-            setRequestModalData={setRequestModalData}
-            setAdvertModalData={setAdvertModalData}
-            setMsgModalData={setMsgModalData}
-          />
-        ))}
-      </ModalBodyContainer>
-      <ModalFooterContainer>
-        <NavButton leftOnly={false} rightOnly={false} onLeftClick={() => console.log("hi")} />
-      </ModalFooterContainer>
-    </ModalContainer>
+    <>
+      <>
+        <ModalContainer>
+          <ModalBodyContainer>
+            <TableHeader numCol={4} columns={headerColumns} />
+            {content.map((contentData, index) => (
+              <DealCard
+                key={index}
+                content={contentData}
+                setActiveModal={setActiveModal}
+                setRequestModalData={setRequestModalData}
+                setAdvertModalData={setAdvertModalData}
+                setMsgModalData={setMsgModalData}
+              />
+            ))}
+          </ModalBodyContainer>
+          <ModalFooterContainer>
+            <NavButton leftOnly={false} rightOnly={false} onLeftClick={() => console.log("hi")} />
+          </ModalFooterContainer>
+        </ModalContainer>
+      </>
+    </>
   );
 };
 
