@@ -50,7 +50,7 @@ const UserProfileDetails = ({ userId }: { userId: string }) => {
   }
 
   return (
-    <div className="flex justify-evenly px-24 py-12">
+    <div className="px-30 flex justify-evenly py-12">
       <div className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start overflow-hidden rounded-2xl bg-[#F8F26C] p-4 shadow-2xl">
         <div className="flex flex-col space-y-2">
           <div className="">

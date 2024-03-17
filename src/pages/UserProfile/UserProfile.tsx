@@ -8,6 +8,7 @@ import UserProfileDetails from "../../components/UserProfileDetails/UserProfileD
 
 const UserProfile = () => {
   const [userImage, setUserImage] = useState("");
+  const [name, setName] = useState("");
 
   let userId = "";
   const userString = localStorage.getItem("user");
@@ -30,7 +31,10 @@ const UserProfile = () => {
         },
       });
       console.log(response.data);
-      setUserImage(response.data.image);
+      if (response.data.image !== null) {
+        setUserImage(response.data.image);
+      }
+      setName(response.data.name);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -48,7 +52,12 @@ const UserProfile = () => {
               alt="Profile"
             />
           )}
-          <h1 className=" user-name mt-4 text-lg font-bold text-[#09115B]">Maria Lovrić</h1>
+          <h1
+            style={{ marginTop: userImage ? "" : "18vw" }}
+            className="user-name mt-4 text-lg font-bold text-[#09115B]"
+          >
+            {name}
+          </h1>
         </div>
         <UserProfileDetails userId={userId} />
       </div>

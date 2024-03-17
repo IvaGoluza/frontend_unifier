@@ -37,6 +37,7 @@
 
 .user-name {
   font-size: 4vw;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 240px) and (max-width: 1400px) {
