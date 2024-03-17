@@ -10,7 +10,7 @@ const ModalContainer: React.FC<ModalContainerProps> = ({ children, mobileCSS }) 
     <div
       className={`${
         mobileCSS ? "hidden sm:grid" : "grid"
-      } relative mx-5 my-8 h-fit min-h-[80vh] w-full grid-rows-5 rounded-[50px] sm:overflow-hidden sm:border sm:border-[0.2px] sm:border-[#B3B0A9] sm:shadow-xl lg:w-4/5`}
+      } relative mx-5 my-8 h-fit min-h-[80vh] w-full grid-rows-5 rounded-[50px] sm:overflow-hidden sm:border-[0.2px] sm:border-[#B3B0A9] sm:shadow-xl lg:w-4/5`}
     >
       {children}
     </div>

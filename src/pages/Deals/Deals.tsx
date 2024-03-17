@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import AdvertModal, { AdvertType } from "./AdvertModal";
+import CertificateForm from "./CertificateForm";
 import ContractForm from "./ContractForm";
 import DealsTableModal from "./DealsTableModal";
 import MsgModal, { MessageType } from "./MsgModal";
@@ -71,10 +72,10 @@ export default function Deals() {
     },
     {
       volunteerId: 0,
-      volunteerName: "string tri",
-      volunteerApplicationMessage: "cetvrta string",
+      volunteerName: "string trid",
+      volunteerApplicationMessage: "cetvrta strinadg",
       volunteerApplicationAdvert: {
-        advertTitle: "zadnji advert",
+        advertTitle: "zadnji advadert",
         location: "string",
         helpType: "string",
         time: "string",
@@ -82,7 +83,126 @@ export default function Deals() {
         description: "string",
         volunteerCenter: "string",
       },
-      personInNeedMessage: "peta string",
+      personInNeedMessage: "petada string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "string tadri",
+      volunteerApplicationMessage: "cetvrta sasdtring",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnjasdi advert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "peta sasdtring",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "string twr3ri",
+      volunteerApplicationMessage: "cetwfrsvrta string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnji adsrfvert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "peta ssftring",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "strfring tri",
+      volunteerApplicationMessage: "cetsdvrta string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnji adsvvert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "petsfca string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "strisfng tri",
+      volunteerApplicationMessage: "cetsdvvrta string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnji asdcsdvdvert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "pesdvta string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "strisng tri",
+      volunteerApplicationMessage: "csdvetvrta string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnji advsdvert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "petsvda string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "striasng tri",
+      volunteerApplicationMessage: "cetvasdcrta string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zaddvnji advert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "petasda string",
+      contractDetailsFulfilled: true,
+      recensionFulfilled: true,
+    },
+    {
+      volunteerId: 0,
+      volunteerName: "strasing tri",
+      volunteerApplicationMessage: "cetvrtasda string",
+      volunteerApplicationAdvert: {
+        advertTitle: "zadnasdji advert",
+        location: "string",
+        helpType: "string",
+        time: "string",
+        category: "string",
+        description: "string",
+        volunteerCenter: "string",
+      },
+      personInNeedMessage: "petasda string",
       contractDetailsFulfilled: true,
       recensionFulfilled: true,
     },
@@ -103,6 +223,7 @@ export default function Deals() {
         <AdvertModal volunteer={"ime volontera"} advert={advertModalData} setActiveModal={setActiveModal} />
       )}
       {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} />}
+      {activeModal === "CERTIFICATE_FORM" && <CertificateForm setActiveModal={setActiveModal} />}
       {activeModal === "DEALS_TABLE" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}

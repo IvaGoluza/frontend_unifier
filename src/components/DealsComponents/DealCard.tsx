@@ -51,6 +51,10 @@ const DealCard: React.FC<TableRowProps> = ({
     setActiveModal("CONTRACT_FORM");
   };
 
+  const onCertificateButtonClick = () => {
+    setActiveModal("CERTIFICATE_FORM");
+  };
+
   return (
     <div className="m-2 grid h-48 grid-cols-5 grid-rows-4 gap-0.5 overflow-hidden rounded-xl border border-[0.5px] border-slate-200 shadow-xl sm:mx-5 sm:h-8 sm:grid-cols-4 sm:grid-rows-1 sm:items-center sm:justify-items-center sm:gap-0 sm:overflow-visible sm:border-0 sm:bg-[#EAFAFF] sm:shadow-none hover:sm:bg-[#C6F1FF]">
       <CardSidebarCell text={"Volonter"} />
@@ -77,7 +81,7 @@ const DealCard: React.FC<TableRowProps> = ({
         {content.recensionFulfilled ? (
           <CheckedDoc text={"potvrda"} />
         ) : (
-          <WriteDoc text={"potvrda"} onClick={() => console.log("to do")} />
+          <WriteDoc text={"potvrda"} onClick={onCertificateButtonClick} />
         )}
       </ButtonsContainer>
     </div>
