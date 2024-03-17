@@ -18,6 +18,10 @@ interface DealsTableModalProps {
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
+  paginationNext: () => void;
+  paginationPrev: () => void;
+  paginationFirst: boolean;
+  paginationLast: boolean;
 }
 
 const DealsTableModal: React.FC<DealsTableModalProps> = ({
@@ -27,6 +31,10 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
   setRequestModalData,
   setAdvertModalData,
   setMsgModalData,
+  paginationNext,
+  paginationPrev,
+  paginationFirst,
+  paginationLast,
 }) => {
   return (
     <>
@@ -34,9 +42,9 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
         <ModalContainer>
           <ModalBodyContainer>
             <TableHeader numCol={4} columns={headerColumns} />
-            {content.map((contentData, index) => (
+            {content.map((contentData) => (
               <DealCard
-                key={index}
+                key={contentData.dealId}
                 content={contentData}
                 setActiveModal={setActiveModal}
                 setRequestModalData={setRequestModalData}
@@ -46,7 +54,12 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
             ))}
           </ModalBodyContainer>
           <ModalFooterContainer>
-            <NavButton leftOnly={false} rightOnly={false} onLeftClick={() => console.log("hi")} />
+            <NavButton
+              leftOnly={paginationLast}
+              rightOnly={paginationFirst}
+              onLeftClick={paginationPrev}
+              onRightClick={paginationNext}
+            />
           </ModalFooterContainer>
         </ModalContainer>
       </>

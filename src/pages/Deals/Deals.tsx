@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AdvertModal, { AdvertType } from "./AdvertModal";
 import CertificateForm from "./CertificateForm";
@@ -6,8 +6,10 @@ import ContractForm from "./ContractForm";
 import DealsTableModal from "./DealsTableModal";
 import MsgModal, { MessageType } from "./MsgModal";
 import RequestModal, { RequestType } from "./RequestModal";
+import api from "../../api/createAxiosClient";
 
 export interface DealsContentType {
+  dealId: number;
   volunteerId: number;
   volunteerName: string;
   volunteerApplicationMessage?: string;
@@ -18,202 +20,81 @@ export interface DealsContentType {
   recensionFulfilled: boolean;
 }
 
+interface PaginationParams {
+  page?: number;
+  size?: number;
+}
+
 export default function Deals() {
   const personInNeedHeader = ["Volonter", "Prijava volontera", "Vaša prijava", "Ispunite dokumente"];
-  const contentDummy = [
-    {
-      volunteerId: 0,
-      volunteerName: "string jedan",
-      volunteerApplicationAdvert: {
-        advertTitle: "adveerrrt",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        advertImage: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "prva string",
-      personInNeedRequest: {
-        requestTitle: "string",
-        location: "string",
-        time: "string",
-        helpType: "string",
-        category: "string",
-        typeOfAction: "string",
-        description: "string",
-        skillSet: "string",
-        volunteerCenter: "string",
-        numOfVolunteers: 999,
-      },
-      contractDetailsFulfilled: true,
-      recensionFulfilled: false,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "string dva",
-      volunteerApplicationMessage: "druga string",
-      personInNeedMessage: "treca string",
-      personInNeedRequest: {
-        requestTitle: "string",
-        location: "string",
-        time: "string",
-        helpType: "string",
-        category: "string",
-        typeOfAction: "string",
-        description: "string",
-        skillSet: "string",
-        volunteerCenter: "string",
-        numOfVolunteers: 0,
-      },
-      contractDetailsFulfilled: false,
-      recensionFulfilled: false,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "string trid",
-      volunteerApplicationMessage: "cetvrta strinadg",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnji advadert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "petada string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "string tadri",
-      volunteerApplicationMessage: "cetvrta sasdtring",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnjasdi advert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "peta sasdtring",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "string twr3ri",
-      volunteerApplicationMessage: "cetwfrsvrta string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnji adsrfvert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "peta ssftring",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "strfring tri",
-      volunteerApplicationMessage: "cetsdvrta string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnji adsvvert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "petsfca string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "strisfng tri",
-      volunteerApplicationMessage: "cetsdvvrta string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnji asdcsdvdvert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "pesdvta string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "strisng tri",
-      volunteerApplicationMessage: "csdvetvrta string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnji advsdvert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "petsvda string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "striasng tri",
-      volunteerApplicationMessage: "cetvasdcrta string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zaddvnji advert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "petasda string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-    {
-      volunteerId: 0,
-      volunteerName: "strasing tri",
-      volunteerApplicationMessage: "cetvrtasda string",
-      volunteerApplicationAdvert: {
-        advertTitle: "zadnasdji advert",
-        location: "string",
-        helpType: "string",
-        time: "string",
-        category: "string",
-        description: "string",
-        volunteerCenter: "string",
-      },
-      personInNeedMessage: "petasda string",
-      contractDetailsFulfilled: true,
-      recensionFulfilled: true,
-    },
-  ];
   const [activeModal, setActiveModal] = useState("DEALS_TABLE");
-  const [pagationFirst, setPagationFirst] = useState(true);
-  const [pagationLast, setPagationLast] = useState(true);
+  const [paginationFirst, setPaginationFirst] = useState(true);
+  const [paginationLast, setPaginationLast] = useState(true);
   const [content, setContent] = useState<DealsContentType[]>([]);
   const [requestModalData, setRequestModalData] = useState<RequestType | undefined>(undefined);
   const [advertModalData, setAdvertModalData] = useState<AdvertType | undefined>(undefined);
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
+  const [paginationParams, setPaginationParams] = useState<PaginationParams>({
+    page: 0,
+    size: window.innerWidth < 640 ? 3 : 10,
+  });
+
+  let userId = "";
+  const userString = localStorage.getItem("user");
+  if (userString) {
+    const user = JSON.parse(userString);
+    userId = user.id;
+  }
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`/deal/accepted-deals-person-in-need/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: paginationParams,
+      });
+      console.log(response.data);
+      setContent(response.data.content);
+      setPaginationFirst(response.data.first);
+      setPaginationLast(response.data.last);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData().then();
+  }, [paginationParams]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPaginationParams({
+        ...paginationParams,
+        size: window.innerWidth < 640 ? 3 : 10,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const paginationNext = () => {
+    setPaginationParams((prevParams) => ({
+      ...prevParams,
+      page: (prevParams.page ?? 0) + 1,
+    }));
+  };
+
+  const paginationPrev = () => {
+    setPaginationParams((prevParams) => ({
+      ...prevParams,
+      page: (prevParams.page ?? 0) - 1,
+    }));
+  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -227,11 +108,15 @@ export default function Deals() {
       {activeModal === "DEALS_TABLE" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}
-          content={contentDummy}
+          content={content}
           setActiveModal={setActiveModal}
           setRequestModalData={setRequestModalData}
           setAdvertModalData={setAdvertModalData}
           setMsgModalData={setMsgModalData}
+          paginationNext={paginationNext}
+          paginationPrev={paginationPrev}
+          paginationFirst={paginationFirst}
+          paginationLast={paginationLast}
         />
       )}
     </div>

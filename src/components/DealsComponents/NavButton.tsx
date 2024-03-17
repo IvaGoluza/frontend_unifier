@@ -3,12 +3,17 @@ import React from "react";
 interface NavButtonProps {
   leftOnly: boolean;
   rightOnly: boolean;
-  onLeftClick: () => void;
+  onLeftClick?: () => void;
+  onRightClick?: () => void;
 }
 
-const NavButton: React.FC<NavButtonProps> = ({ leftOnly, rightOnly, onLeftClick }) => {
+const NavButton: React.FC<NavButtonProps> = ({ leftOnly, rightOnly, onLeftClick, onRightClick }) => {
   const handleLeftKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     if (e.key === "Enter" && onLeftClick) onLeftClick();
+  };
+
+  const handleRightKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    if (e.key === "Enter" && onRightClick) onRightClick();
   };
 
   return (
@@ -28,6 +33,8 @@ const NavButton: React.FC<NavButtonProps> = ({ leftOnly, rightOnly, onLeftClick 
           <div
             tabIndex={0}
             className="absolute right-0 top-[5px] h-6 w-8 cursor-pointer rounded-full bg-[#1F2340] text-center text-xl font-bold text-white"
+            onClick={onRightClick}
+            onKeyDown={handleRightKeyDown}
           >
             <p className="-translate-y-1 transform">&gt;</p>
           </div>
