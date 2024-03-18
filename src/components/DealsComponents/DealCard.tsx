@@ -17,6 +17,7 @@ export interface TableRowProps {
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
+  setDealId: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 const DealCard: React.FC<TableRowProps> = ({
@@ -25,6 +26,7 @@ const DealCard: React.FC<TableRowProps> = ({
   setRequestModalData,
   setAdvertModalData,
   setMsgModalData,
+  setDealId,
 }) => {
   const onPersonReqButtonClick = () => {
     setRequestModalData(content.personInNeedRequest);
@@ -48,6 +50,7 @@ const DealCard: React.FC<TableRowProps> = ({
   };
 
   const onContractButtonClick = () => {
+    setDealId(content.dealId);
     setActiveModal("CONTRACT_FORM");
   };
 

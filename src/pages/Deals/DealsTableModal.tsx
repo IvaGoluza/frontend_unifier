@@ -18,6 +18,7 @@ interface DealsTableModalProps {
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
+  setDealId: React.Dispatch<React.SetStateAction<number | undefined>>;
   paginationNext: () => void;
   paginationPrev: () => void;
   paginationFirst: boolean;
@@ -31,6 +32,7 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
   setRequestModalData,
   setAdvertModalData,
   setMsgModalData,
+  setDealId,
   paginationNext,
   paginationPrev,
   paginationFirst,
@@ -50,6 +52,7 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
                 setRequestModalData={setRequestModalData}
                 setAdvertModalData={setAdvertModalData}
                 setMsgModalData={setMsgModalData}
+                setDealId={setDealId}
               />
             ))}
           </ModalBodyContainer>

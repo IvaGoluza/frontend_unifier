@@ -34,6 +34,7 @@ export default function Deals() {
   const [requestModalData, setRequestModalData] = useState<RequestType | undefined>(undefined);
   const [advertModalData, setAdvertModalData] = useState<AdvertType | undefined>(undefined);
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
+  const [dealId, setDealId] = useState<number>();
   const [paginationParams, setPaginationParams] = useState<PaginationParams>({
     page: 0,
     size: window.innerWidth < 640 ? 3 : 10,
@@ -103,7 +104,7 @@ export default function Deals() {
       {activeModal === "ADVERT_MODAL" && (
         <AdvertModal volunteer={"ime volontera"} advert={advertModalData} setActiveModal={setActiveModal} />
       )}
-      {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} />}
+      {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} dealId={dealId} />}
       {activeModal === "CERTIFICATE_FORM" && <CertificateForm setActiveModal={setActiveModal} />}
       {activeModal === "DEALS_TABLE" && (
         <DealsTableModal
@@ -113,6 +114,7 @@ export default function Deals() {
           setRequestModalData={setRequestModalData}
           setAdvertModalData={setAdvertModalData}
           setMsgModalData={setMsgModalData}
+          setDealId={setDealId}
           paginationNext={paginationNext}
           paginationPrev={paginationPrev}
           paginationFirst={paginationFirst}

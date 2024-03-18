@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
-import { Formik, FormikHelpers, Form, Field } from "formik";
+import { Formik, FormikHelpers, Form, Field, FormikProps } from "formik";
 import * as Yup from "yup";
 
+import api from "../../api/createAxiosClient";
 import ModalBodyContainer from "../../components/DealsComponents/ModalBodyContainer";
 import ModalContainer from "../../components/DealsComponents/ModalContainer";
 import ModalFooterContainer from "../../components/DealsComponents/ModalFooterContainer";
@@ -10,6 +11,7 @@ import NavButton from "../../components/DealsComponents/NavButton";
 
 interface ContractFormProps {
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
+  dealId?: number;
 }
 
 type ContractData = {
@@ -27,12 +29,32 @@ const initialValues: ContractData = {
   volunteerWorkDescription: "",
 };
 
-const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal }) => {
-  const [serverError, setServerError] = useState<string>("");
+const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealId }) => {
+  const formRef = useRef<FormikProps<ContractData>>(null);
 
   const onSubmit = async (values: ContractData, actions: FormikHelpers<ContractData>) => {
-    console.log(values);
-    console.log(actions);
+    console.log("hi");
+    const data = {
+      volunteerPosition: values.volunteerPosition,
+      volunteerWorkDescription: values.volunteerWorkDescription,
+    };
+    api
+      .post(`/deal/volunteer-description/${dealId}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        actions.resetForm();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.submitForm();
+    }
   };
 
   return (
@@ -45,7 +67,12 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal }) => {
         <p className="mt-1 font-semibold italic text-[#07169B]">
           Ispunite i pošaljite potvrdu volontiranja volonteru Pero Perić.
         </p>
-        <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
+        <Formik
+          innerRef={formRef}
+          initialValues={initialValues}
+          validationSchema={ValidationSchema}
+          onSubmit={onSubmit}
+        >
           {({ errors, touched }) => (
             <Form className="mt-6 box-content flex w-full flex-col">
               <div className="my-2 flex w-full flex-col items-start justify-start lg:w-4/5">
@@ -56,6 +83,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal }) => {
                   <Field
                     type="text"
                     name="volunteerPosition"
+                    id="volunteerPosition"
                     className={
                       touched && touched.volunteerPosition && errors && errors.volunteerPosition
                         ? "input-error box-border"
@@ -75,6 +103,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal }) => {
                   <Field
                     as="textarea"
                     name="volunteerWorkDescription"
+                    id="volunteerWorkDescription"
                     className={
                       touched && touched.volunteerWorkDescription && errors && errors.volunteerWorkDescription
                         ? "input-error h-40 "
@@ -93,7 +122,8 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal }) => {
       <ModalFooterContainer>
         <NavButton leftOnly={true} rightOnly={false} onLeftClick={() => setActiveModal("DEALS_TABLE")} />
         <button
-          type="submit"
+          type="button"
+          onClick={handleButtonClick}
           className="absolute left-10 w-32 cursor-pointer rounded-full bg-[#5422E1] px-3 py-4 text-center font-bold uppercase text-white hover:tracking-widest sm:left-16 sm:px-10"
         >
           pošalji
