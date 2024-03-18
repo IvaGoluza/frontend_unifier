@@ -33,19 +33,18 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealId }) =
   const formRef = useRef<FormikProps<ContractData>>(null);
 
   const onSubmit = async (values: ContractData, actions: FormikHelpers<ContractData>) => {
-    console.log("hi");
     const data = {
       volunteerPosition: values.volunteerPosition,
       volunteerWorkDescription: values.volunteerWorkDescription,
     };
     api
-      .post(`/deal/volunteer-description/${dealId}`, data, {
+      .put(`/deal/volunteer-description/${dealId}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
-        console.log(res);
+        setActiveModal("DEALS_TABLE");
         actions.resetForm();
       })
       .catch((err) => console.log(err));

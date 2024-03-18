@@ -55,7 +55,6 @@ export default function Deals() {
         },
         params: paginationParams,
       });
-      console.log(response.data);
       setContent(response.data.content);
       setPaginationFirst(response.data.first);
       setPaginationLast(response.data.last);
@@ -65,8 +64,10 @@ export default function Deals() {
   };
 
   useEffect(() => {
-    fetchData().then();
-  }, [paginationParams]);
+    if (activeModal === "DEALS_TABLE") {
+      fetchData().then();
+    }
+  }, [paginationParams, activeModal]);
 
   useEffect(() => {
     const handleResize = () => {
