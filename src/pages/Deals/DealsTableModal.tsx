@@ -1,7 +1,7 @@
 import React from "react";
 
 import { AdvertType } from "./AdvertModal";
-import { DealsContentType } from "./Deals";
+import { DealsContentType, DealType } from "./Deals";
 import { MessageType } from "./MsgModal";
 import { RequestType } from "./RequestModal";
 import DealCard from "../../components/DealsComponents/DealCard";
@@ -18,7 +18,7 @@ interface DealsTableModalProps {
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
-  setDealId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setDealData: React.Dispatch<React.SetStateAction<DealType | undefined>>;
   paginationNext: () => void;
   paginationPrev: () => void;
   paginationFirst: boolean;
@@ -32,7 +32,7 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
   setRequestModalData,
   setAdvertModalData,
   setMsgModalData,
-  setDealId,
+  setDealData,
   paginationNext,
   paginationPrev,
   paginationFirst,
@@ -52,7 +52,7 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
                 setRequestModalData={setRequestModalData}
                 setAdvertModalData={setAdvertModalData}
                 setMsgModalData={setMsgModalData}
-                setDealId={setDealId}
+                setDealData={setDealData}
               />
             ))}
           </ModalBodyContainer>

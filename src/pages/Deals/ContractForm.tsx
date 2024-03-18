@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { Formik, FormikHelpers, Form, Field, FormikProps } from "formik";
 import * as Yup from "yup";
 
+import { DealType } from "./Deals";
 import api from "../../api/createAxiosClient";
 import ModalBodyContainer from "../../components/DealsComponents/ModalBodyContainer";
 import ModalContainer from "../../components/DealsComponents/ModalContainer";
@@ -11,7 +12,7 @@ import NavButton from "../../components/DealsComponents/NavButton";
 
 interface ContractFormProps {
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
-  dealId?: number;
+  dealData?: DealType;
 }
 
 type ContractData = {
@@ -29,7 +30,7 @@ const initialValues: ContractData = {
   volunteerWorkDescription: "",
 };
 
-const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealId }) => {
+const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealData }) => {
   const formRef = useRef<FormikProps<ContractData>>(null);
 
   const onSubmit = async (values: ContractData, actions: FormikHelpers<ContractData>) => {
@@ -38,7 +39,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealId }) =
       volunteerWorkDescription: values.volunteerWorkDescription,
     };
     api
-      .put(`/deal/volunteer-description/${dealId}`, data, {
+      .put(`/deal/volunteer-description/${dealData?.dealId}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -64,7 +65,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealId }) =
           ugovor o volontiranju
         </h1>
         <p className="mt-1 font-semibold italic text-[#07169B]">
-          Ispunite i pošaljite potvrdu volontiranja volonteru Pero Perić.
+          Ispunite i pošaljite potvrdu volontiranja volonteru {dealData?.volunteerName}.
         </p>
         <Formik
           innerRef={formRef}

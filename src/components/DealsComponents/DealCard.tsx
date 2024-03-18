@@ -7,7 +7,7 @@ import CheckedDoc from "./CheckedDoc";
 import MessageButton from "./MessageButton";
 import WriteDoc from "./WriteDoc";
 import { AdvertType } from "../../pages/Deals/AdvertModal";
-import { DealsContentType } from "../../pages/Deals/Deals";
+import { DealsContentType, DealType } from "../../pages/Deals/Deals";
 import { MessageType } from "../../pages/Deals/MsgModal";
 import { RequestType } from "../../pages/Deals/RequestModal";
 
@@ -17,7 +17,7 @@ export interface TableRowProps {
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
   setMsgModalData: React.Dispatch<React.SetStateAction<MessageType | undefined>>;
-  setDealId: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setDealData: React.Dispatch<React.SetStateAction<DealType | undefined>>;
 }
 
 const DealCard: React.FC<TableRowProps> = ({
@@ -26,7 +26,7 @@ const DealCard: React.FC<TableRowProps> = ({
   setRequestModalData,
   setAdvertModalData,
   setMsgModalData,
-  setDealId,
+  setDealData,
 }) => {
   const onPersonReqButtonClick = () => {
     setRequestModalData(content.personInNeedRequest);
@@ -50,11 +50,12 @@ const DealCard: React.FC<TableRowProps> = ({
   };
 
   const onContractButtonClick = () => {
-    setDealId(content.dealId);
+    setDealData({ dealId: content.dealId, volunteerId: content.volunteerId, volunteerName: content.volunteerName });
     setActiveModal("CONTRACT_FORM");
   };
 
   const onCertificateButtonClick = () => {
+    setDealData({ dealId: content.dealId, volunteerId: content.volunteerId, volunteerName: content.volunteerName });
     setActiveModal("CERTIFICATE_FORM");
   };
 

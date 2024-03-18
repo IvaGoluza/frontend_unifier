@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import hr from "date-fns/locale/hr";
-import { Formik, FormikHelpers, Form, Field } from "formik";
+import { Formik, FormikHelpers, Form, Field, FormikProps } from "formik";
 import DatePicker, { registerLocale } from "react-datepicker";
 import * as Yup from "yup";
 import "react-datepicker/dist/react-datepicker.css";
 
+import { DealType } from "./Deals";
+import api from "../../api/createAxiosClient";
 import ModalBodyContainer from "../../components/DealsComponents/ModalBodyContainer";
 import ModalContainer from "../../components/DealsComponents/ModalContainer";
 import ModalFooterContainer from "../../components/DealsComponents/ModalFooterContainer";
@@ -15,30 +17,64 @@ registerLocale("hr", hr);
 
 interface CertificateFormProps {
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
+  dealData?: DealType;
 }
 
-type ContractData = {
+type CertificateData = {
   volunteerRecension: string;
-  volunteerWorkDescription: string;
 };
 
 const ValidationSchema = Yup.object().shape({
   volunteerRecension: Yup.string().required("Recenzija je obavezna."),
-  volunteerWorkDescription: Yup.string().required("Opis aktivnosti je obavezan."),
 });
 
-const initialValues: ContractData = {
+const initialValues: CertificateData = {
   volunteerRecension: "",
-  volunteerWorkDescription: "",
 };
 
-const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal }) => {
-  const [serverError, setServerError] = useState<string>("");
+const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal, dealData }) => {
+  const formRef = useRef<FormikProps<CertificateData>>(null);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
-  const onSubmit = async (values: ContractData, actions: FormikHelpers<ContractData>) => {
-    console.log(values);
-    console.log(actions);
+  const onSubmit = async (values: CertificateData, actions: FormikHelpers<CertificateData>) => {
+    const formattedStartDate = startDate
+      ? startDate.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
+      : "";
+    let [month, day, year] = formattedStartDate.split("/");
+    const formattedStartDateISO = `${year}-${month}-${day}`;
+
+    const formattedEndDate = endDate
+      ? endDate.toLocaleDateString("en-US", { year: "numeric", month: "2-digit", day: "2-digit" })
+      : "";
+    [month, day, year] = formattedEndDate.split("/");
+    const formattedEndDateISO = `${year}-${month}-${day}`;
+
+    const data = {
+      recension: values.volunteerRecension,
+      startDate: formattedStartDateISO,
+      endDate: formattedEndDateISO,
+      dealId: dealData?.dealId,
+      reviewingUserId: dealData?.volunteerId,
+    };
+
+    api
+      .post("/recension", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        setActiveModal("DEALS_TABLE");
+        actions.resetForm();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleButtonClick = () => {
+    if (formRef.current) {
+      formRef.current.submitForm();
+    }
   };
 
   return (
@@ -49,9 +85,14 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal }) => 
           Potvrda volontiranja
         </h1>
         <p className="mt-1 font-semibold italic text-[#07169B]">
-          Ispunite i pošaljite potvrdu volontiranja volonteru Pero Perić.
+          Ispunite i pošaljite potvrdu volontiranja volonteru {dealData?.volunteerName}.
         </p>
-        <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
+        <Formik
+          innerRef={formRef}
+          initialValues={initialValues}
+          validationSchema={ValidationSchema}
+          onSubmit={onSubmit}
+        >
           {({ errors, touched }) => (
             <Form className="mt-6 box-content flex w-full flex-col">
               <div className="my-2 flex w-full flex-col items-start justify-start lg:w-4/5">
@@ -61,6 +102,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal }) => 
                 <div className="relative w-full rounded-md lg:w-2/3">
                   <Field
                     as="textarea"
+                    id="volunteerRecension"
                     name="volunteerRecension"
                     className={
                       touched && touched.volunteerRecension && errors && errors.volunteerRecension
@@ -74,35 +116,31 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal }) => 
                 </div>
               </div>
               <div className="my-2 flex w-full flex-col items-start justify-start lg:w-4/5">
-                <label htmlFor="volunteerWorkDescription" className="italic text-[#07169B]">
+                <label htmlFor="startDate" className="italic text-[#07169B]">
                   Odaberite datum početka volonterske aktivnosti
                 </label>
                 <div className="relative w-full rounded-md lg:w-2/3">
                   <DatePicker
+                    id="startDate"
                     className="cursor-pointer rounded-lg bg-[#EAFAFF] text-center shadow-lg"
                     locale="hr"
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
                   />
-                  {touched && touched.volunteerWorkDescription && errors && errors.volunteerWorkDescription && (
-                    <p className="error">{errors.volunteerWorkDescription}</p>
-                  )}
                 </div>
               </div>
               <div className="my-2 flex w-full flex-col items-start justify-start lg:w-4/5">
-                <label htmlFor="volunteerWorkDescription" className="italic text-[#07169B]">
+                <label htmlFor="endDate" className="italic text-[#07169B]">
                   Odaberite datum kraja volonterske aktivnosti
                 </label>
                 <div className="relative w-full rounded-md lg:w-2/3">
                   <DatePicker
+                    id="endDate"
                     className="cursor-pointer rounded-lg bg-[#EAFAFF] text-center shadow-lg"
                     locale="hr"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
                   />
-                  {touched && touched.volunteerWorkDescription && errors && errors.volunteerWorkDescription && (
-                    <p className="error">{errors.volunteerWorkDescription}</p>
-                  )}
                 </div>
               </div>
             </Form>
@@ -112,7 +150,8 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal }) => 
       <ModalFooterContainer>
         <NavButton leftOnly={true} rightOnly={false} onLeftClick={() => setActiveModal("DEALS_TABLE")} />
         <button
-          type="submit"
+          type="button"
+          onClick={handleButtonClick}
           className="absolute left-10 w-32 cursor-pointer rounded-full bg-[#5422E1] px-3 py-4 text-center font-bold uppercase text-white hover:tracking-widest sm:left-16 sm:px-10"
         >
           pošalji
