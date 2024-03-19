@@ -38,7 +38,7 @@ export default function Deals() {
   const [paginationLast, setPaginationLast] = useState(true);
   const [content, setContent] = useState<DealsContentType[]>([]);
   const [requestModalData, setRequestModalData] = useState<RequestType | undefined>(undefined);
-  const [advertModalData, setAdvertModalData] = useState<AdvertType | undefined>(undefined);
+  const [advertModalData, setAdvertModalData] = useState<AdvertType>();
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
   const [dealData, setDealData] = useState<DealType>();
   const [paginationParams, setPaginationParams] = useState<PaginationParams>({
