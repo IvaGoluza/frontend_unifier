@@ -17,7 +17,11 @@ const NavButton: React.FC<NavButtonProps> = ({ leftOnly, rightOnly, onLeftClick,
   };
 
   return (
-    <div className="absolute right-10 h-10 w-[5.7rem] justify-self-center rounded-full border border-[3px] border-[#1F2340] px-2 shadow-xl sm:right-16">
+    <div
+      className={`${
+        rightOnly && leftOnly ? "hidden" : ""
+      } absolute right-10 h-10 w-[5.7rem] justify-self-center rounded-full border border-[3px] border-[#1F2340] px-2 shadow-xl sm:right-16`}
+    >
       <div className="relative h-full w-full">
         {!rightOnly && (
           <div

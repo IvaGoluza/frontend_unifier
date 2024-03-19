@@ -34,6 +34,7 @@ const initialValues: CertificateData = {
 
 const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal, dealData }) => {
   const formRef = useRef<FormikProps<CertificateData>>(null);
+  const [serverError, setServerError] = useState<string>("");
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
@@ -68,7 +69,9 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal, dealD
         setActiveModal("DEALS_TABLE");
         actions.resetForm();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setServerError(err.response.data);
+      });
   };
 
   const handleButtonClick = () => {
@@ -142,6 +145,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ setActiveModal, dealD
                     onChange={(date) => setEndDate(date)}
                   />
                 </div>
+                {serverError.length > 0 && <p className="error">{serverError}</p>}
               </div>
             </Form>
           )}
