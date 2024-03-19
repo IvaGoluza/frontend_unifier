@@ -14,12 +14,12 @@ export default function MyRequests2() {
   return (
     <>
       {!isFormVisible && (
-        <div className={`my-request flex justify-center bg-customPurpleDarkest`}>
+        <div className={`my-request flex justify-center bg-[#1F2340]`}>
           <MyRequestList toggleFormVisibility={toggleFormVisibility} />
         </div>
       )}
       {isFormVisible && (
-        <div className={`my-request-form flex h-screen justify-center bg-white sm:bg-customPurpleDarkest`}>
+        <div className={`my-request-form flex h-screen justify-center bg-white sm:bg-[#1F2340]`}>
           <CreateNewForm2 request={true} toggleFormVisibility={toggleFormVisibility} />
         </div>
       )}

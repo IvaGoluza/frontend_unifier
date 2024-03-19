@@ -15,14 +15,11 @@ interface ImagesProps {
 export default function RadioImages({ images, name, categories_images, eng_names, touched, errors }: ImagesProps) {
   const { setFieldValue } = useFormikContext();
 
-  // Calculate the width of each image container dynamically
   const calculateImageContainerWidth = () => {
     if (name === "category") {
-      return "w-1/6"; // 5 images in a row
+      return "w-1/6";
     } else if (name === "helpType") {
-      return "w-1/5"; // 4 images in a row
-    } else {
-      return ""; // default width
+      return "w-1/5";
     }
   };
 
@@ -30,8 +27,8 @@ export default function RadioImages({ images, name, categories_images, eng_names
     <div
       className={
         errors && touched && errors[name] && touched[name]
-          ? `flex items-center justify-center rounded-[15px] border-[1px] border-solid border-rose-400 p-4  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
-          : `h-[15rem] flex items-center justify-center rounded-[15px] border-[1px] border-solid border-[#07169B] p-4  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
+          ? `h-[15rem] flex items-center justify-center rounded-[15px] border-[1px] border-solid border-rose-400  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
+          : `h-[15rem] flex items-center justify-center rounded-[15px] border-[1px] border-solid border-[#07169B]  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
       }
     >
       <Field name={name} validateOnChange={false} validateOnBlur={true}>

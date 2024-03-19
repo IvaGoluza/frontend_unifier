@@ -18,8 +18,6 @@ interface FormFieldSectionProps {
   helpTypes_eng: string[];
 }
 
-const ERROR = "input-error-form mt-3";
-
 const FormFieldSection: React.FC<FormFieldSectionProps> = ({
   touched,
   errors,
@@ -71,7 +69,7 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
       <div className="button-create-request mb-5 mr-10 mt-10 flex w-11/12 justify-center lg:w-9/12 lg:justify-end">
         <button
           type={"submit"}
-          className="letter-spacing-0-06 flex w-2/5 items-center justify-center rounded-[35px] bg-customPurple p-2 font-krub text-xs font-bold text-white min-[1100px]:w-6/12 h-[2rem] min-[1400px]:w-5/12 min-[1400px]:h-[2rem] lg:p-4 lg:text-sm 2xl:text-lg"
+          className="letter-spacing-0-06 flex w-2/5 items-center justify-center rounded-[35px] bg-[#5422E1] p-2 font-krub text-xs font-bold text-white min-[1100px]:w-6/12 h-[2rem] min-[1400px]:w-5/12 min-[1400px]:h-[2rem] lg:p-4 lg:text-sm 2xl:text-lg"
         >
           KREIRAJ ZAHTJEV
         </button>

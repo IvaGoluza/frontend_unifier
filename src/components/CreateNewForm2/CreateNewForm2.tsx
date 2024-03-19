@@ -262,7 +262,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                     </div>
                   </div>
                 </div>
-                <div className="my-2 flex w-full items-center justify-start lg:justify-center">
+                <div className="sm:my-2 mb-4 flex w-full items-center justify-start lg:justify-center">
                   <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
                 </div>
               </div>

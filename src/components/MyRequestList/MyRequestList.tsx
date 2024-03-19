@@ -116,7 +116,7 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
           </button>
           <div className="container-pagation m-2 flex w-4/12 lg:w-2/12 flex-row items-center justify-center justify-around rounded-full">
             <div
-              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationFirst ? BG_TRUE : "bg-customPurpleDarker"
+              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationFirst ? BG_TRUE : "bg-[#09115B]"
                 }`}
             >
               {pagationFirst ? (
@@ -126,7 +126,7 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
               )}
             </div>
             <div
-              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationLast ? BG_TRUE : "bg-customPurpleDarker"
+              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationLast ? BG_TRUE : "bg-[#09115B]"
                 }`}
             >
               {pagationLast ? (

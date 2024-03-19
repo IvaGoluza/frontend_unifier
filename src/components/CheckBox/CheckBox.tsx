@@ -4,15 +4,15 @@ import "./CheckBox.css";
 import { Field } from "formik";
 
 interface OptionsProps {
-  touched: any;
-  errors: any;
+  touched: { [key: string]: boolean };
+  errors: { [key: string]: string };
   isSubmitting: boolean;
   ERROR: string;
 }
 
-const Options: React.FC<OptionsProps> = ({ touched, errors, isSubmitting, ERROR }) => {
+const Options: React.FC<OptionsProps> = ({ touched, errors, ERROR }) => {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <div className="option my-1 lg:m-2">
         <Field
           type="radio"
