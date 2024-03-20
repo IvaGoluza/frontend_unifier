@@ -32,7 +32,7 @@ export default function InfoRequest() {
   const navigate = useNavigate();
 
   const onClickBack = () => {
-    navigate("/my-requests2");
+    navigate("/my-requests");
   }
 
   return (

@@ -33,8 +33,8 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
       last: boolean;
     }[]
   >([]);
-  const [pagationFirst, setPagationFirst] = useState("true");
-  const [pagationLast, setPagationLast] = useState("true");
+  const [pagationFirst, setPagationFirst] = useState(true);
+  const [pagationLast, setPagationLast] = useState(true);
   const navigate = useNavigate();
 
   const params: PaginationParams = {
@@ -116,11 +116,7 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
             NOVI ZAHTJEV
           </button>
           <div className="m-2 flex lg:w-[10rem] flex-row items-center justify-center justify-around rounded-full">
-            {pagationFirst ? (
-              <NavButton leftOnly={false} rightOnly={true} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
-            ) : (
-              <NavButton leftOnly={true} rightOnly={false} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
-            )}
+            <NavButton leftOnly={pagationLast} rightOnly={pagationFirst} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
           </div>
         </div>
 
