@@ -42,11 +42,7 @@ const AccordionCard = ({
   };
 
   return (
-<<<<<<< HEAD
     <div className="request-container relative m-5 h-64 overflow-hidden rounded-[18px] border bg-white pt-2 shadow-xl md:max-w-xl">
-=======
-    <div className="request-container w-480 relative m-5 h-64 rounded-[18px] border bg-white pt-2 shadow-xl md:max-w-xl">
->>>>>>> origin/petra-moji-zahtjevi
       <div className="grid w-full grid-cols-4 place-items-center border-b-2 pb-2">
         <button
           className={`tablinks ${activeTab === "Info" && "active"} w-full text-center`}
@@ -117,11 +113,7 @@ const AccordionCard = ({
       </div>
 
       <div id="Volonter" className={`tabcontent ${activeTab === "Volonter" && "active"}`}>
-<<<<<<< HEAD
         <div className="Infoimage m-5 md:shrink-0 lg:col-span-1">
-=======
-        <div className="Infoimage m-2 md:shrink-0 lg:col-span-1">
->>>>>>> origin/petra-moji-zahtjevi
           <img src="../../../assets/images/optionsImages/profileImage.jpg" className="rounded-lg" />
         </div>
         <div className="mt-3 grid grid-cols-1 grid-rows-4 md:max-h-48 md:max-w-2xl lg:col-span-1">
