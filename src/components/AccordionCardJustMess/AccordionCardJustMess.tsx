@@ -27,7 +27,11 @@ const AccordionCardJustMess = ({ message, name, phoneNumber, email }: Data) => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="request-container relative m-5 h-64 overflow-hidden rounded-[18px] border bg-white pt-2 shadow-xl md:max-w-xl">
+=======
+    <div className="request-container relative m-5 h-64 rounded-[18px] border bg-white pt-2 shadow-xl sm:w-3/4 md:max-w-xl">
+>>>>>>> origin/petra-moji-zahtjevi
       <div className="grid w-full grid-cols-3 place-items-center border-b-2 pb-2">
         <button
           className={`tablinks ${activeTab === "Poruka" && "active"} w-full text-center`}
