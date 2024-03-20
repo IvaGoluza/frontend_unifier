@@ -40,6 +40,10 @@
    text-transform: uppercase;
 }
 
+.container-pagation {
+   border: 3px solid #09115B;
+   background-color: white;
+}
 
 .border-gradient-orange {
    background: radial-gradient(circle at 100% 100%, #EAFAFF 0, #EAFAFF 18px, transparent 18px) 0% 0%/20px 20px no-repeat,

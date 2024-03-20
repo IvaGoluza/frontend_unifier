@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api/createAxiosClient";
 
 import "./MyRequestList.css";
-import NavButton from "../DealsComponents/NavButton";
 
 interface Props {
   toggleFormVisibility: () => void;
@@ -99,7 +98,7 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
           <div key={item.requestId}>
             <div
               onClick={() => handleRequestClick(item.requestId)}
-              className={`requests-list-item justify-center cursor-pointer m-2 ml-4 mr-4 flex grid grid-cols-1 items-center justify-center p-2 text-base sm:grid-cols-3 ${item.archived ? "border-gradient-orange" : "border-gradient-green"
+              className={`requests-list-item cursor-pointer m-2 ml-4 mr-4 flex grid grid-cols-1 items-center justify-center p-2 text-base sm:grid-cols-3 ${item.archived ? "border-gradient-orange" : "border-gradient-green"
                 }`}
             >
               <div className="flex justify-center">{item.requestTitle}</div>
@@ -108,19 +107,34 @@ export default function MyRequestList({ toggleFormVisibility }: Props) {
             </div>
           </div>
         ))}
-        <div className="absolute cursor-pointer bottom-5 right-5 items-center justify-between p-1 lg:justify-end text-xs flex flex-row w-10/12 ">
+        <div className="absolute cursor-pointer bottom-5 items-center justify-center md:justify-end text-xs flex flex-row w-full">
           <button
             onClick={toggleFormVisibility}
-            className="button-create-request-list flex h-10 items-center justify-center bg-[#5422E1] pl-2 pr-2 text-xs md:text-sm 2xl:text-lg "
+            className="button-create-request-list flex w-6/12 h-[3rem] md:w-3/12 lg:w-2/12 h:h-[4rem] items-center justify-center bg-[#5422E1] pl-2 pr-2 text-xs md:text-sm 2xl:text-lg hover:scale-110"
           >
             NOVI ZAHTJEV
           </button>
-          <div className="m-2 flex lg:w-[10rem] flex-row items-center justify-center justify-around rounded-full">
-            {pagationFirst ? (
-              <NavButton leftOnly={false} rightOnly={true} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
-            ) : (
-              <NavButton leftOnly={true} rightOnly={false} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
-            )}
+          <div className="container-pagation m-2 flex w-4/12 lg:w-2/12 flex-row items-center justify-center justify-around rounded-full">
+            <div
+              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationFirst ? BG_TRUE : "bg-[#09115B]"
+                }`}
+            >
+              {pagationFirst ? (
+                <FontAwesomeIcon icon={faArrowLeft} />
+              ) : (
+                <FontAwesomeIcon icon={faArrowLeft} onClick={paginationPrev} />
+              )}
+            </div>
+            <div
+              className={`m-1 rounded-full p-2 pl-3 pr-3 text-white hover:scale-110  ${pagationLast ? BG_TRUE : "bg-[#09115B]"
+                }`}
+            >
+              {pagationLast ? (
+                <FontAwesomeIcon icon={faArrowRight} />
+              ) : (
+                <FontAwesomeIcon icon={faArrowRight} onClick={paginationNext} />
+              )}
+            </div>
           </div>
         </div>
 
