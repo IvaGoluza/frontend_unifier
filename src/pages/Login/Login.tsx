@@ -27,6 +27,7 @@ const Login = () => {
   const [serverError, setServerError] = useState<string>("");
 
   const onSubmit = async (values: LoginCommand, actions: FormikHelpers<LoginCommand>) => {
+    console.log(values);
     const result: loggedInUserType | null = await login(values);
 
     if (result !== null) {
