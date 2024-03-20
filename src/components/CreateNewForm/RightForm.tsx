@@ -4,7 +4,7 @@ import { Field } from "formik";
 
 import RadioImages from "../RadioImages/RadioImages";
 
-import "./CreateNewForm2.css";
+import "./CreateNewForm.css";
 
 interface FormFieldSectionProps {
   touched: { [key: string]: boolean };

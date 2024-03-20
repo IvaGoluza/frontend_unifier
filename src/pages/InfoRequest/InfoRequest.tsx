@@ -1,17 +1,60 @@
 import React, { useEffect, useState } from "react";
 
-import { faCircleXmark, faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCircleXmark, faTrashCan, faLocationDot, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import AccordionCard from "../../components/AccordionCard/AccordionCard";
 import "./InfoRequest.css";
+import { categories, helpType } from "../../api/auth/IForm";
 import AccordionCardJustMess from "../../components/AccordionCardJustMess/AccordionCardJustMess";
 import api from "../../api/createAxiosClient";
+import CategoryCard from "../../components/DealsComponents/CategoryCard";
+import PersonPlaceTimeNumInfo from "../../components/DealsComponents/PersonPlaceTimeNumInfo";
+import TitleTextInModal from "../../components/DealsComponents/TitleTextInModal";
 
-export default function InfoRequest() {
+interface requestData {
+  archived: boolean;
+  category: string;
+  description: string;
+  helpType: string;
+  location: string;
+  numOfVolunteers: number;
+  requestId: number;
+  requestTitle: string;
+  skillSet: string;
+  time: string;
+  typeOfAction: string;
+  user: {
+    approved: boolean;
+    blocked: boolean;
+    email: string;
+    id: number;
+    mobilePhone: string;
+    profileDescription: string;
+    role: string;
+    userType: string;
+    town: string;
+  };
+  volunteerCenter: string;
+}
+
+export default function InfoRequest({
+  archived,
+  category,
+  description,
+  helpType,
+  location,
+  numOfVolunteers,
+  requestTitle,
+  typeOfAction,
+  skillSet,
+  time,
+  volunteerCenter,
+}: requestData) {
   const request = {
     title: "INSTRUKCIJE",
     association: true,
@@ -26,70 +69,131 @@ export default function InfoRequest() {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
   };
+  const location_navigate = useLocation();
+  const params = location_navigate.state;
+  const navigate = useNavigate();
+  const requestId = params.requestId;
+  const userId = params.userId;
+  const [requestInfo, setRequestInfo] = useState<requestData | null>(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await api.get(`/request/${requestId}/my-request/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.data);
+      setRequestInfo(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const numberOfCards = 4;
   const cardsArray = Array.from({ length: numberOfCards }, (_, index) => index);
-  const navigate = useNavigate();
 
-  const onClickBack = () => {
+  const handleBack = () => {
     navigate("/my-requests");
-  }
+  };
+  const handleRequestState = async (action: string) => {
+    let message = "";
+    try {
+      let response;
+      if (action === "archive") {
+        response = await api.put(`/request/archive/${requestId}`, {});
+        message = "Uspješno arhiviran zahtjev!";
+      } else if (action === "activate") {
+        response = await api.put(`/request/undo-archive/${requestId}`, {});
+        message = "Uspješno aktiviran zahtjev!";
+      }
+      toast.success(message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setRequestInfo((prevState: requestData | null) => ({
+        ...prevState!,
+        archived: action === "archive",
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Greška", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
 
   return (
     <>
-      <div className="purple-background">
-        <div className="circleXmark absolute top-20">
-          <FontAwesomeIcon icon={faCircleXmark} style={{ color: "#ffffff" }} onClick={onClickBack} size="2x" />
-        </div>
-        <div className="absolute left-20 top-40 flex items-center justify-center">
-          <div className="butterfly">
-            <img src="../../../assets/images/butterfly_2.png" />
+      {requestInfo && (
+        <div className="purple-background">
+          <div className="circleXmark absolute top-20">
+            <FontAwesomeIcon icon={faCircleXmark} onClick={handleBack} style={{ color: "#ffffff" }} size="2x" />
           </div>
-          <div>
-            <div className="title-bar flex flex-auto">
-              <h1 className="title">OVO JE NAZIV ZAHTJEVA</h1>
-              <button className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white">ARHIVIRAJ</button>
+          <div className="absolute left-20 top-40 flex items-center justify-center">
+            <div className="butterfly">
+              <img src="../../../assets/images/butterfly_2.png" />
             </div>
-            <div className="request-info flex">
-              <div className="request-info-item">{request.category}</div>
-              <div className="request-info-item">{request.helpType}</div>
-              <div className="request-info-item">Jendokratna akcija</div>
-              <div className="request-info-item">{request.town}</div>
-            </div>
-          </div>
-          <div className="request-info-data mt-5">
-            <div className="request-info-data-location">
-              <FontAwesomeIcon icon={faLocationDot} style={{ marginRight: "5px" }} />
-              {request.location}
-            </div>
-            <div className="request-info-data-time mt-3">
-              <FontAwesomeIcon icon={faClock} style={{ marginRight: "5px" }} />
-              {request.time}
-            </div>
-            <div className="request-info-data-number mt-3"># Broj potrebnih volontera: 6</div>
-          </div>
-        </div>
-        <div className="description-requirements">
-          <div>
-            <div className="description-requirements-title">POTREBNA ZNANJA I VJEŠTINE VOLONTERA</div>
-            <div className="description-requirements-desc mr-20 w-80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-            </div>
-          </div>
-          <div>
-            <div className="description-requirements-title">OPIS POTREBNE POMOĆI</div>
-            <div className="description-requirements-desc w-80">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
-            </div>
-          </div>
-        </div>
-        <div className="volunteer">
-          <img src="../../../assets/images/volunteer_image.png" />
-        </div>
-      </div>
 
+            <div>
+              <div className="title-bar flex flex-auto">
+                <h1 className="title uppercase">{requestInfo.requestTitle}</h1>
+                {!requestInfo.archived ? (
+                  <button
+                    className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white"
+                    onClick={() => handleRequestState("archive")}
+                  >
+                    ARHIVIRAJ
+                  </button>
+                ) : (
+                  <button
+                    className="request-state mb-2 ml-20 pl-5 pr-5 hover:bg-white"
+                    onClick={() => handleRequestState("activate")}
+                  >
+                    AKTIVIRAJ
+                  </button>
+                )}
+              </div>
+
+              <div className="request-info flex">
+                <CategoryCard category={requestInfo.category} textColor="00000" bgColor="D9D9D9" />
+                <CategoryCard category={requestInfo.helpType} textColor="00000" bgColor="D9D9D9" />
+                <CategoryCard category={requestInfo.typeOfAction} textColor="00000" bgColor="D9D9D9" />
+                <CategoryCard category={requestInfo.volunteerCenter} textColor="00000" bgColor="D9D9D9" />
+              </div>
+            </div>
+            <div className="request-info-data mt-5">
+              <PersonPlaceTimeNumInfo location={requestInfo.location} time={requestInfo.time} volunteerNumber={requestInfo.numOfVolunteers} textColor="FFFFFF" />
+            </div>
+          </div>
+          <div className="description-requirements">
+            <TitleTextInModal title={"POTREBNA ZNANJA I VJEŠTINE VOLONTERA"} text={requestInfo.skillSet} />
+            <TitleTextInModal title={"OPIS POTREBNE POMOĆI"} text={requestInfo.description} />
+          </div>
+          <div className="volunteer">
+            <img src="../../../assets/images/volunteer_image.png" />
+          </div>
+        </div>
+      )}
       <div className="custom-shape-divider-bottom-1709115725">
         <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
           <path
@@ -109,22 +213,21 @@ export default function InfoRequest() {
         </svg>
       </div>
       <div className="white-background">
-        <div className="accordions">
+        <div className="accordions justify-center xl:justify-start">
           {cardsArray.map((index) => (
-            <div key={index} className="">
-              <AccordionCard
-                title={request.title}
-                category={request.category}
-                helpType={request.helpType}
-                town={request.town}
-                location={request.location}
-                time={request.time}
-                description={request.description}
-                name={request.name}
-                email={request.email}
-                phoneNumber={request.mobilePhone}
-              />
-            </div>
+            <AccordionCard
+              key={index}
+              title={request.title}
+              category={request.category}
+              helpType={request.helpType}
+              town={request.town}
+              location={request.location}
+              time={request.time}
+              description={request.description}
+              name={request.name}
+              email={request.email}
+              phoneNumber={request.mobilePhone}
+            />
           ))}
           <AccordionCardJustMess
             message={request.description}
@@ -134,6 +237,7 @@ export default function InfoRequest() {
           />
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
