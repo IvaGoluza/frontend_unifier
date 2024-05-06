@@ -166,6 +166,14 @@
   color: #B0A9F9;
 }
 
+.request-container {
+   width: 27rem;
+}
+
+.Toastify__toast--success {
+   border-radius: 12px;
+}
+
 @media (max-width: 1200px) {
    .description-requirements {
       display: flex;

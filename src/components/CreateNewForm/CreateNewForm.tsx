@@ -1,184 +1,287 @@
 import React, { useContext } from "react";
 
+import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useQueryClient } from "react-query";
-import * as Yup from "yup";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import FormFieldSection from "./RightForm";
 import { IAuth } from "../../api/auth/IAuth";
 import { FormTypes } from "../../api/auth/IForm";
 import api from "../../api/createAxiosClient";
-import RadioImages from "../../components/RadioImages/RadioImages";
+import RadioImages from "../RadioImages/RadioImages";
 import { AuthContext } from "../../context/AuthContext";
+import Options from "../CheckBox/CheckBox";
+import { CreateNewFormValidationSchemaForCreatingRequest } from "../Validation/Validation";
+
+import "./CreateNewForm.css";
 
 interface CreateNewFormProps {
   request?: boolean;
+  toggleFormVisibility: () => void;
 }
 
-export default function CreateNewForm({ request }: CreateNewFormProps) {
+export default function CreateNewForm2({ request, toggleFormVisibility }: CreateNewFormProps) {
   const queryClient = useQueryClient();
   const { currentUser } = useContext(AuthContext) as IAuth;
 
   const initialValues: FormTypes = {
-    title: "",
-    town: "",
+    requestTitle: "",
     category: "",
     helpType: "",
-    volunteerNum: 0,
+    numOfVolunteers: "",
     description: "",
+    location: "",
+    time: "",
+    typeOfAction: "",
+    skillSet: "",
   };
 
-  const categories = ["CHILDREN", "SPECIAL_NEEDS", "ELDERLY", "FAMILY"];
-  const helpTypes = ["EDUCATION", "SUPPORT", "HEALTH", "REPAIRS", "WORKSHOPS", "REST"];
-  const ERROR = "input-error mt-3";
+  const categories = [
+    "DJECA I MLADI",
+    "STARIJI",
+    "OBITELJI",
+    "BESKUĆNICI",
+    "OVISNICI",
+    "OSOBE S INVALIDITETOM",
+    "RANJIVE SKUPINE",
+    "OKOLIŠ",
+    "ŽIVOTINJE",
+    "OSTALO",
+  ];
+  const categories_images = [
+    "djeca_i_mladi",
+    "stariji",
+    "obitelji",
+    "beskucnici",
+    "ovisnici",
+    "osobe_s_inv",
+    "ranjive_skupine",
+    "okolis",
+    "zivotinje",
+    "ostalo",
+  ];
+  const helpTypes = [
+    "OBRAZOVANJE",
+    "DONACIJE",
+    "POPRAVCI",
+    "RADIONICE",
+    "ZDRAVLJE",
+    "FIZIČKI POSLOVI",
+    "ZABAVA",
+    "OSTALO",
+  ];
+  const categories_images_helpTypes = [
+    "obrazovanje",
+    "donacije",
+    "popravci",
+    "radionice",
+    "zdravlje",
+    "fizicki_poslovi",
+    "zabava",
+    "ostalo",
+  ];
+  const categories_eng = [
+    "CHILDREN_AND_YOUNGER",
+    "ELDERLY",
+    "FAMILY",
+    "HOMELESS",
+    "ADDICTS",
+    "DISABLED",
+    "VULNERABLE_GROUPS",
+    "ENVIRONMENT",
+    "ANIMALS",
+    "OTHER",
+  ];
+  const helpTypes_eng = [
+    "EDUCATION",
+    "DONNATION",
+    "REPAIRS",
+    "WORKSHOPS",
+    "HEALTH",
+    "PHYSICAL_WORK",
+    "ENTERTAINMENT",
+    "OTHER",
+  ];
+  const ERROR = "input-error-form mt-3";
+  const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 min-[640px]:w-9/12 sm:text-base text-xs p-1";
 
-  const ValidationSchema = Yup.object().shape({
-    title: Yup.string().required("Naziv oglasa je obavezan"),
-    town: Yup.string()
-      .oneOf(["ZAGREB", "SPLIT", "RIJEKA", "OSIJEK", "DUBROVNIK"], "Odabir grada je obavezan")
-      .required("Odabir grada je obavezan"),
-    category: Yup.string().required("Odabir kategorije obavezan"),
-    helpType: Yup.string().required("Odabir vrste pomoći je obavezan"),
-    volunteerNum: Yup.number().required("Broj potrebnih volontera je obavezan"),
-    description: Yup.string().required("Opis je obavezan"),
-  });
+  const ValidationSchema = CreateNewFormValidationSchemaForCreatingRequest;
 
   const onSubmit = async (values: FormTypes, formikHelpers: FormikHelpers<FormTypes>) => {
-    if (!request) {
-      const data = {
-        advertTitle: values.title,
-        town: values.town,
-        helpType: values.helpType,
-        category: values.category,
-        description: values.description,
-        userId: currentUser?.id,
-      };
-      api({
-        method: "post",
-        url: "/advert",
-        data: data,
+    const data = {
+      requestTitle: values.requestTitle,
+      helpType: values.helpType,
+      category: values.category,
+      description: values.description,
+      numOfVolunteers: parseInt(values.numOfVolunteers, 10),
+      location: values.location,
+      time: values.time,
+      skillSet: values.skillSet,
+      typeOfAction: values.typeOfAction,
+      userId: currentUser?.id,
+    };
+    api
+      .post("/request", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-        .then((res) => {
-          queryClient.refetchQueries(["myAdverts"]);
-          console.log(res);
-          formikHelpers.resetForm();
-          formikHelpers.setErrors({});
-        })
-        .catch((err) => console.log(err));
-    } else {
-      const data = {
-        association: currentUser?.userType === "ASSOCIATION",
-        requestTitle: values.title,
-        town: values.town,
-        helpType: values.helpType,
-        category: values.category,
-        description: values.description,
-        volunteerNum: values.volunteerNum,
-        userId: currentUser?.id,
-      };
-      api({
-        method: "post",
-        url: "/request",
-        data: data,
+      .then(() => {
+        queryClient.refetchQueries(["myRequests"]);
+        toast.success("Uspješno kreiran zahtjev!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        formikHelpers.resetForm();
+        formikHelpers.setErrors({});
+        setTimeout(() => {
+          toggleFormVisibility();
+        }, 2000);
       })
-        .then((res) => {
-          queryClient.refetchQueries(["myRequests"]);
-          console.log(res);
-          formikHelpers.resetForm();
-          formikHelpers.setErrors({});
-        })
-        .catch((err) => console.log(err));
-    }
+      .catch((err) => {
+        console.log(err);
+        toast.error("Ponovo pokušajte stvoriti zahtjev", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
 
   return (
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="createNewForm m-3 mb-0 flex min-h-screen flex-col items-start rounded-lg border bg-gray-50 px-8 pt-10 shadow-lg">
-            <div className="my-2 flex w-2/3 max-w-sm items-center justify-end">
-              <label htmlFor="title" className="pr-2 text-xl font-bold text-emerald-900">
-                Naziv oglasa
-              </label>
-              <div className="relative w-2/3 rounded-md">
-                <Field
-                  type="text"
-                  name="title"
-                  placeholder="Upišite naziv oglasa"
-                  className={touched && touched.title && errors && errors.title ? ERROR : " regInput"}
-                />
-                {touched && touched.title && errors && errors.title && <p className="error">{errors.title}</p>}
-              </div>
-            </div>
-            <div className="my-2 flex w-2/3 max-w-sm items-center justify-end">
-              <label htmlFor="town" className="pr-2 text-xl font-bold text-emerald-900">
-                Grad
-              </label>
-              <div className="relative w-2/3 rounded-md">
-                <Field name="town" as="select" className={touched.town && errors.town ? ERROR : "regInput"}>
-                  <option value="">Odaberite grad</option>
-                  <option value="ZAGREB">Zagreb</option>
-                  <option value="SPLIT">Split</option>
-                  <option value="RIJEKA">Rijeka</option>
-                  <option value="OSIJEK">Osijek</option>
-                  <option value="DUBROVNIK">Dubrovnik</option>
-                </Field>
-                {touched && touched.town && errors && errors.town && <p className="error">{errors.town}</p>}
-              </div>
-            </div>
-            <div className={"my-3"}>
-              <p className={"my-2 text-xl font-bold text-emerald-900"}>Skupina ljudi kojoj se pomaže</p>
-              <RadioImages images={categories} name={"category"} />
-              {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
-            </div>
-            <div className={"my-3 w-9/12"}>
-              <p className={"my-2 text-xl font-bold text-emerald-900"}>Kategorija vrste pomoći</p>
-              <RadioImages images={helpTypes} name={"helpType"} />
-              {touched && touched.helpType && errors && errors.helpType && <p className="error">{errors.helpType}</p>}
-            </div>
-            {request && (
-              <div className="my-2 flex w-2/3 max-w-sm items-center justify-end">
-                <label htmlFor="volunteerNum" className="pr-1 text-xl font-bold text-emerald-900">
-                  Broj potrebnih volontera
+          <Form className="request-form h-dvh sm:border-bold relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] sm:border-customBlueLight md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
+            <FontAwesomeIcon
+              icon={faCircleXmark}
+              onClick={toggleFormVisibility}
+              className="absolute right-3 top-3 text-3xl text-gray-400 hover:scale-110"
+            />
+            <div className="mt-8 h-full flex  flex-col items-center w-11/12">
+              <div className="title-input-container flex w-full items-start justify-end">
+                <label htmlFor="title" className="formTitle ml-1 mt-1">
+                  Naziv zahtjeva za pomoć
                 </label>
-                <div className="relative w-2/3 rounded-md">
+                <div className="input-form relative w-full rounded-md">
                   <Field
                     type="text"
-                    name="volunteerNum"
-                    placeholder="Upišite broj"
-                    className={touched && touched.volunteerNum && errors && errors.volunteerNum ? ERROR : " regInput"}
+                    name="requestTitle"
+                    placeholder="Instrukcije iz matematike"
+                    className={touched && touched.requestTitle && errors && errors.requestTitle ? ERROR : widthOfInput}
                   />
-                  {touched && touched.volunteerNum && errors && errors.volunteerNum && (
-                    <p className="error">{errors.volunteerNum}</p>
+                  {touched && touched.requestTitle && errors && errors.requestTitle && (
+                    <p className="error">{errors.requestTitle}</p>
                   )}
                 </div>
               </div>
-            )}
-            <div className="flex w-11/12 items-end justify-between">
-              <div className="my-4 flex w-2/3 max-w-sm flex-col justify-end">
-                <label htmlFor="description" className="text-xl font-bold text-emerald-900">
-                  Detaljniji opis pomoći
+              <div className="title-input-container mb-1 mt-1 flex w-full items-start justify-end sm:my-2">
+                <label htmlFor="location" className="formTitle ml-1 mt-1">
+                  Lokacija
                 </label>
-                <Field
-                  name="description"
-                  as="textarea"
-                  className={touched.description && errors.description ? ERROR : "regInput mt-3 pb-0"}
-                  placeholder="Dodajte opis svom oglasu"
-                ></Field>
-                {touched && touched.description && errors && errors.description && (
-                  <p className="error">{errors.description}</p>
-                )}
+                <div className="title-input-desc ml-1">
+                  Definirajte lokaciju specifičnosti vlastitog izbora (npr. kvart).
+                </div>
+                <div className="input-form relative w-full rounded-md">
+                  <Field
+                    type="text"
+                    name="location"
+                    placeholder="Jarun"
+                    className={touched && touched.location && errors && errors.location ? ERROR : widthOfInput}
+                  />
+                  {touched && touched.location && errors && errors.location && (
+                    <p className="error">{errors.location}</p>
+                  )}
+                </div>
               </div>
-              <button
-                disabled={isSubmitting}
-                type={"submit"}
-                className="m-3 rounded-3xl bg-orange-500 px-7 py-3 font-bold text-white hover:bg-orange-300"
-              >
-                STVORI OGLAS
-              </button>
+              <div className="title-input-container mb-1 mt-1 flex w-full items-start justify-end sm:my-2">
+                <label htmlFor="time" className="formTitle ml-1 mt-1">
+                  Vrijeme
+                </label>
+                <div className="title-input-desc ml-1">
+                  Definirajte vremenski interval u kojem Vam je pomoć potrebna.
+                </div>
+                <div className="input-form relative w-full rounded-md">
+                  <Field
+                    type="text"
+                    name="time"
+                    placeholder="20.-28. veljače 2024."
+                    className={touched && touched.time && errors && errors.time ? ERROR : widthOfInput}
+                  />
+                  {touched && touched.time && errors && errors.time && <p className="error">{errors.time}</p>}
+                </div>
+              </div>
+              <div className="mt-3 w-full">
+                <p className="formTitle mb-2 ml-1 mt-1">Skupina ljudi kojoj se pomoć pruža</p>
+                <RadioImages
+                  images={categories}
+                  categories_images={categories_images}
+                  eng_names={categories_eng}
+                  touched={touched}
+                  errors={errors}
+                  name={"category"}
+                />
+                {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
+              </div>
+              <div className="mt-5 flex w-full flex-col min-[1100px]:h-[8rem] min-[1000px]:flex-row">
+                <div className="my-2 mr-5 flex w-8/12 sm:w-10/12 flex-col items-start justify-start">
+                  <label htmlFor="numOfVolunteers" className="formTitle mb-2">
+                    Broj potrebnih volontera
+                  </label>
+                  <div className="title-input-container">
+                    <div className="relative w-1/3 rounded-md">
+                      <Field
+                        type="text"
+                        name="numOfVolunteers"
+                        placeholder="1"
+                        className={
+                          touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
+                            ? "inputNumOfVol-error text-center"
+                            : "inputNumOfVol text-center sm:w-[2vw] w-[6vw]"
+                        }
+                      />
+                      {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
+                        <p className="error w-48">{errors.numOfVolunteers}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="sm:my-2 mb-4 flex w-full items-center justify-start lg:justify-center">
+                  <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
+                </div>
+              </div>
             </div>
+            <FormFieldSection
+              touched={touched}
+              errors={errors}
+              isSubmitting={isSubmitting}
+              categories={categories}
+              categories_images={categories_images}
+              helpTypes={helpTypes}
+              categories_images_helpTypes={categories_images_helpTypes}
+              request={request}
+              helpTypes_eng={helpTypes_eng}
+            />
           </Form>
         )}
       </Formik>
+      <ToastContainer />
     </>
   );
 }

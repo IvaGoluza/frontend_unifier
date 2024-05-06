@@ -1,15 +1,15 @@
 @media screen and (max-width: 1315px) {
 
-    .myAdverts {
-        flex-direction: column;
-    }
+   .myAdverts {
+       flex-direction: column;
+   }
 
-    .new-advert {
-        width: 90%;
-    }
+   .new-advert {
+       width: 90%;
+   }
 
-    .adverts-container {
-        width: 90%;
-    }
+   .adverts-container {
+       width: 90%;
+   }
 
 }
