@@ -46,6 +46,7 @@ interface PaginationParams {
 
 export default function Deals() {
   const personInNeedHeader = ["Volonter", "Prijava volontera", "Vaša prijava", "Ispunite dokumente"];
+  const volunteerHeader = ["Korisnik", "Prijava korisnika", "Vaša prijava", "Preuzmite dokumente"];
   const [activeModal, setActiveModal] = useState("DEALS_TABLE");
   const [paginationFirst, setPaginationFirst] = useState(true);
   const [paginationLast, setPaginationLast] = useState(true);
@@ -156,7 +157,7 @@ export default function Deals() {
       )}
       {activeModal === "DEALS_TABLE" && userRole !== "PERSON_IN_NEED" && (
         <DealsTableModal
-          headerColumns={personInNeedHeader}
+          headerColumns={volunteerHeader}
           contentVOL={contentVol}
           setActiveModal={setActiveModal}
           setRequestModalData={setRequestModalData}
