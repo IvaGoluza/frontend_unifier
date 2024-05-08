@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "./MyRequests.css";
+import "./myRequests.css";
 import CreateNewForm from "../../components/CreateNewForm/CreateNewForm";
 import MyRequestsList from "../../components/MyRequestsList/MyRequestsList";
 

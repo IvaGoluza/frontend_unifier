@@ -11,7 +11,7 @@ import { DealsContentType, DealType } from "../../pages/Deals/Deals";
 import { MessageType } from "../../pages/Deals/MsgModal";
 import { RequestType } from "../../pages/Deals/RequestModal";
 
-export interface TableRowProps {
+export interface DealCardProps {
   content: DealsContentType;
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
@@ -20,7 +20,7 @@ export interface TableRowProps {
   setDealData: React.Dispatch<React.SetStateAction<DealType | undefined>>;
 }
 
-const DealCard: React.FC<TableRowProps> = ({
+const DealCard: React.FC<DealCardProps> = ({
   content,
   setActiveModal,
   setRequestModalData,

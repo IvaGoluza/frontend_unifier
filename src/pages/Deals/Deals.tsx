@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import AdvertModal, { AdvertType } from "./AdvertModal";
 import CertificateForm from "./CertificateForm";
@@ -6,7 +6,9 @@ import ContractForm from "./ContractForm";
 import DealsTableModal from "./DealsTableModal";
 import MsgModal, { MessageType } from "./MsgModal";
 import RequestModal, { RequestType } from "./RequestModal";
+import { IAuth } from "../../api/auth/IAuth";
 import api from "../../api/createAxiosClient";
+import { AuthContext } from "../../context/AuthContext";
 
 export interface DealsContentType {
   dealId: number;
@@ -18,6 +20,17 @@ export interface DealsContentType {
   personInNeedRequest?: RequestType;
   contractDetailsFulfilled: boolean;
   recensionFulfilled: boolean;
+}
+
+export interface DealsVolContentType {
+  dealId: number;
+  personInNeedName: string;
+  volunteerApplicationMessage?: string;
+  volunteerApplicationAdvert?: AdvertType;
+  personInNeedMessage?: string;
+  personInNeedRequest?: RequestType;
+  reviewed: boolean;
+  contractReady: boolean;
 }
 
 export interface DealType {
@@ -37,14 +50,17 @@ export default function Deals() {
   const [paginationFirst, setPaginationFirst] = useState(true);
   const [paginationLast, setPaginationLast] = useState(true);
   const [content, setContent] = useState<DealsContentType[]>([]);
+  const [contentVol, setContentVol] = useState<DealsVolContentType[]>([]);
   const [requestModalData, setRequestModalData] = useState<RequestType | undefined>(undefined);
-  const [advertModalData, setAdvertModalData] = useState<AdvertType | undefined>(undefined);
+  const [advertModalData, setAdvertModalData] = useState<AdvertType>();
   const [msgModalData, setMsgModalData] = useState<MessageType | undefined>(undefined);
   const [dealData, setDealData] = useState<DealType>();
   const [paginationParams, setPaginationParams] = useState<PaginationParams>({
     page: 0,
     size: window.innerWidth < 640 ? 3 : 10,
   });
+  const { currentUser } = useContext(AuthContext) as IAuth;
+  const userRole = currentUser !== null ? currentUser.userType : "NOT_LOGGED_IN";
 
   let userId = "";
   const userString = localStorage.getItem("user");
@@ -55,13 +71,24 @@ export default function Deals() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/deal/accepted-deals-person-in-need/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        params: paginationParams,
-      });
-      setContent(response.data.content);
+      let response;
+      if (userRole === "PERSON_IN_NEED") {
+        response = await api.get(`/deal/accepted-deals-person-in-need/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: paginationParams,
+        });
+        setContent(response.data.content);
+      } else {
+        response = await api.get(`/deal/accepted-deals-volunteer/${userId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          params: paginationParams,
+        });
+        setContentVol(response.data.content);
+      }
       setPaginationFirst(response.data.first);
       setPaginationLast(response.data.last);
     } catch (error) {
@@ -112,10 +139,25 @@ export default function Deals() {
       )}
       {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} dealData={dealData} />}
       {activeModal === "CERTIFICATE_FORM" && <CertificateForm setActiveModal={setActiveModal} dealData={dealData} />}
-      {activeModal === "DEALS_TABLE" && (
+      {activeModal === "DEALS_TABLE" && userRole === "PERSON_IN_NEED" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}
-          content={content}
+          contentPIN={content}
+          setActiveModal={setActiveModal}
+          setRequestModalData={setRequestModalData}
+          setAdvertModalData={setAdvertModalData}
+          setMsgModalData={setMsgModalData}
+          setDealData={setDealData}
+          paginationNext={paginationNext}
+          paginationPrev={paginationPrev}
+          paginationFirst={paginationFirst}
+          paginationLast={paginationLast}
+        />
+      )}
+      {activeModal === "DEALS_TABLE" && userRole !== "PERSON_IN_NEED" && (
+        <DealsTableModal
+          headerColumns={personInNeedHeader}
+          contentVOL={contentVol}
           setActiveModal={setActiveModal}
           setRequestModalData={setRequestModalData}
           setAdvertModalData={setAdvertModalData}

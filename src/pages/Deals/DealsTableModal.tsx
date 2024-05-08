@@ -1,10 +1,11 @@
 import React from "react";
 
 import { AdvertType } from "./AdvertModal";
-import { DealsContentType, DealType } from "./Deals";
+import { DealsContentType, DealsVolContentType, DealType } from "./Deals";
 import { MessageType } from "./MsgModal";
 import { RequestType } from "./RequestModal";
 import DealCard from "../../components/DealsComponents/DealCard";
+import DealCardVol from "../../components/DealsComponents/DealCardVol";
 import ModalBodyContainer from "../../components/DealsComponents/ModalBodyContainer";
 import ModalContainer from "../../components/DealsComponents/ModalContainer";
 import ModalFooterContainer from "../../components/DealsComponents/ModalFooterContainer";
@@ -13,7 +14,8 @@ import TableHeader from "../../components/DealsComponents/TableHeader";
 
 interface DealsTableModalProps {
   headerColumns: string[];
-  content: DealsContentType[];
+  contentVOL?: DealsVolContentType[];
+  contentPIN?: DealsContentType[];
   setActiveModal: React.Dispatch<React.SetStateAction<string>>;
   setRequestModalData: React.Dispatch<React.SetStateAction<RequestType | undefined>>;
   setAdvertModalData: React.Dispatch<React.SetStateAction<AdvertType | undefined>>;
@@ -27,7 +29,8 @@ interface DealsTableModalProps {
 
 const DealsTableModal: React.FC<DealsTableModalProps> = ({
   headerColumns,
-  content,
+  contentPIN,
+  contentVOL,
   setActiveModal,
   setRequestModalData,
   setAdvertModalData,
@@ -40,11 +43,11 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
 }) => {
   return (
     <>
-      <>
-        <ModalContainer>
-          <ModalBodyContainer>
-            <TableHeader numCol={4} columns={headerColumns} />
-            {content.map((contentData) => (
+      <ModalContainer>
+        <ModalBodyContainer>
+          <TableHeader numCol={4} columns={headerColumns} />
+          {contentPIN &&
+            contentPIN.map((contentData) => (
               <DealCard
                 key={contentData.dealId}
                 content={contentData}
@@ -55,17 +58,28 @@ const DealsTableModal: React.FC<DealsTableModalProps> = ({
                 setDealData={setDealData}
               />
             ))}
-          </ModalBodyContainer>
-          <ModalFooterContainer>
-            <NavButton
-              leftOnly={paginationLast}
-              rightOnly={paginationFirst}
-              onLeftClick={paginationPrev}
-              onRightClick={paginationNext}
-            />
-          </ModalFooterContainer>
-        </ModalContainer>
-      </>
+          {contentVOL &&
+            contentVOL.map((contentData) => (
+              <DealCardVol
+                key={contentData.dealId}
+                content={contentData}
+                setActiveModal={setActiveModal}
+                setRequestModalData={setRequestModalData}
+                setAdvertModalData={setAdvertModalData}
+                setMsgModalData={setMsgModalData}
+                setDealData={setDealData}
+              />
+            ))}
+        </ModalBodyContainer>
+        <ModalFooterContainer>
+          <NavButton
+            leftOnly={paginationLast}
+            rightOnly={paginationFirst}
+            onLeftClick={paginationPrev}
+            onRightClick={paginationNext}
+          />
+        </ModalFooterContainer>
+      </ModalContainer>
     </>
   );
 };

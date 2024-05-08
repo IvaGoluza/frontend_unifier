@@ -61,7 +61,7 @@ export default function Navbar() {
       name: "Dogovori",
       active: true,
       path: routes.DEALS_URL,
-      viewers: ["PERSON_IN_NEED", "ASSOCIATION", "VOLUNTEER"],
+      viewers: ["PERSON_IN_NEED", "VOLUNTEER", "VOLUNTEER_AND_PERSON_IN_NEED"],
     },
     {
       name: "Zahtjevi",
