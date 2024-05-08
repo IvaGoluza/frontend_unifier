@@ -28,8 +28,12 @@ export default function RadioImages({ images, name, categories_images, eng_names
     <div
       className={
         errors && touched && errors[name] && touched[name]
-          ? `h-[15rem] flex items-center justify-center rounded-[15px] border-[1px] border-solid border-rose-400  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
-          : `h-[15rem] flex items-center justify-center rounded-[15px] border-[1px] border-solid border-[#07169B]  ${name === "helpType" ? "sm:w-9/12 w-11/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"}`
+          ? ` flex h-[15rem] items-center justify-center rounded-[15px] border-[1px] border-solid border-rose-400  ${
+              name === "helpType" ? "w-11/12 sm:w-9/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"
+            }`
+          : `flex h-[15rem] items-center justify-center rounded-[15px] border-[1px] border-solid border-[#07169B]  ${
+              name === "helpType" ? "w-11/12 sm:w-9/12" : "w-11/12 min-[640px]:w-9/12 min-[1100px]:w-11/12"
+            }`
       }
     >
       <Field name={name} validateOnChange={false} validateOnBlur={true}>
@@ -38,15 +42,13 @@ export default function RadioImages({ images, name, categories_images, eng_names
             {images.map((image, index) => (
               <label
                 key={image}
-                className={`text-wrap mr-1 flex flex-col items-center justify-start text-center px-1 xl:px-2 mb-1 ${calculateImageContainerWidth()}`}
+                className={`text-wrap mb-1 mr-1 flex flex-col items-center justify-start px-1 text-center xl:px-2 ${calculateImageContainerWidth()}`}
               >
                 {name === "category" && (
                   <img
                     src={`../../../assets/images/imagesForForm/${categories_images[index]}.png`}
                     className={
-                      field.value === eng_names[index]
-                        ? "selected h-[4.5rem] w-[6.5rem]"
-                        : "h-[4.5rem] w-[6.5rem]"
+                      field.value === eng_names[index] ? "selected h-[4.5rem] w-[6.5rem]" : "h-[4.5rem] w-[6.5rem]"
                     }
                     onClick={() => setFieldValue(field.name, eng_names[index])}
                   />
@@ -55,15 +57,13 @@ export default function RadioImages({ images, name, categories_images, eng_names
                   <img
                     src={`../../../assets/images/imagesForFormTypeHelp/${categories_images[index]}.png`}
                     className={
-                      field.value === eng_names[index]
-                        ? "selected h-[4.5rem] w-[6.5rem]"
-                        : "h-[4.5rem] w-[6.5rem]"
+                      field.value === eng_names[index] ? "selected h-[4.5rem] w-[6.5rem]" : "h-[4.5rem] w-[6.5rem]"
                     }
                     onClick={() => setFieldValue(field.name, eng_names[index])}
                   />
                 )}
 
-                <div className="h-fit w-[60px] text-center font-[720] leading-tight text-[9px] 2xl:text-xs lg:w-[100px]">
+                <div className="h-fit w-[60px] text-center text-[9px] font-[720] leading-tight lg:w-[100px] 2xl:text-xs">
                   {image}
                 </div>
               </label>

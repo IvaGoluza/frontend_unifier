@@ -35,7 +35,9 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
           name="description"
           as="textarea"
           className={
-            touched.description && errors.description ? "h-[10.3vh] px-1 py-1 text-base text-gray-500 border border-rose-400 rounded-lg outline-none mt-1 w-11/12 pb-0 min-[640px]:w-9/12" : "h-[10.6vh] px-1 py-1 text-base min-[640px]:w-9/12 text-gray-500 border border-gray-300 rounded-lg outline-none mt-1 w-11/12 pb-0 "
+            touched.description && errors.description
+              ? "mt-1 h-[10.3vh] w-11/12 rounded-lg border border-rose-400 px-1 py-1 pb-0 text-base text-gray-500 outline-none min-[640px]:w-9/12"
+              : "mt-1 h-[10.6vh] w-11/12 rounded-lg border border-gray-300 px-1 py-1 pb-0 text-base text-gray-500 outline-none min-[640px]:w-9/12 "
           }
           placeholder="Treba mi pomoć iz matematike. Razred 7. osnovne. Muči me gradivo vektora..."
         />
@@ -48,7 +50,11 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
         <Field
           name="skillSet"
           as="textarea"
-          className={touched.skillSet && errors.skillSet ? "h-[10.3vh] px-1 py-1 text-base text-gray-500 border border-rose-400 rounded-lg outline-none mt-1 w-11/12 pb-0 min-[640px]:w-9/12" : "h-[10.6vh] px-1 py-1 text-base text-gray-500 border border-gray-300 rounded-lg outline-none mt-1 w-11/12 pb-0 min-[640px]:w-9/12"}
+          className={
+            touched.skillSet && errors.skillSet
+              ? "mt-1 h-[10.3vh] w-11/12 rounded-lg border border-rose-400 px-1 py-1 pb-0 text-base text-gray-500 outline-none min-[640px]:w-9/12"
+              : "mt-1 h-[10.6vh] w-11/12 rounded-lg border border-gray-300 px-1 py-1 pb-0 text-base text-gray-500 outline-none min-[640px]:w-9/12"
+          }
           placeholder="U tijeku ili završena srednja škola. Dobro razumijevanje matematike..."
         ></Field>
         {touched && touched.skillSet && errors && errors.skillSet && <p className="error">{errors.skillSet}</p>}
@@ -69,7 +75,7 @@ const FormFieldSection: React.FC<FormFieldSectionProps> = ({
       <div className="button-create-request mb-5 mr-10 mt-10 flex w-11/12 justify-center lg:w-9/12 lg:justify-end">
         <button
           type={"submit"}
-          className="letter-spacing-0-06 flex w-2/5 items-center justify-center rounded-[35px] bg-[#5422E1] p-2 font-krub text-xs font-bold text-white min-[1100px]:w-6/12 h-[2rem] min-[1400px]:w-5/12 min-[1400px]:h-[2rem] lg:p-4 lg:text-sm 2xl:text-lg"
+          className="letter-spacing-0-06 font-krub flex h-[2rem] w-2/5 items-center justify-center rounded-[35px] bg-[#5422E1] p-2 text-xs font-bold text-white lg:p-4 lg:text-sm min-[1100px]:w-6/12 min-[1400px]:h-[2rem] min-[1400px]:w-5/12 2xl:text-lg"
         >
           KREIRAJ ZAHTJEV
         </button>
