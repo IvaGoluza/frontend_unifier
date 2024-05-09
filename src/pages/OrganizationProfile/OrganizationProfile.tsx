@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import "./userProfile.css";
+import "./organizationProfile.css";
 import api from "../../api/createAxiosClient";
+import OrganizationProfileDetails from "../../components/OrganizationProfileDetails/OrganizationProfileDetails";
 import Reviews from "../../components/Reviews/Reviews";
 import UserGallery from "../../components/UserGallery/UserGallery";
 import UserProfileDetails from "../../components/UserProfileDetails/UserProfileDetails";
@@ -12,22 +13,32 @@ interface UserRecension {
   recension: string;
 }
 
-interface UserDetails {
+interface Address {
+  townName: string;
+  postcode: string;
+  streetName: string;
+}
+
+interface OrganizationDetails {
   id: number;
   name: string;
+  oib: string;
+  type: string;
   email: string;
   mobilePhone: string;
   profileDescription: string;
+  address: Address;
+  userType: string;
+  url: string;
+  image: string;
   workArea: string[];
-  hasHealthCertificate: boolean;
-  hasCertificateOfGoodConduct: boolean;
   userRecensions: UserRecension[];
 }
 
-const UserProfile = () => {
-  const [userImage, setUserImage] = useState("");
+const OrganizationProfile = () => {
+  const [orgImage, setOrgImage] = useState("");
   const [name, setName] = useState("");
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+  const [organizationDetails, setOrganizationDetails] = useState<OrganizationDetails | null>(null);
   const [userRecensions, setUserRecensions] = useState<UserRecension[]>([
     {
       recension:
@@ -44,58 +55,58 @@ const UserProfile = () => {
     { recension: "Ovo je tekst recenzije 7." },
     { recension: "Ovo je tekst recenzije 9." },
   ]);
-  const { userId } = useParams<{ userId: string }>();
+  const { orgId } = useParams<{ orgId: string }>();
 
   useEffect(() => {
-    console.log(userId);
-    if (userId) {
-      fetchUserDetails();
+    console.log(orgId);
+    if (orgId) {
+      fetchOrganizationDetails();
     }
-  }, [userId]);
+  }, [orgId]);
 
-  const fetchUserDetails = async () => {
+  const fetchOrganizationDetails = async () => {
     try {
-      const response = await api.get(`/profile/volunteer/${userId}`, {
+      const response = await api.get(`/profile/organization/${orgId}`, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       console.log(response.data);
-      setUserDetails(response.data);
+      setOrganizationDetails(response.data);
       if (response.data.image !== null) {
-        setUserImage(response.data.image);
+        setOrgImage(response.data.image);
       }
       setName(response.data.name);
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("Error fetching organization details:", error);
     }
   };
 
   return (
-    <div className="user-profile relative w-full overflow-hidden">
-      <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background " alt="Wave Background" />
-      <div className="content-container relative w-full">
-        <div className="profile-image-container flex flex-col items-center justify-center ">
-          {userImage && (
+    <div className="org-profile relative w-full overflow-hidden">
+      <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background-org " alt="Wave Background" />
+      <div className="content-container-org relative w-full">
+        <div className="profile-image-container-org flex flex-col items-center justify-center ">
+          {orgImage && (
             <img
-              className="user-image rounded-full border-4 border-white "
-              src={`data:image/jpeg;base64,${userImage}`}
+              className="user-image-org rounded-full border-4 border-white "
+              src={`data:image/jpeg;base64,${orgImage}`}
               alt="Profile"
             />
           )}
           <h1
-            style={{ marginTop: userImage ? "" : "18vw" }}
-            className="user-name mt-4 text-lg font-bold text-[#09115B]"
+            style={{ marginTop: orgImage ? "" : "18vw" }}
+            className="user-name-org mt-4 text-lg font-bold text-[#09115B]"
           >
             {name}
           </h1>
         </div>
-        <UserProfileDetails userDetails={userDetails} />
+        <OrganizationProfileDetails organizationDetails={organizationDetails} />
       </div>
-      {userId ? <UserGallery userId={userId} /> : null}
+      {orgId ? <UserGallery userId={orgId} /> : null}
       <Reviews userRecensions={userRecensions} />
     </div>
   );
 };
 
-export default UserProfile;
+export default OrganizationProfile;

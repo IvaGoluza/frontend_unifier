@@ -17,6 +17,7 @@ import Login from "./pages/Login/Login";
 import MyAdverts from "./pages/MyAdverts/MyAdverts";
 import MyRequests from "./pages/MyRequests/MyRequests";
 import Notes from "./pages/Notes/Notes";
+import OrganizationProfile from "./pages/OrganizationProfile/OrganizationProfile";
 import OrganizationRegistration from "./pages/OrganizationRegistration/OrganizationRegistration";
 import Profile from "./pages/Profile/Profile";
 import Recensions from "./pages/Recensions/Recensions";
@@ -41,6 +42,7 @@ export default function Router() {
           <Route path={routes.DEALS_URL} element={<Deals />} />
           <Route path={routes.PROFILE_URL} element={<Profile />} />
           <Route path={routes.USER_PROFILE} element={<UserProfile />} />
+          <Route path={routes.ORGANIZATION_PROFILE} element={<OrganizationProfile />} />
           <Route path={routes.RECENSIONS_URL} element={<Recensions />} />
           <Route path={routes.NOTES_URL} element={<Notes />} />
           <Route path={routes.ADMIN_REQUESTS} element={<AdminRequests />} />

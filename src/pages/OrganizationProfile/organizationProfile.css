@@ -1,0 +1,61 @@
+.org-profile {
+    font-family: 'Arial', sans-serif;
+    background-color: #1F2340;
+    position: relative;
+    padding-top: 40rem;
+    z-index: 1;
+  }
+  
+  .wave-background-org {
+    width: 100vw;
+    position: absolute;
+    left: 50%;
+    top: 5vh;
+    transform: translateX(-50%) scaleX(1.1);
+    z-index: -1;
+  }
+  
+  .content-container-org {
+    position: absolute;
+    top: 26vw;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+  }
+  
+  .profile-image-container-org {
+    position: absolute;
+    bottom: 20vw;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .user-image-org {
+    width: 13vw;
+    height: 13vw;
+  }
+  
+  .user-name-org {
+    font-size: 4vw;
+    white-space: nowrap;
+  }
+  
+  @media screen and (min-width: 240px) and (max-width: 1400px) {
+    .org-profile {
+      width: 100%;
+    }
+  
+    .profile-image-container-org {
+      max-width: 90vw;
+    }
+  
+    .user-image-org {
+      width: 13vw;
+      height: 13vw;
+    }
+  
+    .user-name-org {
+      font-size: 2vw;
+    }
+  
+  }

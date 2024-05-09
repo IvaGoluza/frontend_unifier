@@ -16,33 +16,24 @@ interface UserDetails {
   hasCertificateOfGoodConduct: boolean;
 }
 
-const UserProfileDetails = ({ userId }: { userId: string }) => {
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
+interface UserProfileDetailsProps {
+  userDetails: UserDetails | null;
+}
+
+const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) => {
+  const [isSameUser, setIsSameUser] = useState(false);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    const storedUserId = storedUser ? JSON.parse(storedUser).id : null;
+    setIsSameUser(userDetails?.id === storedUserId);
+    console.log(isSameUser);
+  }, [userDetails?.id]);
 
   const textStyle: React.CSSProperties = {
     wordWrap: "break-word",
     wordBreak: "break-all",
     overflowWrap: "break-word",
-  };
-
-  useEffect(() => {
-    if (userId) {
-      fetchUserDetails();
-    }
-  }, [userId]);
-
-  const fetchUserDetails = async () => {
-    try {
-      const response = await api.get(`/profile/volunteer/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response.data);
-      setUserDetails(response.data);
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
   };
 
   if (!userDetails) {
@@ -84,7 +75,7 @@ const UserProfileDetails = ({ userId }: { userId: string }) => {
       </div>
 
       <div
-        className="flex h-[20vw] w-[20vw] flex-col items-start justify-start rounded-2xl p-4 text-white shadow-2xl"
+        className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start rounded-2xl p-4 text-white shadow-2xl"
         style={{ backgroundColor: "#0F182C" }}
       >
         <h2 className="title-description font-bold">O VOLONTERU...</h2>
@@ -92,6 +83,14 @@ const UserProfileDetails = ({ userId }: { userId: string }) => {
           <p style={textStyle} className="break-text user-details-text mt-4 overflow-auto">
             {userDetails.profileDescription}
           </p>
+        )}
+        {isSameUser && (
+          <img
+            src="../../../assets/svgImages/editProfile.svg"
+            alt="Edit"
+            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
+            style={{ zIndex: 10 }}
+          />
         )}
       </div>
 
@@ -109,12 +108,21 @@ const UserProfileDetails = ({ userId }: { userId: string }) => {
             </li>
           )}
         </ul>
-        <img
-          src="../../../assets/svgImages/logo.svg"
-          alt="Logo"
-          className="absolute right-2 top-2 h-8 w-8 transform"
-          style={{ zIndex: 10 }}
-        />
+        {isSameUser ? (
+          <img
+            src="../../../assets/svgImages/editProfile.svg"
+            alt="Edit"
+            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
+            style={{ zIndex: 10 }}
+          />
+        ) : (
+          <img
+            src="../../../assets/svgImages/logo.svg"
+            alt="Logo"
+            className="absolute right-2 top-2 h-8 w-8 transform"
+            style={{ zIndex: 10 }}
+          />
+        )}
       </div>
       <div
         className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start overflow-hidden rounded-2xl p-4 text-[#0F182C] shadow-2xl"
@@ -145,6 +153,14 @@ const UserProfileDetails = ({ userId }: { userId: string }) => {
           className="absolute inset-0 left-16 h-full w-full scale-150 transform object-cover opacity-25"
           style={{ zIndex: 10 }}
         />
+        {isSameUser && (
+          <img
+            src="../../../assets/svgImages/editProfile.svg"
+            alt="Edit"
+            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
+            style={{ zIndex: 10 }}
+          />
+        )}
       </div>
     </div>
   );
