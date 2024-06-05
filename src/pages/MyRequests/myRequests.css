@@ -2,17 +2,10 @@
     height: calc(100vh - 74.53px); 
     overflow:auto; 
  }
- 
- .my-request-form {
-    height: calc(100vh - 74.53px); 
-    overflow:auto; 
- }
- 
- 
  .sidebar {
     background-color: #1F2340;
  }
- 
+
  .sidebar-requests-items {
     font-family: 'Krub';
     font-style: normal;
@@ -21,7 +14,7 @@
     line-height: 157%;
     text-align: center;
     letter-spacing: 0.09em;
-    color: #FFFFFF; 
+    color: #FFFFFF;
  }
  
  .sidebar-items-item {

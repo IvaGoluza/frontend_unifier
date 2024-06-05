@@ -65,7 +65,7 @@ const ContractForm: React.FC<ContractFormProps> = ({ setActiveModal, dealData })
           ugovor o volontiranju
         </h1>
         <p className="mt-1 font-semibold italic text-[#07169B]">
-          Ispunite i pošaljite potvrdu volontiranja volonteru {dealData?.volunteerName}.
+          Ispunite i pošaljite ugovor o volontiranju volonteru {dealData?.volunteerName}.
         </p>
         <Formik
           innerRef={formRef}

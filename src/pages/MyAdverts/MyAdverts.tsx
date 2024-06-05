@@ -54,7 +54,6 @@ export default function MyAdverts() {
               <p className={TEXT_STYLE}>Tražiš priliku za pomoć? Ispuni obrazac, a ostalo prepusti nama!</p>
             </div>
           </div>
-    
         </div>
         <div className={"new-advert mx-7 my-12 flex w-2/5 flex-col"}>
           <div className={"ml-4"}>

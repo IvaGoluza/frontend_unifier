@@ -11,9 +11,9 @@ import FormFieldSection from "./RightForm";
 import { IAuth } from "../../api/auth/IAuth";
 import { FormTypes } from "../../api/auth/IForm";
 import api from "../../api/createAxiosClient";
-import RadioImages from "../RadioImages/RadioImages";
 import { AuthContext } from "../../context/AuthContext";
 import Options from "../CheckBox/CheckBox";
+import RadioImages from "../RadioImages/RadioImages";
 import { CreateNewFormValidationSchemaForCreatingRequest } from "../Validation/Validation";
 
 import "./CreateNewForm.css";
@@ -168,13 +168,13 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="request-form h-dvh sm:border-bold relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] sm:border-customBlueLight md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
+          <Form className="request-form h-dvh sm:border-bold sm:border-customBlueLight relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
             <FontAwesomeIcon
               icon={faCircleXmark}
               onClick={toggleFormVisibility}
               className="absolute right-3 top-3 text-3xl text-gray-400 hover:scale-110"
             />
-            <div className="mt-8 h-full flex  flex-col items-center w-11/12">
+            <div className="mt-8 flex h-full  w-11/12 flex-col items-center">
               <div className="title-input-container flex w-full items-start justify-end">
                 <label htmlFor="title" className="formTitle ml-1 mt-1">
                   Naziv zahtjeva za pomoć
@@ -239,8 +239,8 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                 />
                 {touched && touched.category && errors && errors.category && <p className="error">{errors.category}</p>}
               </div>
-              <div className="mt-5 flex w-full flex-col min-[1100px]:h-[8rem] min-[1000px]:flex-row">
-                <div className="my-2 mr-5 flex w-8/12 sm:w-10/12 flex-col items-start justify-start">
+              <div className="mt-5 flex w-full flex-col min-[1000px]:flex-row min-[1100px]:h-[8rem]">
+                <div className="my-2 mr-5 flex w-8/12 flex-col items-start justify-start sm:w-10/12">
                   <label htmlFor="numOfVolunteers" className="formTitle mb-2">
                     Broj potrebnih volontera
                   </label>
@@ -253,7 +253,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                         className={
                           touched && touched.numOfVolunteers && errors && errors.numOfVolunteers
                             ? "inputNumOfVol-error text-center"
-                            : "inputNumOfVol text-center sm:w-[2vw] w-[6vw]"
+                            : "inputNumOfVol w-[6vw] text-center sm:w-[2vw]"
                         }
                       />
                       {touched && touched.numOfVolunteers && errors && errors.numOfVolunteers && (
@@ -262,7 +262,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
                     </div>
                   </div>
                 </div>
-                <div className="sm:my-2 mb-4 flex w-full items-center justify-start lg:justify-center">
+                <div className="mb-4 flex w-full items-center justify-start sm:my-2 lg:justify-center">
                   <Options touched={touched} errors={errors} isSubmitting={isSubmitting} ERROR={ERROR} />
                 </div>
               </div>

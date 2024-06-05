@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+
 import api from "../../api/createAxiosClient";
 
 import "./MyRequestsList.css";
@@ -86,8 +87,8 @@ export default function MyRequestsList({ toggleFormVisibility }: Props) {
 
   return (
     <div className="mt-4 flex h-full w-full flex-col items-center sm:mt-0 sm:justify-center">
-      <div className="requests-list relative h-5/6 w-10/12 sm:w-8/12 bg-white shadow-lg sm:h-5/6">
-        <div className="requests-list-navbar bg-[#00C2FE] grid grid-cols-1 p-4 text-xs sm:grid-cols-3 md:text-base lg:text-lg">
+      <div className=" requests-list relative h-5/6 w-10/12 bg-white shadow-lg sm:h-5/6 sm:w-8/12">
+        <div className="requests-list-navbar grid grid-cols-1 bg-[#00C2FE] p-4 text-xs sm:grid-cols-3 md:text-base lg:text-lg">
           <div className="font-semibold">NAZIV ZAHTJEVA</div>
           <div className="hidden font-semibold sm:block">SKUPINA</div>
           <div className="hidden font-semibold sm:block">KATEGORIJA</div>
@@ -96,8 +97,9 @@ export default function MyRequestsList({ toggleFormVisibility }: Props) {
           <div key={item.requestId}>
             <div
               onClick={() => handleRequestClick(item.requestId)}
-              className={`requests-list-item justify-center cursor-pointer m-2 ml-4 mr-4 flex grid grid-cols-1 items-center justify-center p-2 text-base sm:grid-cols-3 ${item.archived ? "border-gradient-orange" : "border-gradient-green"
-                }`}
+              className={`requests-list-item m-2 ml-4 mr-4 flex grid cursor-pointer grid-cols-1 items-center justify-center justify-center p-2 text-base sm:grid-cols-3 ${
+                item.archived ? "border-gradient-orange" : "border-gradient-green"
+              }`}
             >
               <div className="flex justify-center">{item.requestTitle}</div>
               <div className="hidden justify-center sm:flex">{item.category}</div>
@@ -105,20 +107,24 @@ export default function MyRequestsList({ toggleFormVisibility }: Props) {
             </div>
           </div>
         ))}
-        <div className="absolute cursor-pointer bottom-5 right-5 items-center justify-between p-1 lg:justify-end text-xs flex flex-row w-10/12 ">
+        <div className="absolute bottom-5 right-5 flex w-10/12 cursor-pointer flex-row items-center justify-between p-1 text-xs lg:justify-end ">
           <button
             onClick={toggleFormVisibility}
-            className="button-create-request-list flex h-10 items-center justify-center bg-[#5422E1] pl-2 pr-2 text-xs md:text-sm 2xl:text-lg "
+            className="button-create-request-list flex h-10 items-center justify-center bg-[#5422E1] px-3 text-xs md:text-sm 2xl:text-lg "
           >
             NOVI ZAHTJEV
           </button>
-          <div className="m-2 flex lg:w-[10rem] flex-row items-center justify-center justify-around rounded-full">
-            <NavButton leftOnly={pagationLast} rightOnly={pagationFirst} onLeftClick={paginationPrev} onRightClick={paginationNext}></NavButton>
+          <div className="m-2 flex flex-row items-center justify-center justify-around rounded-full lg:w-[10rem]">
+            <NavButton
+              leftOnly={pagationLast}
+              rightOnly={pagationFirst}
+              onLeftClick={paginationPrev}
+              onRightClick={paginationNext}
+            ></NavButton>
           </div>
         </div>
-
       </div>
-      <div className="text-md mr-8 mt-8 w-8/12 lg:justify-end justify-center flex-wrap items-start content-around font-bold text-white flex flex-col sm:flex-row">
+      <div className="text-md mr-8 mt-8 flex w-8/12 flex-col flex-wrap content-around items-start justify-center font-bold text-white sm:flex-row lg:justify-end">
         <div className="flex items-center">
           <div className="mr-2 h-4 w-4 rounded-full bg-green-500"></div>
           <div className="pr-5">Aktivni zahtjevi</div>
@@ -128,7 +134,6 @@ export default function MyRequestsList({ toggleFormVisibility }: Props) {
           <div className="">Arhivirani zahtjevi</div>
         </div>
       </div>
-
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function MyRequests() {
         </div>
       )}
       {isFormVisible && (
-        <div className={`my-request-form flex h-screen justify-center bg-white sm:bg-[#1F2340]`}>
+        <div className={`flex justify-center bg-white sm:bg-[#1F2340]`}>
           <CreateNewForm request={true} toggleFormVisibility={toggleFormVisibility} />
         </div>
       )}
