@@ -37,7 +37,8 @@ export default function Router() {
           <Route path={routes.VOLUNTEER_CHANCES_URL} element={<VolunteerChances />} />
           <Route path={routes.VOLUNTEER_ADVERTS_URL} element={<Adverts />} />
           <Route path={routes.REQUESTS_URL} element={<Requests />} />
-          <Route path={routes.DEALS_URL} element={<Deals />} />
+          <Route path={routes.DEALS_PIN_URL} element={<Deals userType={"PERSON_IN_NEED"} />} />
+          <Route path={routes.DEALS_VOL_URL} element={<Deals userType={"VOLUNTEER"} />} />
           <Route path={routes.PROFILE_URL} element={<Profile />} />
           <Route path={routes.RECENSIONS_URL} element={<Recensions />} />
           <Route path={routes.NOTES_URL} element={<Notes />} />

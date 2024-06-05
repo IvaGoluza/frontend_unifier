@@ -14,6 +14,7 @@
     font-weight: 700;
     line-height: 157%;
     letter-spacing: 0.09em;
+    box-sizing: border-box;
 }
 
 .page-link-container {
@@ -43,21 +44,28 @@
 
 .list-item {
     margin-inline: 12px;
+    position: relative;
 }
 
 .active::after {
     content: "";
     display: block;
     width: 100%;
-    border-bottom: 2px solid orange;
+    border-bottom: 2px solid #00C2FE;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
 }
 
 .link-list li:hover::after {
     content: "";
     display: block;
     width: 100%;
-    border-bottom: 2px solid orange;
+    border-bottom: 2px solid #00C2FE;
     animation: fromLeftToRight 0.25s ease-in-out;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
 }
 
 .link-list li,
@@ -65,7 +73,48 @@
     cursor: pointer;
 }
 
+.list-item .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    z-index: 1000;
+    background: linear-gradient(to top, #DAEFFB, #A7D8F5);
+    padding: 0.5rem;
+}
+
+.list-item:hover .submenu,
+.list-item:focus-within .submenu {
+    display: block;
+}
+
+.submenu-item {
+    padding: 10px;
+    border-radius: 9px;
+}
+
+.submenu-item:hover {
+    background-color: #e7ebf3;
+}
+
+.submenu-item a {
+    color: #1F2340;
+    text-decoration: none;
+}
+
 @media only screen and (max-width: 768px) {
+    .list-item .submenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        list-style: none;
+        width: 100%;
+        z-index: 1000;
+        background: linear-gradient(to top, #DAEFFB, #A7D8F5);
+        padding: 0.5rem;
+    }
+
     .navbar-container {
         position: relative;
         padding-inline: 5px;
@@ -87,8 +136,6 @@
         left: 0;
         z-index: 21;
         opacity: 1;
-
-
     }
 
     .active::after {
@@ -96,22 +143,22 @@
         display: none;
     }
 
-
     .list-item {
-        background-color: rgb(187, 168, 132);
+        background: linear-gradient(to top, #DAEFFB, #A7D8F5);
+        padding-block: 15px;
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
+        color: #1F2340;
     }
 
     .link-list li:hover::after {
         content: "";
         display: none;
     }
-
 
     .list-item:hover,
     .link-list li:active {
