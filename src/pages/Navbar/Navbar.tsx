@@ -19,6 +19,7 @@ export default function Navbar() {
       active: boolean;
       path: string;
       viewers: string[];
+      subItems?: { name: string; path: string }[];
     }[]
   >([
     {
@@ -26,6 +27,28 @@ export default function Navbar() {
       active: true,
       path: routes.HOMEPAGE_URL,
       viewers: ["ALL"],
+    },
+    {
+      name: "TRAŽIM POMOĆ",
+      active: true,
+      path: "#",
+      viewers: ["VOLUNTEER_AND_PERSON_IN_NEED"],
+      subItems: [
+        { name: "Moji zahtjevi", path: routes.MY_REQUESTS_URL },
+        { name: "Volonterski oglasi", path: routes.VOLUNTEER_ADVERTS_URL },
+        { name: "Dogovorene akcije", path: routes.DEALS_PIN_URL },
+      ],
+    },
+    {
+      name: "PRUŽAM POMOĆ",
+      active: true,
+      path: "#",
+      viewers: ["VOLUNTEER_AND_PERSON_IN_NEED"],
+      subItems: [
+        { name: "Moji oglasi", path: routes.MY_ADVERTS_URL },
+        { name: "Zahtjevi za pomoć", path: routes.REQUESTS_URL },
+        { name: "Dogovorene akcije", path: routes.DEALS_VOL_URL },
+      ],
     },
     {
       name: "Moji oglasi",
@@ -60,8 +83,14 @@ export default function Navbar() {
     {
       name: "Dogovori",
       active: true,
-      path: routes.DEALS_URL,
-      viewers: ["PERSON_IN_NEED", "VOLUNTEER", "VOLUNTEER_AND_PERSON_IN_NEED"],
+      path: routes.DEALS_VOL_URL,
+      viewers: ["VOLUNTEER"],
+    },
+    {
+      name: "Dogovori",
+      active: true,
+      path: routes.DEALS_PIN_URL,
+      viewers: ["PERSON_IN_NEED"],
     },
     {
       name: "Zahtjevi",

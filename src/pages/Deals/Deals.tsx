@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import AdvertModal, { AdvertType } from "./AdvertModal";
 import CertificateForm from "./CertificateForm";
@@ -6,9 +6,11 @@ import ContractForm from "./ContractForm";
 import DealsTableModal from "./DealsTableModal";
 import MsgModal, { MessageType } from "./MsgModal";
 import RequestModal, { RequestType } from "./RequestModal";
-import { IAuth } from "../../api/auth/IAuth";
 import api from "../../api/createAxiosClient";
-import { AuthContext } from "../../context/AuthContext";
+
+type DealsProps = {
+  userType: string | undefined;
+};
 
 export interface DealsContentType {
   dealId: number;
@@ -44,7 +46,7 @@ interface PaginationParams {
   size?: number;
 }
 
-export default function Deals() {
+export default function Deals({ userType }: DealsProps) {
   const personInNeedHeader = ["Volonter", "Prijava volontera", "Vaša prijava", "Ispunite dokumente"];
   const volunteerHeader = ["Korisnik", "Prijava korisnika", "Vaša prijava", "Preuzmite dokumente"];
   const [activeModal, setActiveModal] = useState("DEALS_TABLE");
@@ -60,8 +62,6 @@ export default function Deals() {
     page: 0,
     size: window.innerWidth < 640 ? 3 : 10,
   });
-  const { currentUser } = useContext(AuthContext) as IAuth;
-  const userRole = currentUser !== null ? currentUser.userType : "NOT_LOGGED_IN";
 
   let userId = "";
   const userString = localStorage.getItem("user");
@@ -73,7 +73,7 @@ export default function Deals() {
   const fetchData = async () => {
     try {
       let response;
-      if (userRole === "PERSON_IN_NEED") {
+      if (userType === "PERSON_IN_NEED") {
         response = await api.get(`/deal/accepted-deals-person-in-need/${userId}`, {
           headers: {
             "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function Deals() {
       )}
       {activeModal === "CONTRACT_FORM" && <ContractForm setActiveModal={setActiveModal} dealData={dealData} />}
       {activeModal === "CERTIFICATE_FORM" && <CertificateForm setActiveModal={setActiveModal} dealData={dealData} />}
-      {activeModal === "DEALS_TABLE" && userRole === "PERSON_IN_NEED" && (
+      {activeModal === "DEALS_TABLE" && userType === "PERSON_IN_NEED" && (
         <DealsTableModal
           headerColumns={personInNeedHeader}
           contentPIN={content}
@@ -155,7 +155,7 @@ export default function Deals() {
           paginationLast={paginationLast}
         />
       )}
-      {activeModal === "DEALS_TABLE" && userRole !== "PERSON_IN_NEED" && (
+      {activeModal === "DEALS_TABLE" && userType !== "PERSON_IN_NEED" && (
         <DealsTableModal
           headerColumns={volunteerHeader}
           contentVOL={contentVol}
