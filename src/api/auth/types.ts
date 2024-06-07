@@ -1,16 +1,3 @@
-export type RegistrationCommand = {
-  userType: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobilePhone: string;
-  oib: string;
-  password: string;
-  controlPassword: string;
-  profileDescription: string;
-  volunteerCenter: string;
-};
-
 export type UserRegisterForm = {
   firstName: string;
   lastName: string;

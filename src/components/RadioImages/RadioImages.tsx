@@ -51,6 +51,7 @@ export default function RadioImages({ images, name, categories_images, eng_names
                       field.value === eng_names[index] ? "selected h-[4.5rem] w-[6.5rem]" : "h-[4.5rem] w-[6.5rem]"
                     }
                     onClick={() => setFieldValue(field.name, eng_names[index])}
+                    alt={field.name}
                   />
                 )}
                 {name === "helpType" && (
@@ -60,6 +61,7 @@ export default function RadioImages({ images, name, categories_images, eng_names
                       field.value === eng_names[index] ? "selected h-[4.5rem] w-[6.5rem]" : "h-[4.5rem] w-[6.5rem]"
                     }
                     onClick={() => setFieldValue(field.name, eng_names[index])}
+                    alt={field.name}
                   />
                 )}
 
