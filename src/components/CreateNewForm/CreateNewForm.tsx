@@ -23,6 +23,73 @@ interface CreateNewFormProps {
   toggleFormVisibility: () => void;
 }
 
+export const categories = [
+  "DJECA I MLADI",
+  "STARIJI",
+  "OBITELJI",
+  "BESKUĆNICI",
+  "OVISNICI",
+  "OSOBE S INVALIDITETOM",
+  "RANJIVE SKUPINE",
+  "OKOLIŠ",
+  "ŽIVOTINJE",
+  "OSTALO",
+];
+export const categories_images = [
+  "djeca_i_mladi",
+  "stariji",
+  "obitelji",
+  "beskucnici",
+  "ovisnici",
+  "osobe_s_inv",
+  "ranjive_skupine",
+  "okolis",
+  "zivotinje",
+  "ostalo",
+];
+export const helpTypes = [
+  "OBRAZOVANJE",
+  "DONACIJE",
+  "POPRAVCI",
+  "RADIONICE",
+  "ZDRAVLJE",
+  "FIZIČKI POSLOVI",
+  "ZABAVA",
+  "OSTALO",
+];
+export const categories_images_helpTypes = [
+  "obrazovanje",
+  "donacije",
+  "popravci",
+  "radionice",
+  "zdravlje",
+  "fizicki_poslovi",
+  "zabava",
+  "ostalo",
+];
+export const categories_eng = [
+  "CHILDREN_AND_YOUNGER",
+  "ELDERLY",
+  "FAMILY",
+  "HOMELESS",
+  "ADDICTS",
+  "DISABLED",
+  "VULNERABLE_GROUPS",
+  "ENVIRONMENT",
+  "ANIMALS",
+  "OTHER",
+];
+export const helpTypes_eng = [
+  "EDUCATION",
+  "DONNATION",
+  "REPAIRS",
+  "WORKSHOPS",
+  "HEALTH",
+  "PHYSICAL_WORK",
+  "ENTERTAINMENT",
+  "OTHER",
+];
+
 export default function CreateNewForm2({ request, toggleFormVisibility }: CreateNewFormProps) {
   const queryClient = useQueryClient();
   const { currentUser } = useContext(AuthContext) as IAuth;
@@ -39,72 +106,6 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     skillSet: "",
   };
 
-  const categories = [
-    "DJECA I MLADI",
-    "STARIJI",
-    "OBITELJI",
-    "BESKUĆNICI",
-    "OVISNICI",
-    "OSOBE S INVALIDITETOM",
-    "RANJIVE SKUPINE",
-    "OKOLIŠ",
-    "ŽIVOTINJE",
-    "OSTALO",
-  ];
-  const categories_images = [
-    "djeca_i_mladi",
-    "stariji",
-    "obitelji",
-    "beskucnici",
-    "ovisnici",
-    "osobe_s_inv",
-    "ranjive_skupine",
-    "okolis",
-    "zivotinje",
-    "ostalo",
-  ];
-  const helpTypes = [
-    "OBRAZOVANJE",
-    "DONACIJE",
-    "POPRAVCI",
-    "RADIONICE",
-    "ZDRAVLJE",
-    "FIZIČKI POSLOVI",
-    "ZABAVA",
-    "OSTALO",
-  ];
-  const categories_images_helpTypes = [
-    "obrazovanje",
-    "donacije",
-    "popravci",
-    "radionice",
-    "zdravlje",
-    "fizicki_poslovi",
-    "zabava",
-    "ostalo",
-  ];
-  const categories_eng = [
-    "CHILDREN_AND_YOUNGER",
-    "ELDERLY",
-    "FAMILY",
-    "HOMELESS",
-    "ADDICTS",
-    "DISABLED",
-    "VULNERABLE_GROUPS",
-    "ENVIRONMENT",
-    "ANIMALS",
-    "OTHER",
-  ];
-  const helpTypes_eng = [
-    "EDUCATION",
-    "DONNATION",
-    "REPAIRS",
-    "WORKSHOPS",
-    "HEALTH",
-    "PHYSICAL_WORK",
-    "ENTERTAINMENT",
-    "OTHER",
-  ];
   const ERROR = "input-error-form mt-3";
   const widthOfInput = "regInputCreateForm w-11/12 sm:px-1 sm:py-1 min-[640px]:w-9/12 sm:text-base text-xs p-1";
 
@@ -150,7 +151,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Ponovo pokušajte stvoriti zahtjev", {
+        toast.error("Ponovno pokušajte stvoriti zahtjev", {
           position: "top-center",
           autoClose: 3000,
           hideProgressBar: true,
@@ -168,7 +169,7 @@ export default function CreateNewForm2({ request, toggleFormVisibility }: Create
     <>
       <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={onSubmit}>
         {({ errors, touched, isSubmitting }) => (
-          <Form className="request-form h-dvh sm:border-bold sm:border-customBlueLight relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
+          <Form className="request-form h-dvh sm:border-bold sm:border-customBlueLight relative mb-4 ml-5 flex w-full flex-col items-center bg-gray-200 bg-white pt-12 text-base sm:ml-0 sm:mt-4 sm:h-fit sm:w-10/12 sm:rounded-[25px] sm:border-[3px] md:mb-1 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:pl-16 min-[1100px]:text-xl">
             <FontAwesomeIcon
               icon={faCircleXmark}
               onClick={toggleFormVisibility}

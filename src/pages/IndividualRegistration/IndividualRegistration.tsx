@@ -88,7 +88,7 @@ const IndividualRegistration = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setCertificate(file);
-    setCertificateName(file ? file.name : ""); // Postavite ime datoteke
+    setCertificateName(file ? file.name : "");
   };
 
   const onSubmit = async (values: UserRegisterForm, actions: FormikHelpers<UserRegisterForm>) => {
@@ -128,7 +128,9 @@ const IndividualRegistration = () => {
     if (certificate) {
       formData.append("file", certificate);
     }
-    console.log(formData);
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
     const result = await signup(formData);
     if (result.valueOf()) {
       navigate("/");
