@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -38,7 +38,10 @@ const UserProfile = () => {
         "Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.",
     },
     { recension: "Ovo je tekst recenzije 3." },
-    { recension: "Ovo je tekst recenzije 4." },
+    {
+      recension:
+        "Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.",
+    },
     { recension: "Ovo je tekst recenzije 5." },
     { recension: "Ovo je tekst recenzije 6." },
     { recension: "Ovo je tekst recenzije 7." },
@@ -73,12 +76,12 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile relative w-full overflow-hidden">
-      <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background " alt="Wave Background" />
+      <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background" alt="Wave Background" />
       <div className="content-container relative w-full">
-        <div className="profile-image-container flex flex-col items-center justify-center ">
+        <div className="profile-image-container flex flex-col items-center justify-center">
           {userImage && (
             <img
-              className="user-image rounded-full border-4 border-white "
+              className="user-image rounded-full border-4 border-white"
               src={`data:image/jpeg;base64,${userImage}`}
               alt="Profile"
             />

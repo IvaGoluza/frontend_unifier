@@ -1,3 +1,4 @@
+/* userGallery.css */
 .image-controls {
   margin-top: 1rem;
   display: flex;
@@ -30,8 +31,9 @@
 
 .profile-images {
   position: relative;
-  width: 63vw;
-  height: 23vw;
+  width: 70vw; 
+  max-width: 600px; 
+  height: auto; 
   border-radius: 1rem;
   z-index: 6;
   border: 0.5px solid white;
@@ -41,7 +43,7 @@
   position: absolute;
   top: 0;
   left: 95%;
-  width: 65%;
+  width: 40vh;
   height: 100%;
   border: 0.5px solid white;
   border-radius: 1rem;
@@ -86,5 +88,15 @@
     width: 43vw;
     height: 28vw;
   }
+}
 
+
+@media screen and (max-width: 768px) {
+  .mobile {
+    top: 2vw;
+  }
+
+  .mobileTitle {
+    text-align: center;
+  }
 }

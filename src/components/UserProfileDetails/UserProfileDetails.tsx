@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import api from "../../api/createAxiosClient";
-
 import "./userProfileDetails.css";
-import { string } from "yup";
 
 interface UserDetails {
   id: number;
@@ -22,12 +18,12 @@ interface UserProfileDetailsProps {
 
 const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) => {
   const [isSameUser, setIsSameUser] = useState(false);
+  const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedUserId = storedUser ? JSON.parse(storedUser).id : null;
     setIsSameUser(userDetails?.id === storedUserId);
-    console.log(isSameUser);
   }, [userDetails?.id]);
 
   const textStyle: React.CSSProperties = {
@@ -36,22 +32,29 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
     overflowWrap: "break-word",
   };
 
+  const toggleCardExpansion = (index: number) => {
+    setExpandedCardIndex(expandedCardIndex === index ? null : index);
+  };
+
   if (!userDetails) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="px-30 flex justify-evenly py-12">
-      <div className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start overflow-hidden rounded-2xl bg-[#F8F26C] p-4 shadow-2xl">
+    <div className="user-details-container flex flex-wrap justify-evenly px-4 py-12">
+      <div
+        className={`card bg-[#F8F26C] ${expandedCardIndex === 0 ? "expanded" : ""}`}
+        onClick={() => toggleCardExpansion(0)}
+      >
         <div className="flex flex-col space-y-2">
-          <div className="">
-            <h2 className="title-description font-bold text-[#0F182C] ">Kontakt Info</h2>
+          <div>
+            <h2 className="title-description font-bold text-[#0F182C]">Kontakt Info</h2>
             <div className="mt-1 h-1 w-32 bg-[#C1B908]"></div>
           </div>
-          <div className="space-y-2 ">
+          <div className="space-y-2">
             {userDetails.email && (
               <div className="flex items-center">
-                <img src="../../../assets/svgImages/mail.svg" alt="Email" className="user-details-icon " />
+                <img src="../../../assets/svgImages/mail.svg" alt="Email" className="user-details-icon" />
                 <span style={textStyle} className="user-details-text ml-2 break-words text-[#0F182C]">
                   {userDetails.email}
                 </span>
@@ -59,8 +62,8 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
             )}
             {userDetails.mobilePhone && (
               <div className="flex items-center">
-                <img src="../../../assets/svgImages/phone.svg" alt="Phone" className="user-details-icon " />
-                <span style={textStyle} className="user-details-text ml-2 break-words  text-[#0F182C]">
+                <img src="../../../assets/svgImages/phone.svg" alt="Phone" className="user-details-icon" />
+                <span style={textStyle} className="user-details-text ml-2 break-words text-[#0F182C]">
                   {userDetails.mobilePhone}
                 </span>
               </div>
@@ -75,8 +78,8 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
       </div>
 
       <div
-        className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start rounded-2xl p-4 text-white shadow-2xl"
-        style={{ backgroundColor: "#0F182C" }}
+        className={`card bg-[#0F182C] text-white ${expandedCardIndex === 1 ? "expanded" : ""}`}
+        onClick={() => toggleCardExpansion(1)}
       >
         <h2 className="title-description font-bold">O VOLONTERU...</h2>
         {userDetails.profileDescription && (
@@ -88,22 +91,21 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
           <img
             src="../../../assets/svgImages/editProfile.svg"
             alt="Edit"
-            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
-            style={{ zIndex: 10 }}
+            className="edit-icon absolute right-2 top-2"
           />
         )}
       </div>
 
       <div
-        className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start rounded-2xl p-4 text-[#0F182C] shadow-2xl"
-        style={{ backgroundColor: "#99D7E8" }}
+        className={`card bg-[#99D7E8] ${expandedCardIndex === 2 ? "expanded" : ""}`}
+        onClick={() => toggleCardExpansion(2)}
       >
         <h2 className="title-description font-bold">PODRUČJE RADA</h2>
         <ul className="user-details-text mt-3 list-disc space-y-2 overflow-auto pl-4">
-          {userDetails?.workArea?.length > 0 ? (
+          {userDetails.workArea && userDetails.workArea.length > 0 ? (
             userDetails.workArea.map((area, index) => <li key={index}>{area}</li>)
           ) : (
-            <li style={textStyle} className="user-details-text break-words ">
+            <li style={textStyle} className="user-details-text break-words">
               Još uvijek nije odabrao područja rada.
             </li>
           )}
@@ -112,8 +114,7 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
           <img
             src="../../../assets/svgImages/editProfile.svg"
             alt="Edit"
-            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
-            style={{ zIndex: 10 }}
+            className="edit-icon absolute right-2 top-2"
           />
         ) : (
           <img
@@ -124,24 +125,25 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
           />
         )}
       </div>
+
       <div
-        className="relative flex h-[20vw] w-[20vw] flex-col items-start justify-start overflow-hidden rounded-2xl p-4 text-[#0F182C] shadow-2xl"
-        style={{ backgroundColor: "#E7F4F8" }}
+        className={`card bg-[#E7F4F8] ${expandedCardIndex === 3 ? "expanded" : ""}`}
+        onClick={() => toggleCardExpansion(3)}
       >
         <h2 className="title-description font-bold">PRILOŽENE POTVRDE</h2>
         <div className="mt-3 list-disc space-y-2 text-sm">
-          {userDetails?.hasHealthCertificate && (
+          {userDetails.hasHealthCertificate && (
             <div className="flex items-center">
-              <img src="../../../assets/svgImages/tick.svg" alt="Email" className="user-details-icon " />
-              <span style={textStyle} className="user-details-text ml-2 break-words  text-[#0F182C]">
+              <img src="../../../assets/svgImages/tick.svg" alt="Email" className="user-details-icon" />
+              <span style={textStyle} className="user-details-text ml-2 break-words text-[#0F182C]">
                 Lječnička potvrda
               </span>
             </div>
           )}
-          {userDetails?.hasCertificateOfGoodConduct && (
+          {userDetails.hasCertificateOfGoodConduct && (
             <div className="flex items-center">
               <img src="../../../assets/svgImages/tick.svg" alt="Phone" className="user-details-icon" />
-              <span style={textStyle} className="user-details-text ml-2 break-words  text-[#0F182C]">
+              <span style={textStyle} className="user-details-text ml-2 break-words text-[#0F182C]">
                 Potvrda o nekažnjavanju
               </span>
             </div>
@@ -151,14 +153,12 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
           src="../../../assets/svgImages/logo.svg"
           alt="Logo"
           className="absolute inset-0 left-16 h-full w-full scale-150 transform object-cover opacity-25"
-          style={{ zIndex: 10 }}
         />
         {isSameUser && (
           <img
             src="../../../assets/svgImages/editProfile.svg"
             alt="Edit"
-            className="absolute right-2 top-2 scale-75 transform sm:scale-90 md:scale-100"
-            style={{ zIndex: 10 }}
+            className="edit-icon absolute right-2 top-2"
           />
         )}
       </div>

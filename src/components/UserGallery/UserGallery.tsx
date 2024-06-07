@@ -48,14 +48,16 @@ const UserGallery = ({ userId }: { userId: string }) => {
   };
 
   return (
-    <div className="z-10 mt-[-15vh] flex flex-col items-center justify-center space-y-4 lg:mt-[15vw] lg:flex-row lg:items-center">
+    <div className="relative z-10 mt-16 flex flex-col items-center justify-center space-y-4 lg:mt-[15vw] lg:flex-row lg:items-center">
       <img
         src="../../../assets/svgImages/volunteer-profile-flower.svg"
         alt="Volunteer Flower"
-        className="flower h-96 w-auto self-start lg:self-center"
+        className="flower flex-start absolute bottom-0 left-0 h-96 w-auto lg:static lg:self-center"
       />
-      <div className="mt-7 text-3xl font-bold text-[#90B8F6]">DNEVNIK PRETHODNIH VOLONTERSKIH AKCIJA</div>
-      <div className="relative mr-[24vw] flex  flex-col items-center justify-center" ref={galleryRef}>
+      <div className="mobileTitle mt-7 text-3xl font-bold text-[#90B8F6] lg:ml-8">
+        DNEVNIK PRETHODNIH VOLONTERSKIH AKCIJA
+      </div>
+      <div className="relative mr-[24vw] flex flex-col items-center justify-center" ref={galleryRef}>
         <div className="group relative">
           <img
             src={images[currentImageIndex].src}

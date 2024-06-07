@@ -2,7 +2,7 @@
   font-family: 'Arial', sans-serif;
   background-color: #1F2340;
   position: relative;
-  padding-top: 40rem;
+  padding-top: 80vh;
   z-index: 1;
 }
 
@@ -58,4 +58,31 @@
     font-size: 2vw;
   }
 
+}
+
+@media screen and (max-width: 768px) {
+    .wave-background {
+      display: none;
+    }
+
+    .profile-image-container {
+      position: absolute;
+      bottom: 30vw;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .user-image {
+      width: 13vw;
+      height: 13vw;
+    }
+    
+    .user-name {
+      font-size: 4vw;
+      white-space: nowrap;
+    }
+
+    .content-container {
+      top: 2vw;
+    }
 }
