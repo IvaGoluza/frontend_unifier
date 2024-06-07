@@ -35,13 +35,13 @@ export interface NewAdvertFormTypes {
   category: string;
   description: string;
   time: string;
-  helpersId?: number[];
 }
 
 export default function CreateNewAdvert({ toggleFormVisibility }: CreateNewFormProps) {
   const queryClient = useQueryClient();
   const { currentUser } = useContext(AuthContext) as IAuth;
 
+  const [helpersId, setHelpersId] = useState<number[]>([]);
   const [image, setImage] = useState<File | null>(null);
   const [imageName, setImageName] = useState("");
 
@@ -58,7 +58,6 @@ export default function CreateNewAdvert({ toggleFormVisibility }: CreateNewFormP
     category: "",
     description: "",
     time: "",
-    helpersId: [],
   };
 
   const ERROR = "input-error-form mt-3";
@@ -75,10 +74,11 @@ export default function CreateNewAdvert({ toggleFormVisibility }: CreateNewFormP
       description: values.description,
       time: values.time,
       userId: currentUser?.id,
-      helpersId: values.helpersId,
+      helpersId: helpersId,
     };
 
     if (image === null) {
+      console.log(data);
       api
         .post("/advert", data, {
           headers: {
@@ -273,11 +273,11 @@ export default function CreateNewAdvert({ toggleFormVisibility }: CreateNewFormP
                   </label>
                   {imageName && <div className="fileName">{imageName}</div>}
                 </div>
-                <div className="max-w-80 mt-3 w-2/4">
-                  <label htmlFor="criminalRecordCertificate" className="inputLabel">
+                <div className="mt-6 flex w-[90%] flex-col justify-between rounded-xl bg-gradient-to-t from-white to-[#219CE5] px-8 pb-8 pt-8 lg:px-14">
+                  <label htmlFor="criminalRecordCertificate" className="text-md pl-2 font-semibold text-white">
                     Dodajte volontere
                   </label>
-                  <SearchVolunteers userId={currentUser?.id} />
+                  <SearchVolunteers userId={currentUser?.id} setHelpersId={setHelpersId} />
                 </div>
               </div>
               <div className="mt-5 flex w-full flex-col min-[1000px]:flex-row min-[1100px]:h-[8rem]"></div>

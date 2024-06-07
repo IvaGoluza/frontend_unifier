@@ -102,7 +102,7 @@ export default function MyAdvertsList({ toggleFormVisibility }: Props) {
         <div className="absolute bottom-5 right-5 flex w-10/12 cursor-pointer flex-row items-center justify-between p-1 text-xs lg:justify-end ">
           <button
             onClick={toggleFormVisibility}
-            className="button-create-request-list flex h-10 items-center justify-center bg-[#5422E1] px-3 text-xs md:text-sm 2xl:text-lg "
+            className="button-create-request-list flex h-10 items-center justify-center bg-[#5422E1] px-4 py-2 text-xs md:text-sm 2xl:text-lg "
           >
             NOVI OGLAS
           </button>
