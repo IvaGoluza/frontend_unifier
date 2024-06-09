@@ -59,6 +59,7 @@ const UserProfile = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = response.data;
+      console.log(data.hasHealthCertificate);
       setUserDetails(data);
       if (data.image !== null) {
         setUserImage(data.image);

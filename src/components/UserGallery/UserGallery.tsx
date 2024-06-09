@@ -7,7 +7,7 @@ const images = [
   {
     src: "../../../assets/images/cat4.png",
     description:
-      "Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.",
+      "Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.Opis za prvu sliku o volontiranju.",
   },
   { src: "../../../assets/images/cat5.png", description: "Drugi opis, možda o nekoj akciji." },
   { src: "../../../assets/images/cat6.png", description: null },

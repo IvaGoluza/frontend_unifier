@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./userProfileDetails.css";
 
-interface UserDetails {
+import "./userProfileDetails.css";
+import EditUserProfileModal from "./EditUserProfileModal";
+import api from "../../api/createAxiosClient";
+
+export interface UserDetails {
   id: number;
   name: string;
   email: string;
@@ -17,10 +20,14 @@ interface UserProfileDetailsProps {
   userDetails: UserDetails | null;
 }
 
+export type PartialUserDetails = Partial<UserDetails> & { file?: File | null };
+
 // eslint-disable-next-line sonarjs/cognitive-complexity
 const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) => {
   const [isSameUser, setIsSameUser] = useState(false);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentField, setCurrentField] = useState<keyof UserDetails | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -36,6 +43,16 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
 
   const toggleCardExpansion = (index: number) => {
     setExpandedCardIndex(expandedCardIndex === index ? null : index);
+  };
+
+  const handleModalOpen = (field: keyof UserDetails) => {
+    setCurrentField(field);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setCurrentField(null);
   };
 
   if (!userDetails) {
@@ -83,11 +100,6 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
               )}
             </div>
           </div>
-          <img
-            src="../../../assets/svgImages/logo.svg"
-            alt="Logo"
-            className="absolute left-24 top-32 h-2/3 w-2/3 rotate-[30deg] opacity-30"
-          />
         </div>
 
         <div
@@ -101,11 +113,9 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
             </p>
           )}
           {isSameUser && (
-            <img
-              src="../../../assets/svgImages/editProfile.svg"
-              alt="Edit"
-              className="edit-icon absolute right-2 top-2"
-            />
+            <button onClick={() => handleModalOpen("profileDescription")} className="edit-icon absolute right-2 top-2">
+              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
+            </button>
           )}
         </div>
 
@@ -123,19 +133,10 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
               </li>
             )}
           </ul>
-          {isSameUser ? (
-            <img
-              src="../../../assets/svgImages/editProfile.svg"
-              alt="Edit"
-              className="edit-icon absolute right-2 top-2"
-            />
-          ) : (
-            <img
-              src="../../../assets/svgImages/logo.svg"
-              alt="Logo"
-              className="absolute right-2 top-2 h-8 w-8 transform"
-              style={{ zIndex: 10 }}
-            />
+          {isSameUser && (
+            <button onClick={() => handleModalOpen("workArea")} className="edit-icon absolute right-2 top-2">
+              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
+            </button>
           )}
         </div>
 
@@ -162,20 +163,23 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
               </div>
             )}
           </div>
-          <img
-            src="../../../assets/svgImages/logo.svg"
-            alt="Logo"
-            className="absolute inset-0 left-16 h-full w-full scale-150 transform object-cover opacity-25"
-          />
           {isSameUser && (
-            <img
-              src="../../../assets/svgImages/editProfile.svg"
-              alt="Edit"
+            <button
+              onClick={() => handleModalOpen("hasHealthCertificate")}
               className="edit-icon absolute right-2 top-2"
-            />
+            >
+              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
+            </button>
           )}
         </div>
       </div>
+
+      <EditUserProfileModal
+        isOpen={isModalOpen}
+        onRequestClose={handleModalClose}
+        userDetails={userDetails}
+        currentField={currentField}
+      />
     </div>
   );
 };
