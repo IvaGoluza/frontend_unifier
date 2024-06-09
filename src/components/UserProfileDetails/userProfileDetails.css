@@ -30,15 +30,15 @@
   display: flex;
   justify-content: space-evenly;
   padding: 12px 30px;
-  flex-wrap: nowrap; /* Ensure cards don't wrap */
-  gap: 1rem; /* Add gap between cards */
+  flex-wrap: nowrap;
+  gap: 1rem;
 }
 
 .card {
   height: 20vw;
   width: 20vw;
   margin: 10px;
-  transition: height 0.3s ease, width 0.3s ease; /* Smooth transition for resizing */
+  transition: height 0.3s ease, width 0.3s ease; 
   cursor: pointer;
   position: relative;
   overflow: hidden;
