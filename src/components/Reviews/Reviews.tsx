@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-
-import api from "../../api/createAxiosClient";
+import React, { useState } from "react";
 import "./reviews.css";
 
 const colorStyles = [
@@ -22,41 +20,59 @@ interface ReviewsProps {
   userRecensions?: UserRecension[];
 }
 
-const Reviews: React.FC<ReviewsProps> = ({ userRecensions }) => {
+const Reviews: React.FC<ReviewsProps> = ({ userRecensions = [] }) => {
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+
+  const nextReview = () => {
+    setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % userRecensions.length);
+  };
+
+  const prevReview = () => {
+    setCurrentReviewIndex((prevIndex) => (prevIndex - 1 + userRecensions.length) % userRecensions.length);
+  };
+
   return (
     <div>
-      <h2 className="px-8 pb-2 pt-80 text-left text-3xl font-semibold text-[#90B8F6] sm:px-16 md:px-32 lg:px-48">
+      <h2 className="px-8 pb-2 pt-64 text-left text-3xl font-semibold text-[#90B8F6] sm:px-16 md:px-32 lg:px-48">
         ŠTO SU KORISNICI NAPISALI O ORGANIZACIJI
       </h2>
-      <p className="text-l text-thin pb-8 text-left text-white sm:px-16 md:px-32 lg:px-48">
+      <p className="text-l text-thin px-8 pb-4 pt-2 text-left text-white sm:px-16 md:px-32 lg:px-48">
         U nastavku su prikazane poruke koje su o Vama napisali korisnici kojima ste pomogli ili su sudjelovali u Vašim
         volonterskim akcijama.
       </p>
-      <div className="grid justify-items-center gap-y-4 px-[8px] pb-16 sm:grid-cols-1 sm:px-16 md:px-32 lg:grid-cols-2 lg:px-48 xl:grid-cols-4">
-        {userRecensions?.map((recension, index) => {
-          const isBgNeeded = colorStyles[index % colorStyles.length].backgroundColor.toUpperCase() === "#E7F4F8";
-          return (
-            <div
-              key={index}
-              className={`review-card relative flex h-64 w-full flex-col items-center justify-center overflow-hidden rounded-2xl border border-white p-4 shadow-md sm:w-64 ${
-                index % colorStyles.length === 0 || index % colorStyles.length === colorStyles.length - 2
-                  ? "text-white"
-                  : "text-black"
-              }`}
-              style={colorStyles[index % colorStyles.length]}
-            >
-              {isBgNeeded && (
-                <img
-                  src="../../../assets/svgImages/logo.svg"
-                  alt="Logo"
-                  className="absolute inset-0 h-full w-full object-cover opacity-25"
-                  style={{ zIndex: 10 }}
-                />
-              )}
-              <p className="review-card relative z-10 overflow-auto font-light">{recension.recension}</p>
-            </div>
-          );
-        })}
+      <div className="reviews-container grid justify-items-center gap-y-4 px-4 pb-16 sm:px-16 md:px-32 lg:px-48">
+        {userRecensions.length > 0 ? (
+          userRecensions.map((recension, index) => {
+            const isBgNeeded = colorStyles[index % colorStyles.length].backgroundColor.toUpperCase() === "#E7F4F8";
+            return (
+              <div
+                key={index}
+                className={`review-card relative flex h-64 w-full flex-col items-center justify-center overflow-auto rounded-2xl border border-white p-4 shadow-md ${
+                  index % colorStyles.length === 0 || index % colorStyles.length === colorStyles.length - 2
+                    ? "text-white"
+                    : "text-black"
+                } ${index === currentReviewIndex ? "block" : "hidden"} sm:block`}
+                style={colorStyles[index % colorStyles.length]}
+              >
+                {isBgNeeded && (
+                  <img
+                    src="../../../assets/svgImages/logo.svg"
+                    alt="Logo"
+                    className="absolute inset-0 h-full w-full object-cover opacity-25"
+                    style={{ zIndex: 10 }}
+                  />
+                )}
+                <p className="review-card relative z-10 overflow-auto font-light">{recension.recension}</p>
+              </div>
+            );
+          })
+        ) : (
+          <p className="text-white">No reviews available.</p>
+        )}
+      </div>
+      <div className="review-controls sm:hidden">
+        <button onClick={prevReview}>&lt;</button>
+        <button onClick={nextReview}>&gt;</button>
       </div>
     </div>
   );

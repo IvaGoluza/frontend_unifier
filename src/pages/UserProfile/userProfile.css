@@ -15,9 +15,17 @@
   z-index: -1;
 }
 
-.content-container {
+.content-container.with-image {
   position: absolute;
-  top: 26vw;
+  top: 8vw;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+}
+
+.content-container.without-image {
+  position: absolute;
+  top: 30vh;
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
@@ -57,32 +65,32 @@
   .user-name {
     font-size: 2vw;
   }
-
 }
 
 @media screen and (max-width: 768px) {
-    .wave-background {
-      display: none;
-    }
+  .wave-background {
+    display: none;
+  }
 
-    .profile-image-container {
-      position: absolute;
-      bottom: 30vw;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    
-    .user-image {
-      width: 13vw;
-      height: 13vw;
-    }
-    
-    .user-name {
-      font-size: 4vw;
-      white-space: nowrap;
-    }
+  .profile-image-container {
+    position: absolute;
+    bottom: 30vw;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    .content-container {
-      top: 2vw;
-    }
+  .user-image {
+    width: 13vw;
+    height: 13vw;
+  }
+
+  .user-name {
+    font-size: 4vw;
+    white-space: nowrap;
+  }
+
+  .content-container {
+    top: 15vh !important;
+  }
+
 }

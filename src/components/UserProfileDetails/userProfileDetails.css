@@ -1,80 +1,131 @@
 .user-details-container {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    padding: 12px 30px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.user-image {
+  width: 13vw;
+  height: 13vw;
+  border-radius: 50%;
+}
+
+.user-name {
+  font-size: 4vw;
+  margin-top: 1rem;
+  color: #09115B;
+}
+
+.details-cards {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 12px 30px;
+  flex-wrap: nowrap; /* Ensure cards don't wrap */
+  gap: 1rem; /* Add gap between cards */
+}
+
+.card {
+  height: 20vw;
+  width: 20vw;
+  margin: 10px;
+  transition: height 0.3s ease, width 0.3s ease; /* Smooth transition for resizing */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 1rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card.expanded {
+  height: auto;
+}
+
+.user-details-text {
+  font-size: 1.2vw;
+}
+
+.title-description {
+  font-size: 1.5vw;
+}
+
+.user-details-icon {
+  width: 2vw;
+  height: 2vw;
+}
+
+.edit-icon {
+  width: 2vw;
+  height: 2vw;
+}
+
+@media screen and (max-width: 1024px) and (min-width: 769px) {
   .card {
-    height: 20vw;
-    width: 20vw;
-    margin: 10px;
-    transition: height 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 1rem;
-    border-radius: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 24vw;
+    height: 24vw;
   }
-  
+  .details-cards {
+    gap: 0.5rem; 
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 90%;
+    height: 45px;
+    margin: 10px 0;
+  }
+
   .card.expanded {
     height: auto;
   }
-  
-  .user-details-text {
-    font-size: 1.2vw;
-  }
-  
-  .title-description {
-    font-size: 1.5vw;
-  }
-  
-  .user-details-icon {
-    width: 2vw;
-    height: 2vw;
-  }
-  
-  .edit-icon {
-    width: 2vw;
-    height: 2vw;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .card {
-      width: 90%;
-      height: 45px;
-      margin: 10px 0;
-    }
-  
-    .card.expanded {
-      height: auto;
-    }
-  
-    .user-details-text {
-      font-size: 3.5vw;
-    }
-  
-    .title-description {
-      font-size: 4vw;
-    }
-  
-    .user-details-icon {
-      width: 6vw;
-      height: 6vw;
-    }
-  
-    .edit-icon {
-      width: 6vw;
-      height: 6vw;
-    }
 
-    .user-details-container {
-        position: relative;
-        top: 40vw;
-    }
+  .user-details-text {
+    font-size: 3.5vw;
   }
-  
+
+  .title-description {
+    font-size: 4vw;
+  }
+
+  .user-details-icon {
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .edit-icon {
+    width: 6vw;
+    height: 6vw;
+  }
+
+  .profile-header {
+    margin-bottom: 1rem;
+  }
+
+  .user-image {
+    width: 30vw;
+    height: 30vw;
+  }
+
+  .user-name {
+    font-size: 6vw;
+  }
+
+  .details-cards {
+    flex-direction: column;
+    gap: 0;
+  }
+}

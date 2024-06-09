@@ -31,9 +31,9 @@
 
 .profile-images {
   position: relative;
-  width: 70vw; 
-  max-width: 600px; 
-  height: auto; 
+  width: 70vw;
+  max-width: 600px;
+  height: auto;
   border-radius: 1rem;
   z-index: 6;
   border: 0.5px solid white;
@@ -42,7 +42,7 @@
 .description-container {
   position: absolute;
   top: 0;
-  left: 95%;
+  left: 100%;
   width: 40vh;
   height: 100%;
   border: 0.5px solid white;
@@ -56,15 +56,59 @@
 }
 
 .description-container.visible {
-  transform: translateY(0);
+  transform: translateX(0);
   opacity: 1;
   visibility: visible;
   z-index: 0;
 }
 
-.description-container {
-  animation: slideInDescription 0.5s ease-out forwards;
-  z-index: 0;
+@media screen and (max-width: 768px) {
+
+  .gallery {
+    margin-right: 0;
+    margin-bottom: 2rem;
+  }
+
+  .description-container {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15vh;
+    border: 0.5px solid white;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    transform: translateY(-100%);
+    transition: transform 1.7s ease-out, opacity 1.7s ease, visibility 1.7s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .description-container.visible {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    z-index: 0;
+  }
+
+  .text-description {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.3vh !important;
+  }
+
+  .profile-images {
+    height: 70vw;
+  }
+
+  .image-controls {
+    margin-top: 1rem;
+    flex-direction: row;
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .text-description {
@@ -81,15 +125,14 @@
 
 @media screen and (min-width: 240px) and (max-width: 1023px) {
   .flower {
-      display: none;
+    display: none;
   }
 
   .profile-images {
-    width: 43vw;
-    height: 28vw;
+    width: 35vh;
+    height: 25vh;
   }
 }
-
 
 @media screen and (max-width: 768px) {
   .mobile {
@@ -98,5 +141,18 @@
 
   .mobileTitle {
     text-align: center;
+  }
+
+  .image-controls {
+    margin-top: 18vh;
+  }
+
+  .image-controls2 {
+    margin-top: 2vh;
+    margin-left: 0;
+  }
+
+  .center-image {
+    margin-left: 0;
   }
 }

@@ -1,13 +1,84 @@
 .review-card::-webkit-scrollbar {
-  width: 6px; 
-  height: 6px; 
+  width: 6px;
+  height: 6px;
 }
 
 .review-card::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
 
 .review-card::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.084); 
-  border-radius: 3px; 
+  background-color: rgba(255, 255, 255, 0.084);
+  border-radius: 3px;
+}
+
+.review-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.review-controls button {
+  background: none;
+  border: none;
+  color: white;
+  margin: 0 0.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background-color: #0f182c;
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.review-controls button:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .reviews-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .review-controls {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .reviews-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .review-controls {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .reviews-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .review-card {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .review-controls {
+    display: flex;
+    justify-content: center;
+  }
 }

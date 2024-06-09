@@ -22,6 +22,7 @@ interface UserDetails {
   hasHealthCertificate: boolean;
   hasCertificateOfGoodConduct: boolean;
   userRecensions: UserRecension[];
+  image?: string;
 }
 
 const UserProfile = () => {
@@ -30,27 +31,23 @@ const UserProfile = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [userRecensions, setUserRecensions] = useState<UserRecension[]>([
     {
-      recension:
-        "Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.Ovo je tekst recenzije 1.",
+      recension: "Ovo je tekst recenzije 1...",
     },
     {
-      recension:
-        "Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.",
+      recension: "Ovo je tekst recenzije 2...",
     },
-    { recension: "Ovo je tekst recenzije 3." },
+    { recension: "Ovo je tekst recenzije 3..." },
     {
-      recension:
-        "Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.Ovo je tekst recenzije 2.",
+      recension: "Ovo je tekst recenzije 4...",
     },
-    { recension: "Ovo je tekst recenzije 5." },
-    { recension: "Ovo je tekst recenzije 6." },
-    { recension: "Ovo je tekst recenzije 7." },
-    { recension: "Ovo je tekst recenzije 9." },
+    { recension: "Ovo je tekst recenzije 5..." },
+    { recension: "Ovo je tekst recenzije 6..." },
+    { recension: "Ovo je tekst recenzije 7..." },
+    { recension: "Ovo je tekst recenzije 8..." },
   ]);
   const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
-    console.log(userId);
     if (userId) {
       fetchUserDetails();
     }
@@ -59,16 +56,14 @@ const UserProfile = () => {
   const fetchUserDetails = async () => {
     try {
       const response = await api.get(`/profile/volunteer/${userId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
-      console.log(response.data);
-      setUserDetails(response.data);
-      if (response.data.image !== null) {
-        setUserImage(response.data.image);
+      const data = response.data;
+      setUserDetails(data);
+      if (data.image !== null) {
+        setUserImage(data.image);
       }
-      setName(response.data.name);
+      setName(data.name);
     } catch (error) {
       console.error("Error fetching user details:", error);
     }
@@ -77,23 +72,8 @@ const UserProfile = () => {
   return (
     <div className="user-profile relative w-full overflow-hidden">
       <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background" alt="Wave Background" />
-      <div className="content-container relative w-full">
-        <div className="profile-image-container flex flex-col items-center justify-center">
-          {userImage && (
-            <img
-              className="user-image rounded-full border-4 border-white"
-              src={`data:image/jpeg;base64,${userImage}`}
-              alt="Profile"
-            />
-          )}
-          <h1
-            style={{ marginTop: userImage ? "" : "18vw" }}
-            className="user-name mt-4 text-lg font-bold text-[#09115B]"
-          >
-            {name}
-          </h1>
-        </div>
-        <UserProfileDetails userDetails={userDetails} />
+      <div className={`content-container relative w-full ${userImage ? "with-image" : "without-image"}`}>
+        {userDetails && <UserProfileDetails userDetails={{ ...userDetails, image: userImage }} />}
       </div>
       {userId ? <UserGallery userId={userId} /> : null}
       <Reviews userRecensions={userRecensions} />

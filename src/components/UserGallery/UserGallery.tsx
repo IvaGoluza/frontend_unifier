@@ -57,7 +57,7 @@ const UserGallery = ({ userId }: { userId: string }) => {
       <div className="mobileTitle mt-7 text-3xl font-bold text-[#90B8F6] lg:ml-8">
         DNEVNIK PRETHODNIH VOLONTERSKIH AKCIJA
       </div>
-      <div className="relative mr-[24vw] flex flex-col items-center justify-center" ref={galleryRef}>
+      <div className="gallery relative mr-[24vw] flex flex-col items-center justify-center" ref={galleryRef}>
         <div className="group relative">
           <img
             src={images[currentImageIndex].src}
@@ -66,7 +66,7 @@ const UserGallery = ({ userId }: { userId: string }) => {
           />
           {images[currentImageIndex].description && (
             <div key={currentImageIndex} className={`description-container ${isDescriptionVisible ? "visible" : ""}`}>
-              <p className="text-description absolute bottom-0 left-[3vh] break-words p-4 font-light text-white">
+              <p className="text-description break-words p-4 font-light text-white">
                 {images[currentImageIndex].description}
               </p>
             </div>
