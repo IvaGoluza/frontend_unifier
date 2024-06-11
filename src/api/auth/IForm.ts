@@ -23,7 +23,7 @@ export type AdvertType = {
   user: loggedInUserType;
 };
 export type Advert2 = {
-  accepted: boolean | null; 
+  dealStatus: string | null; 
   advertId: number;
   advertTitle: string;
   location: string;
@@ -34,6 +34,7 @@ export type Advert2 = {
   volunteerCenter: string;
   time: string;
   archived: boolean;
+  statusText: string;
   user: {
     id: number;
     email: string;
@@ -43,7 +44,7 @@ export type Advert2 = {
     userType: string;
     blocked: boolean;
     approved: boolean;
-    name: string;
+    fullName: string;
   };
 };
 

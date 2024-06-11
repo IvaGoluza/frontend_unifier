@@ -127,7 +127,7 @@ const AccordionCardAdvertTSX: React.FC<AccordionCardAdvertProps> = ({
           />
         </div>
         <div className="mt-3 grid grid-cols-1 grid-rows-4 md:max-h-48 lg:col-span-1 ">
-          <div className="infoTitle text-[#8278F8] text-[1.5vh] uppercase font-bold">{title}</div>
+          <div className="infoTitle text-[#8278F8] text-[1.4vh] uppercase font-bold ml-1">{title}</div>
           <div className="infoDetails row-span-2">
             <div className="infoDetails row-span-2">
               <div className="item">{category}</div>

@@ -7,7 +7,6 @@ import { Advert, Advert2 } from "../../api/auth/IForm";
 import api from "../../api/createAxiosClient";
 import AdvertsFilterButton from "../../components/Filters/AdvertsFilterButton";
 
-
 interface PaginationParams {
   grad: string;
   kategorija: string;
@@ -41,13 +40,19 @@ const fetchUserRequests = async (userId: string, page = 0, size = 20, sort: stri
   }
 };
 
-
 export default function Adverts() {
   const [adverts, setAdverts] = useState<Advert2[]>([]);
   const [userRequests, setUserRequests] = useState<UserRequest[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [paginationFirst, setPaginationFirst] = useState(true);
   const [paginationLast, setPaginationLast] = useState(true);
+
+  let userId = "";
+  const userString = localStorage.getItem("user");
+  if (userString) {
+    const user = JSON.parse(userString);
+    userId = user.id;
+  }
 
   const params: PaginationParams = {
     grad: "",
@@ -60,7 +65,7 @@ export default function Adverts() {
 
   const fetchData = async () => {
     try {
-      const response = await api.get(`/advert/all-adverts`, {
+      const response = await api.get(`/advert/all-adverts/${userId}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -68,10 +73,18 @@ export default function Adverts() {
       });
 
       if (Array.isArray(response.data.content)) {
-        const updatedAdverts = response.data.content.map((advert: Advert2[]) => ({
-          ...advert,
-          accepted: null 
-        }));
+        const updatedAdverts = response.data.content.map((advert: Advert2) => {
+          let statusText = "Prijava";
+          if (advert.dealStatus === "ACCEPTED") {
+            statusText = "Prijavljeno";
+          } else if (advert.dealStatus === "PENDING") {
+            statusText = "Na čekanju";
+          }
+          return {
+            ...advert,
+            statusText: statusText,
+          };
+        });
         setAdverts(updatedAdverts);
         setPaginationFirst(response.data.first);
         setPaginationLast(response.data.last);
@@ -87,12 +100,6 @@ export default function Adverts() {
   };
 
   const fetchUserRequestsData = async () => {
-    let userId = "";
-    const userString = localStorage.getItem("user");
-    if (userString) {
-      const user = JSON.parse(userString);
-      userId = user.id;
-    }
     const requests = await fetchUserRequests(userId);
     setUserRequests(requests);
   };
@@ -109,7 +116,7 @@ export default function Adverts() {
     const payload = {
       senderId: senderId,
       receiverId: receiverId, 
-      sender: userType,
+      sender: "PERSON_IN_NEED",
       requestId: requestId,
       advertId: advertId,
       message: message
@@ -126,9 +133,15 @@ export default function Adverts() {
       console.log("Response:", response.data);
       const updatedAdverts = adverts.map(advert => {
         if (advert.advertId === advertId) {
+          let statusText = "Prijava";
+          if (response.data.accepted === true) {
+            statusText = "Prijavljeno";
+          } else if (response.data.accepted === false) {
+            statusText = "Na čekanju";
+          }
           return {
             ...advert,
-            status: response.data.accepted ? "Na čekanju" : "Prijavljeno"
+            statusText: statusText
           };
         }
         return advert;
@@ -206,14 +219,14 @@ export default function Adverts() {
               location={advert.location || "No location"}
               time={advert.time || "No time"}
               description={advert.description || "No description"}
-              name={advert.user?.name || "No name"}
+              name={advert.user?.fullName || "No name"}
               email={advert.user?.email || "No email"}
               phoneNumber={advert.user?.mobilePhone || "No phone number"}
               userRequests={userRequests}
               onSubmitApplication={handleSubmitApplication}
               advertId={advert.advertId}
               receiverId={advert.user?.id || 0}
-              status={"Prijava"}
+              status={advert.statusText}
             />
             ))
           )}
