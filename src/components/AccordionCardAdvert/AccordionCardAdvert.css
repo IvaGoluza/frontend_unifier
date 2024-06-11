@@ -12,9 +12,20 @@
 }
 
 .tablinks.active {
-    color: #07169B; 
+   color: #07169B; 
    font-weight: bold;
+   background-color: #00C2FE;
+   color: white;
 }
+/* .tablinks.active.prijava {
+   color: #07169B; 
+   font-weight: bold;
+   background-color: #00C2FE;
+   color: white;
+}
+.tablinks.prijava {
+   background-color: white;
+} */
 
 .tablinks p:before {
    content: attr(data-title);
@@ -54,17 +65,15 @@
    top: -80%;
 }
 
-
 .tabcontent {
    display: none;
 
 }
 
-.tabcontent.active {
-   transition: all 1s ease;
-   display: grid;
-   grid-template-columns: 0.5fr 0.5fr; 
-   gap: 10px; 
+.tabcontent.active.prijava {
+   display: flex;
+   flex-direction: column;
+   gap: 2px;
 }
 
 .tabcontent p {
@@ -164,6 +173,9 @@ width: 431px;
     .volonterGumb {
       width: 50%;
       font-size: 80%;
+    }
+    .tablinks {
+      font-size: 12px;
     }
  }
 

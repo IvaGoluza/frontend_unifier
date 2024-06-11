@@ -5,7 +5,7 @@
 .requests-list-navbar {
    border-top-left-radius: 36px;
    border-top-right-radius: 36px;
-   color: white;
+   color: whitesmoke;
    font-style: normal;
    font-weight: 700;
    line-height: 157%;
@@ -22,6 +22,7 @@
 
 .requests-list-item {
    background-color: #EAFAFF;
+   cursor: "pointer";
    border-radius: 20px;
 }
 

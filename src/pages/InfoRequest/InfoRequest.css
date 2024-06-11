@@ -166,6 +166,11 @@
   color: #B0A9F9;
 }
 
+.description-requirements p {
+   color: white;
+ }
+ 
+
 .request-container {
    width: 27rem;
 }

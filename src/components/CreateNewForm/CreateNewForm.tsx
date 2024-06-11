@@ -81,7 +81,7 @@ export const categories_eng = [
 ];
 export const helpTypes_eng = [
   "EDUCATION",
-  "DONNATION",
+  "DONATION",
   "REPAIRS",
   "WORKSHOPS",
   "HEALTH",

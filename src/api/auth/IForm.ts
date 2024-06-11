@@ -22,6 +22,66 @@ export type AdvertType = {
   description: string;
   user: loggedInUserType;
 };
+export type Advert2 = {
+  accepted: boolean | null; 
+  advertId: number;
+  advertTitle: string;
+  location: string;
+  helpType: string;
+  category: string;
+  description: string;
+  advertImage: string;
+  volunteerCenter: string;
+  time: string;
+  archived: boolean;
+  user: {
+    id: number;
+    email: string;
+    mobilePhone: string;
+    profileDescription: string | null; 
+    role: string;
+    userType: string;
+    blocked: boolean;
+    approved: boolean;
+    name: string;
+  };
+};
+
+
+export type Advert ={
+  dealId: number;
+  accepted: string;
+  message: string;
+  advert: {
+    advertId: number;
+    advertTitle: string;
+    location: string;
+    helpType: string;
+    category: string;
+    description: string;
+    advertImage: string;
+    volunteerCenter: string;
+    time: string;
+    archived: boolean;
+    user: {
+      id: number;
+      email: string;
+      mobilePhone: string;
+      profileDescription: string;
+      role: string;
+      userType: string;
+      blocked: boolean;
+      approved: boolean;
+      name: string;
+    };
+  };
+}
+
+export type AdvertFilter = {
+  town: string;
+  helpType: string;
+  category: string;
+};
 
 export type Deal = {
   id: number;

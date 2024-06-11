@@ -41,28 +41,73 @@ interface requestData {
   };
   volunteerCenter: string;
 }
+interface VolunteerApplication {
+  dealId: number;
+  message: string;
+  advert: {
+    advertId: number;
+    advertTitle: string;
+    location: string;
+    helpType: string;
+    category: string;
+    description: string;
+    advertImage: string;
+    volunteerCenter: string;
+    time: string;
+    archived: boolean;
+    user: {
+      id: number;
+      email: string;
+      mobilePhone: string;
+      profileDescription: string;
+      role: string;
+      userType: string;
+      blocked: boolean;
+      approved: boolean;
+    };
+  };
+  user: {
+    userId: number;
+    name: string;
+    email: string;
+    mobilePhone: string;
+  };
+}
+
+interface PaginationParams {
+  page?: number;
+  size?: number;
+  sort?: string[];
+}
+
 
 export default function InfoRequest() {
-  const request = {
-    title: "INSTRUKCIJE",
-    association: true,
-    email: "moj.mail@email.com",
-    mobilePhone: "0981923047",
-    town: "ZAGREB",
-    category: "DJECA I MLADI",
-    helpType: "OBRAZOVANJE",
-    location: "Jarun",
-    time: "20.-28. veljače 2024",
-    name: "IME I PREZIME",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  };
+  // const request = {
+  //   title: "INSTRUKCIJE",
+  //   association: true,
+  //   email: "moj.mail@email.com",
+  //   mobilePhone: "0981923047",
+  //   town: "ZAGREB",
+  //   category: "DJECA I MLADI",
+  //   helpType: "OBRAZOVANJE",
+  //   location: "Jarun",
+  //   time: "20.-28. veljače 2024",
+  //   name: "IME I PREZIME",
+  //   description:
+  //     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+  // };
   const location_navigate = useLocation();
   const params = location_navigate.state;
   const navigate = useNavigate();
   const requestId = params.requestId;
   const userId = params.userId;
   const [requestInfo, setRequestInfo] = useState<requestData | null>(null);
+  const [volunteerApplications, setVolunteerApplications] = useState<VolunteerApplication[]>([]);
+
+  const paramsForPagination: PaginationParams = {
+    page: 0,
+    size: 8,
+  };
 
   const fetchData = async () => {
     try {
@@ -70,6 +115,7 @@ export default function InfoRequest() {
         headers: {
           "Content-Type": "application/json",
         },
+        params: paramsForPagination,
       });
       console.log(response.data);
       setRequestInfo(response.data);
@@ -78,12 +124,30 @@ export default function InfoRequest() {
     }
   };
 
+  const fetchVolunteerApplications = async () => {
+    try {
+      const response = await api.get(`/deal/${requestId}/volunteer-applications`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setVolunteerApplications(response.data.content);
+      console.log(volunteerApplications);
+    } catch (error) {
+      console.error("Error fetching volunteer applications:", error);
+    }
+  };
+
+
+
   useEffect(() => {
     fetchData();
+    fetchVolunteerApplications();
   }, []);
 
-  const numberOfCards = 4;
-  const cardsArray = Array.from({ length: numberOfCards }, (_, index) => index);
+  // const numberOfCards = 4;
+  // const cardsArray = Array.from({ length: numberOfCards }, (_, index) => index);
 
   const handleBack = () => {
     navigate("/my-requests");
@@ -201,29 +265,39 @@ export default function InfoRequest() {
         </svg>
       </div>
       <div className="white-background">
-        <div className="accordions justify-center xl:justify-start">
-          {cardsArray.map((index) => (
-            <AccordionCard
-              key={index}
-              title={request.title}
-              category={request.category}
-              helpType={request.helpType}
-              town={request.town}
-              location={request.location}
-              time={request.time}
-              description={request.description}
-              name={request.name}
-              email={request.email}
-              phoneNumber={request.mobilePhone}
-            />
-          ))}
-          <AccordionCardJustMess
-            message={request.description}
-            name={request.name}
-            email={request.email}
-            phoneNumber={request.mobilePhone}
-          />
-        </div>
+      <div className="accordions justify-center xl:justify-start">
+  {volunteerApplications.map((v) => {
+    if (v.advert.advertTitle && v.advert.helpType && v.advert.location && v.advert.description) {
+      return (
+        <AccordionCard
+          key={v.advert.advertId}
+          dealId={v.advert.advertId}
+          title={v.advert.advertTitle}
+          category={v.advert.category}
+          helpType={v.advert.helpType}
+          town={v.advert.volunteerCenter}
+          location={v.advert.location}
+          time={v.advert.time}
+          description={v.advert.description}
+          name={v.user.name}
+          email={v.user.email}
+          phoneNumber={v.user.mobilePhone}/>
+      );
+    } else {
+      return (
+        <AccordionCardJustMess
+          key={v.advert.advertId}
+          dealId={v.advert.advertId}
+          message={v.advert.description || ""}
+          name={v.user.name || ""}
+          email={v.user.email || ""}
+          phoneNumber={v.user.mobilePhone || ""}
+        />
+      );
+    }
+  })}
+</div>
+
       </div>
       <ToastContainer />
     </>

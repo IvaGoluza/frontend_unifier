@@ -1,0 +1,28 @@
+.custom-shape-divider-bottom-1715101477 {
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+}
+
+.custom-shape-divider-bottom-1715101477 svg {
+   position: relative;
+   display: block;
+   width: calc(142% + 1.3px);
+   height: 10rem;
+
+}
+
+.custom-shape-divider-bottom-1715101477 .shape-fill {
+   fill: white;
+}
+
+.popupContainer {
+   background-image: url('/assets/images/loginLogoBack.png');
+   background-size: cover;
+   background-repeat: repeat;
+   background-position: center;
+}
+

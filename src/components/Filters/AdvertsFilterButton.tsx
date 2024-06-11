@@ -1,17 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
-
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
-
-import { AdvertType, Advert2,  towns, helpType, categories } from "../../api/auth/IForm";
+import { Advert2, towns, helpType, categories } from "../../api/auth/IForm";
 
 interface AdvertsFilterProps {
   data: Advert2[];
   setFilteredAdverts: React.Dispatch<React.SetStateAction<Advert2[]>>;
 }
-const AdvertsFilter = ({ data, setFilteredAdverts }: AdvertsFilterProps) => {
+
+const AdvertsFilterButton = ({ data, setFilteredAdverts }: AdvertsFilterProps) => {
   const [selectedTown, setSelectedTown] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedHelpType, setSelectedHelpType] = useState("");
@@ -46,20 +45,19 @@ const AdvertsFilter = ({ data, setFilteredAdverts }: AdvertsFilterProps) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <div className="absolute -top-40 left-72 pl-4">
-          <div className="ml-10 flex h-36 w-36 -rotate-6 flex-col items-center justify-center rounded-full bg-white text-2xl font-bold text-indigo-400 no-underline shadow-lg hover:bg-indigo-400 hover:text-white">
-            <p>Filtriraj</p>
-            <p>oglase</p>
-          </div>
-        </div>
+        <button
+          className="w-48 cursor-pointer rounded-full bg-[#5422E1] px-2 py-2 text-center font-bold uppercase text-white hover:tracking-widest"
+        >
+          FILTRIRAJ OGLASE
+        </button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="DialogOverlay" />
         <Dialog.Content className="DialogContent bgImage">
-          <Dialog.Description className="text-gray ml-10 text-lg">
+          <Dialog.Description className="text-gray text-lg">
             Odaberite željene filtre i pogledajte samo volonterske oglase koji Vas zanimaju!
           </Dialog.Description>
-          <div className="ml-40">
+          <div className="">
             <div className="flex items-center">
               <FontAwesomeIcon icon={faFilter} className="fa-2xl text-indigo-200" />
               <div className="my-4 flex flex-col">
@@ -116,7 +114,7 @@ const AdvertsFilter = ({ data, setFilteredAdverts }: AdvertsFilterProps) => {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", marginTop: 25, justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", marginTop: 25, justifyContent: "center" }}>
             <Dialog.Close asChild>
               <button
                 className="mx-3 rounded-3xl bg-blue-900 px-7 py-2 font-bold text-white hover:bg-blue-700"
@@ -137,4 +135,4 @@ const AdvertsFilter = ({ data, setFilteredAdverts }: AdvertsFilterProps) => {
   );
 };
 
-export default AdvertsFilter;
+export default AdvertsFilterButton;
