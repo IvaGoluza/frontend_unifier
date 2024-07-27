@@ -1,4 +1,3 @@
-/* userGallery.css */
 .image-controls {
   margin-top: 1rem;
   display: flex;
@@ -31,12 +30,13 @@
 
 .profile-images {
   position: relative;
+  width: auto;
   width: 70vw;
-  max-width: 600px;
-  height: auto;
+  height: 25vw;
   border-radius: 1rem;
   z-index: 6;
   border: 0.5px solid white;
+  object-fit: fill; 
 }
 
 .description-container {
@@ -67,6 +67,12 @@
   .gallery {
     margin-right: 0;
     margin-bottom: 2rem;
+  }
+
+  .editGallery {
+    margin: 0 auto;
+    display: block;
+    margin-top: 1rem;
   }
 
   .description-container {
@@ -100,7 +106,7 @@
   }
 
   .profile-images {
-    height: 70vw;
+    height: 80vw;
   }
 
   .image-controls {
@@ -130,7 +136,7 @@
 
   .profile-images {
     width: 35vh;
-    height: 25vh;
+    max-height: 25vh;
   }
 }
 

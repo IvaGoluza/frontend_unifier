@@ -33,7 +33,8 @@ const UserProfile = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [userRecensions, setUserRecensions] = useState<UserRecension[]>([
     {
-      recension: "Ovo je tekst recenzije 1...",
+      recension:
+        "Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...",
     },
     {
       recension: "Ovo je tekst recenzije 2...",

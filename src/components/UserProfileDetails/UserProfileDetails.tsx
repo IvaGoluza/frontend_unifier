@@ -23,7 +23,8 @@ interface UserProfileDetailsProps {
 export type PartialUserDetails = Partial<UserDetails> & { file?: File | null };
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
-const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) => {
+const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: initialUserDetails }) => {
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(initialUserDetails);
   const [isSameUser, setIsSameUser] = useState(false);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,15 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
   if (!userDetails) {
     return <div>Loading...</div>;
   }
+
+  const handleUserDetailsUpdate = (updatedDetails: PartialUserDetails) => {
+    if (userDetails) {
+      setUserDetails((prevDetails) => ({
+        ...prevDetails!,
+        ...updatedDetails,
+      }));
+    }
+  };
 
   return (
     <div className="user-details-container flex flex-col items-center justify-center">
@@ -179,6 +189,7 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails }) 
         onRequestClose={handleModalClose}
         userDetails={userDetails}
         currentField={currentField}
+        onUpdateUserDetails={handleUserDetailsUpdate}
       />
     </div>
   );
