@@ -113,12 +113,18 @@ const UserGallery = ({ userId }: { userId: string }) => {
       <div className="mobileTitle mt-7 text-3xl font-bold text-[#90B8F6] lg:ml-8">
         DNEVNIK PRETHODNIH VOLONTERSKIH AKCIJA
         {isSameUser && (
-          <img
-            src="../../../assets/svgImages/editGallery.svg"
-            alt="Edit Gallery"
-            className="editGallery mt-3 h-16 w-16 cursor-pointer"
-            onClick={openModal}
-          />
+          <div>
+            <div className="mt-4 text-[14px] font-thin leading-tight text-white">
+              Priložite slike i opis Vaših prethodnih volonterskih akcija kako bi se ostali korisnici mogli lako
+              upoznati s Vašim radom.
+            </div>
+            <img
+              src="../../../assets/svgImages/editGallery.svg"
+              alt="Edit Gallery"
+              className="editGallery mt-3 h-16 w-16 cursor-pointer"
+              onClick={openModal}
+            />
+          </div>
         )}
       </div>
       <div className="gallery relative mr-[24vw] flex flex-col items-center justify-center" ref={galleryRef}>
@@ -139,10 +145,12 @@ const UserGallery = ({ userId }: { userId: string }) => {
             </div>
           )}
         </div>
-        <div className={`image-controls ${!images[currentImageIndex]?.description ? "image-controls2" : ""}`}>
-          <button onClick={prevImage}>&lt;</button>
-          <button onClick={nextImage}>&gt;</button>
-        </div>
+        {images.length > 0 && (
+          <div className={`image-controls ${!images[currentImageIndex]?.description ? "image-controls2" : ""}`}>
+            <button onClick={prevImage}>&lt;</button>
+            <button onClick={nextImage}>&gt;</button>
+          </div>
+        )}
       </div>
       {isModalOpen && (
         <EditGalleryModal
