@@ -12,8 +12,6 @@ interface UserRecension {
   recension: string;
 }
 
-//test push
-
 interface UserDetails {
   id: number;
   name: string;
@@ -31,23 +29,7 @@ const UserProfile = () => {
   const [userImage, setUserImage] = useState("");
   const [name, setName] = useState("");
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
-  const [userRecensions, setUserRecensions] = useState<UserRecension[]>([
-    {
-      recension:
-        "Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...Ovo je tekst recenzije 1...",
-    },
-    {
-      recension: "Ovo je tekst recenzije 2...",
-    },
-    { recension: "Ovo je tekst recenzije 3..." },
-    {
-      recension: "Ovo je tekst recenzije 4...",
-    },
-    { recension: "Ovo je tekst recenzije 5..." },
-    { recension: "Ovo je tekst recenzije 6..." },
-    { recension: "Ovo je tekst recenzije 7..." },
-    { recension: "Ovo je tekst recenzije 8..." },
-  ]);
+  const [userRecensions, setUserRecensions] = useState<UserRecension[]>([]);
   const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
@@ -62,8 +44,8 @@ const UserProfile = () => {
         headers: { "Content-Type": "application/json" },
       });
       const data = response.data;
-      console.log(data.hasHealthCertificate);
       setUserDetails(data);
+      setUserRecensions(data.userRecensions);
       if (data.image !== null) {
         setUserImage(data.image);
       }

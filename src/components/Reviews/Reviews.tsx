@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./reviews.css";
 
 const colorStyles = [
@@ -22,13 +22,23 @@ interface ReviewsProps {
 
 const Reviews: React.FC<ReviewsProps> = ({ userRecensions = [] }) => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [displayedReviews, setDisplayedReviews] = useState<UserRecension[]>([]);
+
+  useEffect(() => {
+    if (userRecensions.length > 8) {
+      const randomReviews = userRecensions.sort(() => 0.5 - Math.random()).slice(0, 8);
+      setDisplayedReviews(randomReviews);
+    } else {
+      setDisplayedReviews(userRecensions);
+    }
+  }, [userRecensions]);
 
   const nextReview = () => {
-    setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % userRecensions.length);
+    setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % displayedReviews.length);
   };
 
   const prevReview = () => {
-    setCurrentReviewIndex((prevIndex) => (prevIndex - 1 + userRecensions.length) % userRecensions.length);
+    setCurrentReviewIndex((prevIndex) => (prevIndex - 1 + displayedReviews.length) % displayedReviews.length);
   };
 
   return (
@@ -40,40 +50,42 @@ const Reviews: React.FC<ReviewsProps> = ({ userRecensions = [] }) => {
         U nastavku su prikazane poruke koje su o Vama napisali korisnici kojima ste pomogli ili su sudjelovali u Vašim
         volonterskim akcijama.
       </p>
-      <div className="reviews-container grid justify-items-center gap-y-4 px-4 pb-16 sm:px-16 md:px-32 lg:px-48">
-        {userRecensions.length > 0 ? (
-          userRecensions.map((recension, index) => {
-            const isBgNeeded = colorStyles[index % colorStyles.length].backgroundColor.toUpperCase() === "#E7F4F8";
-            return (
-              <div
-                key={index}
-                className={`review-card relative flex h-64 w-full flex-col items-center justify-center overflow-auto rounded-2xl border border-white p-4 shadow-md ${
-                  index % colorStyles.length === 0 || index % colorStyles.length === colorStyles.length - 2
-                    ? "text-white"
-                    : "text-black"
-                } ${index === currentReviewIndex ? "block" : "hidden"} sm:block`}
-                style={colorStyles[index % colorStyles.length]}
-              >
-                {isBgNeeded && (
-                  <img
-                    src="../../../assets/svgImages/logo.svg"
-                    alt="Logo"
-                    className="absolute inset-0 h-full w-full object-cover opacity-25"
-                    style={{ zIndex: 10 }}
-                  />
-                )}
-                <p className="review-card relative z-10 overflow-auto font-light">{recension.recension}</p>
-              </div>
-            );
-          })
-        ) : (
-          <p className="text-white">No reviews available.</p>
-        )}
-      </div>
-      <div className="review-controls sm:hidden">
-        <button onClick={prevReview}>&lt;</button>
-        <button onClick={nextReview}>&gt;</button>
-      </div>
+      {displayedReviews.length > 0 ? (
+        <>
+          <div className="reviews-container grid justify-items-center gap-y-4 px-4 pb-16 sm:px-16 md:px-32 lg:px-48">
+            {displayedReviews.map((recension, index) => {
+              const isBgNeeded = colorStyles[index % colorStyles.length].backgroundColor.toUpperCase() === "#E7F4F8";
+              return (
+                <div
+                  key={index}
+                  className={`review-card relative flex h-64 w-full flex-col items-center justify-center overflow-auto rounded-2xl border border-white p-4 shadow-md ${
+                    index % colorStyles.length === 0 || index % colorStyles.length === colorStyles.length - 2
+                      ? "text-white"
+                      : "text-black"
+                  } ${index === currentReviewIndex ? "block" : "hidden"} sm:block`}
+                  style={colorStyles[index % colorStyles.length]}
+                >
+                  {isBgNeeded && (
+                    <img
+                      src="../../../assets/svgImages/logo.svg"
+                      alt="Logo"
+                      className="absolute inset-0 h-full w-full object-cover opacity-25"
+                      style={{ zIndex: 10 }}
+                    />
+                  )}
+                  <p className="review-card relative z-10 overflow-auto font-light">{recension.recension}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div className="review-controls sm:hidden">
+            <button onClick={prevReview}>&lt;</button>
+            <button onClick={nextReview}>&gt;</button>
+          </div>
+        </>
+      ) : (
+        <p className="text-center text-white">Još uvijek nema recenzija...</p>
+      )}
     </div>
   );
 };
