@@ -18,12 +18,16 @@ export interface UserDetails {
 
 interface UserProfileDetailsProps {
   userDetails: UserDetails | null;
+  onUpdateUserDetails: (updatedDetails: Partial<UserDetails>) => void;
 }
 
 export type PartialUserDetails = Partial<UserDetails> & { file?: File | null };
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
-const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: initialUserDetails }) => {
+const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({
+  userDetails: initialUserDetails,
+  onUpdateUserDetails,
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+}) => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(initialUserDetails);
   const [isSameUser, setIsSameUser] = useState(false);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
@@ -56,27 +60,38 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: in
     setCurrentField(null);
   };
 
-  if (!userDetails) {
-    return <div>Loading...</div>;
-  }
-
   const handleUserDetailsUpdate = (updatedDetails: PartialUserDetails) => {
     if (userDetails) {
       setUserDetails((prevDetails) => ({
         ...prevDetails!,
         ...updatedDetails,
       }));
+      onUpdateUserDetails(updatedDetails);
     }
   };
 
+  if (!userDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="user-details-container flex flex-col items-center justify-center">
-      <div className="profile-header mb-8 flex flex-col items-center justify-center">
+      <div className="profile-header relative mb-8 flex flex-col items-center justify-center">
         {userDetails.image && (
           <img
             className="user-image rounded-full border-4 border-white"
             src={`data:image/jpeg;base64,${userDetails.image}`}
             alt="Profile"
+          />
+        )}
+        {isSameUser && (
+          <img
+            src="../../../assets/svgImages/editGallery.svg"
+            alt="Edit Profile"
+            className={`editProfile absolute h-12 w-12 cursor-pointer ${
+              userDetails.image ? "editProfileWithImage" : "editProfileWithoutImage"
+            }`}
+            onClick={() => handleModalOpen("image")}
           />
         )}
         <h1 className="user-name mt-4 text-lg font-bold text-[#09115B]">{userDetails.name}</h1>
@@ -123,9 +138,12 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: in
             </p>
           )}
           {isSameUser && (
-            <button onClick={() => handleModalOpen("profileDescription")} className="edit-icon absolute right-2 top-2">
-              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
-            </button>
+            <img
+              src="../../../assets/svgImages/editProfile.svg"
+              alt="Edit"
+              className="edit-icon absolute right-2 top-2"
+              onClick={() => handleModalOpen("profileDescription")}
+            />
           )}
         </div>
 
@@ -144,9 +162,12 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: in
             )}
           </ul>
           {isSameUser && (
-            <button onClick={() => handleModalOpen("workArea")} className="edit-icon absolute right-2 top-2">
-              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
-            </button>
+            <img
+              src="../../../assets/svgImages/editProfile.svg"
+              alt="Edit"
+              className="edit-icon absolute right-2 top-2"
+              onClick={() => handleModalOpen("workArea")}
+            />
           )}
         </div>
 
@@ -174,23 +195,25 @@ const UserProfileDetails: React.FC<UserProfileDetailsProps> = ({ userDetails: in
             )}
           </div>
           {isSameUser && (
-            <button
-              onClick={() => handleModalOpen("hasHealthCertificate")}
+            <img
+              src="../../../assets/svgImages/editProfile.svg"
+              alt="Edit"
               className="edit-icon absolute right-2 top-2"
-            >
-              <img src="../../../assets/svgImages/editProfile.svg" alt="Edit" />
-            </button>
+              onClick={() => handleModalOpen("hasHealthCertificate")}
+            />
           )}
         </div>
       </div>
 
-      <EditUserProfileModal
-        isOpen={isModalOpen}
-        onRequestClose={handleModalClose}
-        userDetails={userDetails}
-        currentField={currentField}
-        onUpdateUserDetails={handleUserDetailsUpdate}
-      />
+      {isModalOpen && (
+        <EditUserProfileModal
+          isOpen={isModalOpen}
+          onRequestClose={handleModalClose}
+          userDetails={userDetails}
+          currentField={currentField}
+          onUpdateUserDetails={handleUserDetailsUpdate}
+        />
+      )}
     </div>
   );
 };

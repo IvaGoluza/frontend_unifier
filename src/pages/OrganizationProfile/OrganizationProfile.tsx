@@ -38,22 +38,7 @@ const OrganizationProfile = () => {
   const [orgImage, setOrgImage] = useState("");
   const [name, setName] = useState("");
   const [organizationDetails, setOrganizationDetails] = useState<OrganizationDetails | null>(null);
-  const [userRecensions, setUserRecensions] = useState<UserRecension[]>([
-    {
-      recension: "Ovo je tekst recenzije 1...",
-    },
-    {
-      recension: "Ovo je tekst recenzije 2...",
-    },
-    { recension: "Ovo je tekst recenzije 3..." },
-    {
-      recension: "Ovo je tekst recenzije 4...",
-    },
-    { recension: "Ovo je tekst recenzije 5..." },
-    { recension: "Ovo je tekst recenzije 6..." },
-    { recension: "Ovo je tekst recenzije 7..." },
-    { recension: "Ovo je tekst recenzije 8..." },
-  ]);
+  const [userRecensions, setUserRecensions] = useState<UserRecension[]>([]);
   const { orgId } = useParams<{ orgId: string }>();
 
   useEffect(() => {
@@ -69,6 +54,8 @@ const OrganizationProfile = () => {
       });
       const data = response.data;
       setOrganizationDetails(data);
+      setUserRecensions(data.userRecensions);
+
       if (data.image !== null) {
         setOrgImage(data.image);
       }
@@ -78,12 +65,22 @@ const OrganizationProfile = () => {
     }
   };
 
+  const handleUpdateOrganizationDetails = (updatedDetails: Partial<OrganizationDetails>) => {
+    if (updatedDetails.image) {
+      setOrgImage(updatedDetails.image);
+    }
+    setOrganizationDetails((prevDetails) => (prevDetails ? { ...prevDetails, ...updatedDetails } : prevDetails));
+  };
+
   return (
     <div className="org-profile relative w-full overflow-hidden">
       <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background" alt="Wave Background" />
       <div className={`content-container relative w-full ${orgImage ? "with-image" : "without-image"}`}>
         {organizationDetails && (
-          <OrganizationProfileDetails organizationDetails={{ ...organizationDetails, image: orgImage }} />
+          <OrganizationProfileDetails
+            organizationDetails={{ ...organizationDetails, image: orgImage }}
+            onUpdateOrganizationDetails={handleUpdateOrganizationDetails}
+          />
         )}
       </div>
       {orgId ? <UserGallery userId={orgId} /> : null}

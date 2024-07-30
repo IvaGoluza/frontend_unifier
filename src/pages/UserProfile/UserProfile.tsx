@@ -55,11 +55,23 @@ const UserProfile = () => {
     }
   };
 
+  const handleUpdateUserDetails = (updatedDetails: Partial<UserDetails>) => {
+    if (updatedDetails.image) {
+      setUserImage(updatedDetails.image);
+    }
+    setUserDetails((prevDetails) => (prevDetails ? { ...prevDetails, ...updatedDetails } : prevDetails));
+  };
+
   return (
     <div className="user-profile relative w-full overflow-hidden">
       <img src="../../../assets/svgImages/profile_wave.svg" className="wave-background" alt="Wave Background" />
       <div className={`content-container relative w-full ${userImage ? "with-image" : "without-image"}`}>
-        {userDetails && <UserProfileDetails userDetails={{ ...userDetails, image: userImage }} />}
+        {userDetails && (
+          <UserProfileDetails
+            userDetails={{ ...userDetails, image: userImage }}
+            onUpdateUserDetails={handleUpdateUserDetails}
+          />
+        )}
       </div>
       {userId ? <UserGallery userId={userId} /> : null}
       <Reviews userRecensions={userRecensions} />

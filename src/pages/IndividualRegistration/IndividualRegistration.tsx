@@ -88,7 +88,7 @@ const IndividualRegistration = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setCertificate(file);
-    setCertificateName(file ? file.name : ""); // Postavite ime datoteke
+    setCertificateName(file ? file.name : "");
   };
 
   const onSubmit = async (values: UserRegisterForm, actions: FormikHelpers<UserRegisterForm>) => {

@@ -81,8 +81,28 @@
       gap: 0.5rem; 
     }
   }
+
+  .editProfileWithImage {
+    margin-top: 21vw;
+  }
+  
+  .editProfileWithoutImage {
+    margin-top: 8vw;
+  }
   
   @media screen and (max-width: 768px) {
+    .editProfileWithImage {
+      margin-top: 52vw;
+      height: 10vw;
+      width: 10vw;
+    }
+  
+    .editProfileWithoutImage {
+      margin-top: 22vw;
+      height: 10vw;
+      width: 10vw;
+    }
+
     .card {
       width: 90%;
       height: 45px;
@@ -122,6 +142,7 @@
   
     .user-name {
       font-size: 6vw;
+      color: white !important;
     }
   
     .details-cards {

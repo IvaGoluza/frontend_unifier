@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+
+import EditOrganizationProfileModal from "./EditOrganizationProfileModal";
 import "./organizationProfileDetails.css";
 
 interface Address {
@@ -23,12 +25,18 @@ interface OrganizationDetails {
 
 interface OrganizationProfileDetailsProps {
   organizationDetails: OrganizationDetails | null;
+  onUpdateOrganizationDetails: (updatedDetails: Partial<OrganizationDetails>) => void;
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
-const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({ organizationDetails }) => {
+const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
+  organizationDetails,
+  onUpdateOrganizationDetails,
+  // eslint-disable-next-line sonarjs/cognitive-complexity
+}) => {
   const [isSameUser, setIsSameUser] = useState(false);
   const [expandedCardIndex, setExpandedCardIndex] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentField, setCurrentField] = useState<keyof OrganizationDetails | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -46,18 +54,42 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
     setExpandedCardIndex(expandedCardIndex === index ? null : index);
   };
 
+  const handleModalOpen = (field: keyof OrganizationDetails) => {
+    setCurrentField(field);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setCurrentField(null);
+  };
+
+  const handleOrganizationDetailsUpdate = (updatedDetails: Partial<OrganizationDetails>) => {
+    onUpdateOrganizationDetails(updatedDetails);
+  };
+
   if (!organizationDetails) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="user-details-container flex flex-col items-center justify-center">
-      <div className="profile-header mb-8 flex flex-col items-center justify-center">
+      <div className="profile-header relative mb-8 flex flex-col items-center justify-center">
         {organizationDetails.image && (
           <img
             className="user-image rounded-full border-4 border-white"
             src={`data:image/jpeg;base64,${organizationDetails.image}`}
             alt="Profile"
+          />
+        )}
+        {isSameUser && (
+          <img
+            src="../../../assets/svgImages/editGallery.svg"
+            alt="Edit Profile"
+            className={`editProfile absolute h-12 w-12 cursor-pointer ${
+              organizationDetails.image ? "editProfileWithImage" : "editProfileWithoutImage"
+            }`}
+            onClick={() => handleModalOpen("image")}
           />
         )}
         <h1 className="user-name mt-4 text-lg font-bold text-[#09115B]">{organizationDetails.name}</h1>
@@ -98,6 +130,14 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
                   </span>
                 </div>
               )}
+              {organizationDetails.type && (
+                <div className="flex items-center">
+                  <img src="../../../assets/svgImages/orgType.svg" alt="Type" className="user-details-icon" />
+                  <span style={textStyle} className="user-details-text ml-2 break-words text-[#0F182C]">
+                    {organizationDetails.type}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
           <img
@@ -122,6 +162,7 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
               src="../../../assets/svgImages/editProfile.svg"
               alt="Edit"
               className="edit-icon absolute right-2 top-2"
+              onClick={() => handleModalOpen("profileDescription")}
             />
           )}
         </div>
@@ -140,18 +181,12 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
               </li>
             )}
           </ul>
-          {isSameUser ? (
+          {isSameUser && (
             <img
               src="../../../assets/svgImages/editProfile.svg"
               alt="Edit"
               className="edit-icon absolute right-2 top-2"
-            />
-          ) : (
-            <img
-              src="../../../assets/svgImages/logo.svg"
-              alt="Logo"
-              className="absolute right-2 top-2 h-8 w-8 transform"
-              style={{ zIndex: 10 }}
+              onClick={() => handleModalOpen("workArea")}
             />
           )}
         </div>
@@ -160,7 +195,7 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
           className={`card bg-[#E7F4F8] ${expandedCardIndex === 3 ? "expanded" : ""}`}
           onClick={() => toggleCardExpansion(3)}
         >
-          <h2 className="title-description font-bold">OIB & URL</h2>
+          <h2 className="title-description font-bold">OIB</h2>
           <div className="mt-3 list-disc space-y-2 text-sm">
             {organizationDetails.oib && (
               <div className="flex items-center">
@@ -170,6 +205,9 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
                 </span>
               </div>
             )}
+          </div>
+          <h2 className="title-description mt-4 font-bold">WEB STRANICA</h2>
+          <div>
             {organizationDetails.url && (
               <div className="flex items-center">
                 <img src="../../../assets/svgImages/tick.svg" alt="URL" className="user-details-icon" />
@@ -189,10 +227,21 @@ const OrganizationProfileDetails: React.FC<OrganizationProfileDetailsProps> = ({
               src="../../../assets/svgImages/editProfile.svg"
               alt="Edit"
               className="edit-icon absolute right-2 top-2"
+              onClick={() => handleModalOpen("url")}
             />
           )}
         </div>
       </div>
+
+      {isModalOpen && (
+        <EditOrganizationProfileModal
+          isOpen={isModalOpen}
+          onRequestClose={handleModalClose}
+          organizationDetails={organizationDetails}
+          currentField={currentField}
+          onUpdateOrganizationDetails={handleOrganizationDetailsUpdate}
+        />
+      )}
     </div>
   );
 };

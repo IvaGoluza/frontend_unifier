@@ -5,103 +5,116 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik, FormikHelpers, FieldArray } from "formik";
 import Modal from "react-modal";
 
-import { UserDetails, PartialUserDetails } from "./UserProfileDetails";
 import api from "../../api/createAxiosClient";
 
-interface EditUserProfileModalProps {
+interface Address {
+  townName: string;
+  postcode: string;
+  streetName: string;
+}
+
+interface OrganizationDetails {
+  id: number;
+  name: string;
+  oib: string;
+  type: string;
+  email: string;
+  mobilePhone: string;
+  profileDescription: string;
+  address: Address;
+  url: string;
+  image?: string;
+  workArea: string[];
+}
+
+interface EditOrganizationProfileModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
-  userDetails: UserDetails;
-  currentField: keyof UserDetails | null;
-  onUpdateUserDetails: (updatedDetails: PartialUserDetails) => void;
+  organizationDetails: OrganizationDetails;
+  currentField: keyof OrganizationDetails | null;
+  onUpdateOrganizationDetails: (updatedDetails: Partial<OrganizationDetails>) => void;
 }
 
 Modal.setAppElement("#root");
 
-const EditUserProfileModal: React.FC<EditUserProfileModalProps> = ({
+const EditOrganizationProfileModal: React.FC<EditOrganizationProfileModalProps> = ({
   isOpen,
   onRequestClose,
-  userDetails,
+  organizationDetails,
   currentField,
-  onUpdateUserDetails,
+  onUpdateOrganizationDetails,
 }) => {
-  const initialValues: Partial<UserDetails> & { file?: File | null } = {
-    profileDescription: userDetails.profileDescription,
-    workArea: userDetails.workArea,
-    hasHealthCertificate: userDetails.hasHealthCertificate,
-    hasCertificateOfGoodConduct: userDetails.hasCertificateOfGoodConduct,
-    file: null,
+  const initialValues: Partial<OrganizationDetails> = {
+    profileDescription: organizationDetails.profileDescription,
+    url: organizationDetails.url,
+    workArea: organizationDetails.workArea,
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleFormSubmit = async (values: Partial<OrganizationDetails>, field: keyof OrganizationDetails) => {
+    const orgId = organizationDetails?.id;
+
+    if (!orgId) return;
+
+    try {
+      const data: Partial<OrganizationDetails> = {};
+      if (field === "profileDescription") {
+        data.profileDescription = values.profileDescription;
+      } else if (field === "url") {
+        data.url = values.url;
+      } else if (field === "workArea") {
+        data.workArea = values.workArea;
+      }
+
+      await api.put(`/profile/organization-profile/${orgId}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      onUpdateOrganizationDetails(data);
+      setErrorMessage(null);
+      onRequestClose();
+    } catch (error) {
+      setErrorMessage("Došlo je do greške. Pokušajte ponovo.");
+    }
+  };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.currentTarget.files ? event.currentTarget.files[0] : null;
     setSelectedFile(file);
   };
 
-  const handleFormSubmit = async (values: Partial<UserDetails> & { file?: File | null }, field: keyof UserDetails) => {
-    const userId = userDetails?.id;
+  const handleImageUpload = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    if (!userId) return;
+    const orgId = organizationDetails?.id;
+    if (!selectedFile || !orgId) {
+      setErrorMessage("Please select a file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
     try {
-      if (field === "profileDescription" || field === "workArea") {
-        const data = {
-          profileDescription: values.profileDescription,
-          workArea: values.workArea,
-        };
+      await api.put(`/profile/update-profile-image/${orgId}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-        await api.put(`/profile/user-profile/${userId}`, data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        onUpdateUserDetails(data);
-      } else if (field === "hasHealthCertificate") {
-        const formData = new FormData();
-        if (values.file) {
-          formData.append("file", values.file);
-
-          await api.put(`/profile/update-healthcare-certificate/${userId}`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          });
-
-          onUpdateUserDetails({ hasHealthCertificate: true });
-        }
-      } else if (field === "image") {
-        if (!selectedFile) {
-          setErrorMessage("Please select a file.");
-          return;
-        }
-        const formData = new FormData();
-        formData.append("file", selectedFile);
-
-        await api.put(`/profile/update-profile-image/${userId}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-
-        onUpdateUserDetails({ image: URL.createObjectURL(selectedFile) });
-      }
       setErrorMessage(null);
       onRequestClose();
       window.location.reload();
-    } catch (error: any) {
-      if (error.response && error.response.status === 415) {
-        setErrorMessage("Datoteka mora biti u pdf obliku!");
-      } else {
-        setErrorMessage("Došlo je do greške. Pokušajte ponovo.");
-      }
+    } catch (error) {
+      setErrorMessage("Došlo je do greške prilikom učitavanja slike. Pokušajte ponovo.");
     }
   };
 
-  const getFieldComponent = (field: keyof UserDetails) => {
+  const getFieldComponent = (field: keyof OrganizationDetails) => {
     const inputStyle =
       "mt-1 block w-full rounded-md border border-[#5422E1] shadow-md focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-2";
 
@@ -127,6 +140,15 @@ const EditUserProfileModal: React.FC<EditUserProfileModalProps> = ({
                 />
               )}
             </Field>
+          </div>
+        );
+      case "url":
+        return (
+          <div>
+            <label htmlFor="url" className="block text-sm font-semibold text-gray-700">
+              URL
+            </label>
+            <Field name="url" type="text" className={inputStyle} />
           </div>
         );
       case "workArea":
@@ -160,22 +182,6 @@ const EditUserProfileModal: React.FC<EditUserProfileModalProps> = ({
             </FieldArray>
           </div>
         );
-      case "hasHealthCertificate":
-        return (
-          <div>
-            <label className="block text-sm font-semibold text-gray-700">Učitaj zdravstvenu potvrdu</label>
-            <div className="mt-1 flex items-center">
-              <input type="file" name="file" id="file-upload" className="hidden" onChange={handleFileChange} />
-              <label
-                htmlFor="file-upload"
-                className="cursor-pointer rounded-[35px] bg-[#3d4488] px-4 py-2 text-center text-white hover:bg-[#2e3467]"
-              >
-                Odaberi datoteku
-              </label>
-              <span className="ml-2">{selectedFile ? selectedFile.name : "Nije odabrana niti jedna datoteka."}</span>
-            </div>
-          </div>
-        );
       case "image":
         return (
           <div>
@@ -207,37 +213,51 @@ const EditUserProfileModal: React.FC<EditUserProfileModalProps> = ({
         <button className="absolute right-2 top-2 text-gray-400 hover:text-gray-600" onClick={onRequestClose}>
           <FontAwesomeIcon icon={faCircleXmark} size="2x" />
         </button>
-        <h2 className="mb-4 text-2xl font-bold">Uredi profil</h2>
+        <h2 className="mb-4 text-2xl font-bold">Uredi organizacijski profil</h2>
         {errorMessage && <div className="mb-4 text-red-500">{errorMessage}</div>}
-        <Formik
-          initialValues={initialValues}
-          onSubmit={async (
-            values: Partial<UserDetails> & { file?: File | null },
-            formikHelpers: FormikHelpers<Partial<UserDetails>>
-          ) => {
-            await handleFormSubmit(values, currentField as keyof UserDetails);
-            if (!errorMessage) {
-              formikHelpers.resetForm();
-            }
-          }}
-        >
-          {({ errors, touched }) => (
-            <Form className="space-y-4">
-              {currentField && getFieldComponent(currentField)}
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  className="letter-spacing-0-06 font-krub flex h-[1.5rem] w-2/5 items-center justify-center rounded-[35px] bg-[#3d4488] p-2 text-xs font-bold text-white hover:bg-[#2e3467] lg:text-sm"
-                >
-                  Spremi
-                </button>
-              </div>
-            </Form>
-          )}
-        </Formik>
+        {currentField === "image" ? (
+          <form onSubmit={handleImageUpload} className="space-y-4">
+            {getFieldComponent(currentField)}
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="letter-spacing-0-06 font-krub flex h-[1.5rem] w-2/5 items-center justify-center rounded-[35px] bg-[#3d4488] p-2 text-xs font-bold text-white hover:bg-[#2e3467] lg:text-sm"
+              >
+                Spremi
+              </button>
+            </div>
+          </form>
+        ) : (
+          <Formik
+            initialValues={initialValues}
+            onSubmit={async (
+              values: Partial<OrganizationDetails>,
+              formikHelpers: FormikHelpers<Partial<OrganizationDetails>>
+            ) => {
+              await handleFormSubmit(values, currentField as keyof OrganizationDetails);
+              if (!errorMessage) {
+                formikHelpers.resetForm();
+              }
+            }}
+          >
+            {({ errors, touched }) => (
+              <Form className="space-y-4">
+                {currentField && getFieldComponent(currentField)}
+                <div className="flex justify-end">
+                  <button
+                    type="submit"
+                    className="letter-spacing-0-06 font-krub flex h-[1.5rem] w-2/5 items-center justify-center rounded-[35px] bg-[#3d4488] p-2 text-xs font-bold text-white hover:bg-[#2e3467] lg:text-sm"
+                  >
+                    Spremi
+                  </button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        )}
       </div>
     </Modal>
   );
 };
 
-export default EditUserProfileModal;
+export default EditOrganizationProfileModal;
